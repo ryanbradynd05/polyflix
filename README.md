@@ -1,7 +1,7 @@
 polyflix
 ========
 
-Polyglot Movie Manager
+Polyglot Movie Manager  -  [Coding 15](http://coding15.com)
 
 I've wanted to write an application to manage my growing movie collection for a while, but I can never seem to find the time. So, as a sort of resolution for 2015, I'm going to write that application by spending at least 15 minutes each day working on it. The application will consist of a SPA (single page app) web UI that connects via REST to a server component that will do the heavy lifting.
 
