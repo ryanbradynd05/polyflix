@@ -1,0 +1,29 @@
+{
+  "name": "polyflix",
+  "description": "Polyflix Media Manager",
+  "version": "0.0.1",
+  "author": "Ryan Brady",
+  "license": "MIT",
+  "repository": "ryanbradynd05/polyflix",
+  "homepage": "http://coding15.com/",
+  "dependencies": {
+    "locomotive": "0.4.x",
+    "bootable": "0.2.x",
+    "bootable-environment": "0.2.x",
+    "express": "3.x.x",
+    "connect-powered-by": "0.1.x",
+    "ejs": "0.8.x"
+  },
+  "scripts": {
+    "hint": "./node_modules/.bin/jshint ./app --reporter=./node_modules/jshint-full-path/index.js; true",
+    "start": "node server.js",
+    "test": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --recursive -R spec -r should"
+  },
+  "devDependencies": {
+    "istanbul": "^0.3.5",
+    "jshint": "^2.5.11",
+    "jshint-full-path": "^1.1.1",
+    "mocha": "^2.1.0",
+    "should": "^4.4.2"
+  }
+}
