@@ -1,3 +1,5 @@
+'use strict';
+
 // Draw routes.  Locomotive's router provides expressive syntax for drawing
 // routes, including support for resourceful routes, namespaces, and nesting.
 // MVC routes can be mapped to controllers using convenient
