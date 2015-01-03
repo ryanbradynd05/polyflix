@@ -1,7 +1,8 @@
 'use strict';
 
 module.exports = function(sequelize, Sequelize) {
-  return sequelize.define('Movie', {
-    title  : Sequelize.STRING
-  });
+    return sequelize.define('Movie', {
+        title: Sequelize.STRING,
+        themoviedbid: Sequelize.INTEGER(7)
+    });
 };
