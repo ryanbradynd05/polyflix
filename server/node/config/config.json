@@ -1,0 +1,14 @@
+{
+  "development": {
+    "database": "../../database/node_development",
+    "dialect": "mysql"
+  },
+  "test": {
+    "database": "../../database/node_test",
+    "dialect": "mysql"
+  },
+  "production": {
+    "database": "../../database/node_production",
+    "dialect": "mysql"
+  }
+}

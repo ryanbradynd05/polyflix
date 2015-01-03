@@ -15,11 +15,13 @@
     "express": "3.x.x",
     "locomotive": "0.4.x",
     "sequelize": "^2.0.0-rc4",
+    "sequelize-cli": "^1.0.2",
     "sqlite3": "^3.0.4"
   },
   "scripts": {
     "hint": "./node_modules/.bin/jshint ./app --reporter=./node_modules/jshint-full-path/index.js; true",
-    "start": "lcm server",
+    "lcm_start": "lcm server",
+    "start": "node server.js",
     "test": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --recursive -R spec -r should"
   },
   "devDependencies": {
