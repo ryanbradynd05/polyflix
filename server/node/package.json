@@ -7,12 +7,15 @@
   "repository": "ryanbradynd05/polyflix",
   "homepage": "http://coding15.com/",
   "dependencies": {
-    "locomotive": "0.4.x",
+    "async": "^0.9.0",
     "bootable": "0.2.x",
     "bootable-environment": "0.2.x",
-    "express": "3.x.x",
     "connect-powered-by": "0.1.x",
-    "ejs": "0.8.x"
+    "ejs": "0.8.x",
+    "express": "3.x.x",
+    "locomotive": "0.4.x",
+    "sequelize": "^2.0.0-rc4",
+    "sqlite3": "^3.0.4"
   },
   "scripts": {
     "hint": "./node_modules/.bin/jshint ./app --reporter=./node_modules/jshint-full-path/index.js; true",
