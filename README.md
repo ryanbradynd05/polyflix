@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/ryanbradynd05/polyflix.png?label=ready&title=Ready)](https://waffle.io/ryanbradynd05/polyflix)
 polyflix
 ========
 
