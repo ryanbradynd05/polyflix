@@ -1,5 +1,5 @@
-var locomotive = require('locomotive')
-  , bootable = require('bootable');
+var locomotive = require('locomotive'),
+    bootable = require('bootable');
 
 // Create a new application and initialize it with *required* support for
 // controllers and views.  Move (or remove) these lines at your own peril.
@@ -20,9 +20,9 @@ app.phase(locomotive.boot.httpServer(3000, '0.0.0.0'));
 // sequentially, resulting in a fully initialized server that is listening
 // for requests.
 app.boot(function(err) {
-  if (err) {
-    console.error(err.message);
-    console.error(err.stack);
-    return process.exit(-1);
-  }
+    if (err) {
+        console.error(err.message);
+        console.error(err.stack);
+        return process.exit(-1);
+    }
 });

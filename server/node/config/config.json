@@ -1,14 +1,14 @@
 {
-  "development": {
-    "database": "../../database/node_dev.db",
-    "dialect": "sqlite"
-  },
-  "test": {
-    "database": "../../database/node_test.db",
-    "dialect": "sqlite"
-  },
-  "production": {
-    "database": "../../database/node.db",
-    "dialect": "sqlite"
-  }
+    "development": {
+        "database": "../../database/node_dev.db",
+        "dialect": "sqlite"
+    },
+    "test": {
+        "database": "../../database/node_test.db",
+        "dialect": "sqlite"
+    },
+    "production": {
+        "database": "../../database/node.db",
+        "dialect": "sqlite"
+    }
 }
