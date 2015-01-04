@@ -8,7 +8,7 @@ module.exports = function(done) {
     var sequelize = new Sequelize(null, null, null, {
         dialect: 'sqlite',
         storage: '../../database/node.db',
-        logging: this.env == 'development' ? console.log : false
+        logging: this.env === 'development' ? console.log : false
     });
 
     var migrator = sequelize.getMigrator({
