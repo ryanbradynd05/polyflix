@@ -2,7 +2,6 @@
 
 var fs = require('fs'),
     path = require('path'),
-    async = require('async'),
     Sequelize = require("sequelize");
 
 module.exports = function(done) {
