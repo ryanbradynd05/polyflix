@@ -1,4 +1,4 @@
-[![Stories in Ready](https://badge.waffle.io/ryanbradynd05/polyflix.png?label=ready&title=Ready)](https://waffle.io/ryanbradynd05/polyflix)  [![Code Climate](https://codeclimate.com/github/ryanbradynd05/polyflix/badges/gpa.svg)](https://codeclimate.com/github/ryanbradynd05/polyflix)
+[![Stories in Ready](https://badge.waffle.io/ryanbradynd05/polyflix.png?label=ready&title=Ready)](https://waffle.io/ryanbradynd05/polyflix)  [![Code Climate](https://codeclimate.com/github/ryanbradynd05/polyflix/badges/gpa.svg)](https://codeclimate.com/github/ryanbradynd05/polyflix)  [![Coverage Status](https://coveralls.io/repos/ryanbradynd05/polyflix/badge.png)](https://coveralls.io/r/ryanbradynd05/polyflix)
 polyflix
 ========
 
