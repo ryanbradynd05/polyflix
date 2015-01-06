@@ -5,8 +5,12 @@ var fs = require('fs'),
     Sequelize = require('sequelize'),
     basename = path.basename(module.filename),
     env = process.env.NODE_ENV || 'development',
-    config = require(__dirname + '/../../config/config.json')[env],
-    sequelize = new Sequelize(config.database, config.username, config.password, config),
+    config = require(__dirname + '/../../config/config.json')[env];
+
+config.storage = __dirname + config.storage;
+config.database = config.storage;
+
+var sequelize = new Sequelize(config.database, config.username, config.password, config),
     db = {};
 
 fs
@@ -24,6 +28,7 @@ Object.keys(db).forEach(function(modelName) {
         db[modelName].associate(db);
     }
 });
+
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

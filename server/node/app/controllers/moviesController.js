@@ -1,12 +1,18 @@
 'use strict';
 
 var locomotive = require('locomotive'),
-    Controller = locomotive.Controller;
+    Movie = require("../models/index").Movie;
 
-var moviesController = new Controller();
+var moviesController = new locomotive.Controller();
 
 moviesController.index = function() {
-    this.res.send({});
+    Movie.findAll()
+    .success(function(movies) {
+        this.res.send({movies: movies});
+    }.bind(this))
+    .error(function(error) {
+        this.next(error);
+    }.bind(this));
 };
 
 moviesController.create = function() {
