@@ -7,28 +7,76 @@ var moviesController = new locomotive.Controller();
 
 moviesController.index = function() {
     Movie.findAll()
-    .success(function(movies) {
-        this.res.send({movies: movies});
-    }.bind(this))
-    .error(function(error) {
-        this.next(error);
-    }.bind(this));
+        .success(function(movies) {
+            this.res.send({
+                movies: movies
+            });
+        }.bind(this))
+        .error(function(error) {
+            this.next(error);
+        }.bind(this));
 };
 
 moviesController.create = function() {
-    this.res.send({});
+    var params = this.req.body;
+
+    Movie.build(params)
+        .success(function(movie) {
+            this.res.send({
+                movie: movie
+            });
+        }.bind(this))
+        .error(function(error) {
+            this.next(error);
+        }.bind(this));
 };
 
 moviesController.show = function(movieId) {
-    this.res.send({});
+    Movie.find(movieId)
+        .success(function(movie) {
+            this.res.send({
+                movie: movie
+            });
+        }.bind(this))
+        .error(function(error) {
+            this.next(error);
+        }.bind(this));
 };
 
 moviesController.update = function(movieId) {
-    this.res.send({});
+    var params = this.req.body;
+
+    Movie.find(movieId)
+        .success(function(movie) {
+            movie.updateAttributes(params)
+                .success(function() {
+                    this.res.send({
+                        movie: movie
+                    });
+                }.bind(this))
+                .error(function(error) {
+                    this.next(error);
+                }.bind(this));
+        }.bind(this))
+        .error(function(error) {
+            this.next(error);
+        }.bind(this));
 };
 
 moviesController.destroy = function(movieId) {
-    this.res.send({});
+    Movie.find(movieId)
+        .success(function(movie) {
+            movie.destroy()
+                .success(function(result) {
+                    this.res.send({});
+                }.bind(this))
+                .error(function(error) {
+                    this.next(error);
+                }.bind(this));
+        }.bind(this))
+        .error(function(error) {
+            this.next(error);
+        }.bind(this));
 };
 
 module.exports = moviesController;
