@@ -6,6 +6,8 @@ var fs = require('fs'),
     environemnt = process.env.NODE_ENV || 'development',
     config = require(process.env.PWD + '/config/config.json')[environemnt];
 
+console.log('config',config);
+
 module.exports = function(done) {
     var sequelize = new Sequelize(null, null, null, {
         dialect: config.dialect,

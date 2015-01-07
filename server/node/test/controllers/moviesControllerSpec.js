@@ -1,8 +1,9 @@
 process.env.NODE_ENV = 'test';
 
 var should = require('should'),
-    api = require('supertest')(require(process.env.PWD + '/server.js'))
-
+    app = require(process.env.PWD + '/server.js').express,
+    api = require('supertest')(app);
+console.log('app',app);
 describe('Controllers/MoviesController', function() {
     it('should have the index function', function(done) {
         api.get('/movies')
