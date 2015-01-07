@@ -4,11 +4,13 @@ var fs = require('fs'),
     path = require('path'),
     Sequelize = require('sequelize'),
     basename = path.basename(module.filename),
-    env = process.env.NODE_ENV || 'development',
-    config = require(__dirname + '/../../config/config.json')[env];
+    environemnt = this.env || 'development',
+    config = require(process.env.PWD + '/config/config.json')[environemnt];
 
-config.storage = __dirname + '/../../../../' + config.storage;
+config.storage = process.env.PWD + config.storage;
 config.database = config.storage;
+
+console.log('config',environemnt,config);
 
 var sequelize = new Sequelize(config.database, config.username, config.password, config),
     db = {};

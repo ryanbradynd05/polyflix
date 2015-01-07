@@ -1,7 +1,7 @@
 var should = require('should'),
     locomotive = require('locomotive'),
     supertest = require('supertest'),
-    controller = require("../../app/controllers/moviesController");
+    controller = require(process.env.PWD + '/app/controllers/moviesController');
 
 describe('Controllers/MoviesController', function() {
     before(function(done) {
@@ -12,12 +12,22 @@ describe('Controllers/MoviesController', function() {
         });
     });
     it('should have the index function', function() {
-        supertest(this.app.express)
+        supertest.agent(this.app.express)
              .get('/movies')
              .expect(200)
              .end(function (err, res) {
+               // console.log('res',res);
                should.not.exist(err);
-               console.log('res',res);
+               done();
+             });
+    });
+    it('should have the show function', function() {
+        supertest.agent(this.app.express)
+             .get('/movies/1')
+             .expect(200)
+             .end(function (err, res) {
+               // console.log('res',res);
+               should.not.exist(err);
                done();
              });
     });

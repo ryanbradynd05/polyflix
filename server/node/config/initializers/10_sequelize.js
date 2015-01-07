@@ -2,16 +2,16 @@
 
 var fs = require('fs'),
     path = require('path'),
-    Sequelize = require("sequelize"),
-    env = process.env.NODE_ENV || 'development',
-    config = require(__dirname + '/../config.json')[env];
+    Sequelize = require('sequelize'),
+    environemnt = this.env || 'development',
+    config = require(process.env.PWD + '/config/config.json')[environemnt];
 
 module.exports = function(done) {
-
+    console.log('config',config);
     var sequelize = new Sequelize(null, null, null, {
         dialect: config.dialect,
-        storage: '../../' + config.storage,
-        logging: env === 'development' ? console.log : false
+        storage: process.env.PWD + config.storage,
+        logging: environemnt === 'development' ? console.log : false
     });
 
     var migrator = sequelize.getMigrator({

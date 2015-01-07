@@ -1,7 +1,7 @@
 'use strict';
 
 var locomotive = require('locomotive'),
-    Movie = require("../models/index").Movie;
+    Movie = require('../models/index').Movie;
 
 var moviesController = new locomotive.Controller();
 

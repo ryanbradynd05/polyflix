@@ -1,6 +1,6 @@
 var should = require('should'),
     locomotive = require('locomotive'),
-    models = require("../../app/models/index");
+    models = require(process.env.PWD + '/app/models/index');
 
 var checkAttribute = function(name, type) {
     var attribute = models.Movie.attributes[name];
