@@ -3,7 +3,7 @@
 var fs = require('fs'),
     path = require('path'),
     Sequelize = require('sequelize'),
-    environemnt = this.env || 'development',
+    environemnt = process.env.NODE_ENV || 'development',
     config = require(process.env.PWD + '/config/config.json')[environemnt];
 
 module.exports = function(done) {

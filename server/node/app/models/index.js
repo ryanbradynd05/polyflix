@@ -4,7 +4,7 @@ var fs = require('fs'),
     path = require('path'),
     Sequelize = require('sequelize'),
     basename = path.basename(module.filename),
-    environemnt = this.env || 'development',
+    environemnt = process.env.NODE_ENV || 'development',
     config = require(process.env.PWD + '/config/config.json')[environemnt];
 
 config.storage = process.env.PWD + config.storage;

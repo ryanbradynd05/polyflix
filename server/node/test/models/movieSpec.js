@@ -1,29 +1,17 @@
 var should = require('should'),
     locomotive = require('locomotive'),
+    testUtil = require('../testUtil'),
     models = require(process.env.PWD + '/app/models/index');
 
-var checkAttribute = function(name, type) {
-    var attribute = models.Movie.attributes[name];
-    should.exist(attribute);
-    should.equal(attribute.type._typeName,type);
-};
-
 describe('Model/Movie', function() {
-    before(function(done) {
-        this.app = new locomotive.Locomotive();
-        this.app.init('test');
-        this.app.boot(__dirname, function() {
-            done();
-        });
-    });
     it('should have loaded the Movie table', function() {
         should.exist(models.Movie);
         should.equal(models.Movie.name,'Movie');
     });
     it('should have title attribute', function() {
-        checkAttribute('title','VARCHAR');
+        testUtil.checkAttribute(models.Movie,'title','VARCHAR');
     });
     it('should have themoviedbid attribute', function() {
-        checkAttribute('themoviedbid','INTEGER');
+        testUtil.checkAttribute(models.Movie,'themoviedbid','INTEGER');
     });
 });
