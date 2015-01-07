@@ -7,7 +7,6 @@ var fs = require('fs'),
     config = require(process.env.PWD + '/config/config.json')[environemnt];
 
 module.exports = function(done) {
-    console.log('config',config);
     var sequelize = new Sequelize(null, null, null, {
         dialect: config.dialect,
         storage: process.env.PWD + config.storage,

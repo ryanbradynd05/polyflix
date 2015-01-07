@@ -10,8 +10,6 @@ var fs = require('fs'),
 config.storage = process.env.PWD + config.storage;
 config.database = config.storage;
 
-console.log('config',environemnt,config);
-
 var sequelize = new Sequelize(config.database, config.username, config.password, config),
     db = {};
 
