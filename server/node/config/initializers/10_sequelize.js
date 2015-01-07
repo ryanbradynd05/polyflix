@@ -2,13 +2,16 @@
 
 var fs = require('fs'),
     path = require('path'),
-    Sequelize = require("sequelize");
+    Sequelize = require("sequelize"),
+    env = process.env.NODE_ENV || 'development',
+    config = require(__dirname + '/../config.json')[env];
 
 module.exports = function(done) {
+
     var sequelize = new Sequelize(null, null, null, {
-        dialect: 'sqlite',
-        storage: '../../database/node.db',
-        logging: this.env === 'development' ? console.log : false
+        dialect: config.dialect,
+        storage: '../../' + config.storage,
+        logging: env === 'development' ? console.log : false
     });
 
     var migrator = sequelize.getMigrator({

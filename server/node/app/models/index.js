@@ -7,7 +7,7 @@ var fs = require('fs'),
     env = process.env.NODE_ENV || 'development',
     config = require(__dirname + '/../../config/config.json')[env];
 
-config.storage = __dirname + config.storage;
+config.storage = __dirname + '/../../../../' + config.storage;
 config.database = config.storage;
 
 var sequelize = new Sequelize(config.database, config.username, config.password, config),

@@ -1,14 +1,14 @@
 {
     "development": {
-        "storage": "/../../../../database/node.db",
+        "storage": "database/node.db",
         "dialect": "sqlite"
     },
     "test": {
-        "storage": "/../../../../database/node_test.db",
+        "storage": "database/node_test.db",
         "dialect": "sqlite"
     },
     "production": {
-        "storage": "/../../../../database/node.db",
+        "storage": "database/node.db",
         "dialect": "sqlite"
     }
 }
