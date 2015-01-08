@@ -1,5 +1,4 @@
 var should = require('should'),
-    locomotive = require('locomotive'),
     testUtil = require('../testUtil'),
     models = require(process.env.PWD + '/app/models/index');
 

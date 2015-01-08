@@ -13,8 +13,7 @@ config.database = config.storage;
 var sequelize = new Sequelize(config.database, config.username, config.password, config),
     db = {};
 
-fs
-    .readdirSync(__dirname)
+fs.readdirSync(__dirname)
     .filter(function(file) {
         return (file.indexOf('.') !== 0) && (file !== basename);
     })
@@ -23,6 +22,7 @@ fs
         db[model.name] = model;
     });
 
+/* istanbul ignore next */
 Object.keys(db).forEach(function(modelName) {
     if ('associate' in db[modelName]) {
         db[modelName].associate(db);
