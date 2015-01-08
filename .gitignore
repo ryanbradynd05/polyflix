@@ -20,3 +20,5 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 polyflix.sublime-workspace
+database/*.db
+database/node_test.db
