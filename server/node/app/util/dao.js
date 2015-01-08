@@ -16,12 +16,35 @@ Dao.prototype = {
                 context.next(error);
             });
     },
-    findAll: function(context, name) {
-        var promise = this.model.findAll();
-        this.handlePromise(promise, context, name);
-    },
     create: function(context, name, params) {
         var promise = this.model.create(params);
+        this.handlePromise(promise, context, name);
+    },
+    deleteAll: function(context) {
+        if (process.env.NODE_ENV === 'test') {
+            this.model.destroy();
+        }
+        context.res.send({});
+    },
+    destroy: function(context, name, id) {
+        this.model.find(id)
+            .success(function(result) {
+                result.destroy()
+                    .success(function(result) {
+                        var respObj = {};
+                        respObj[name] = {};
+                        context.res.send(respObj);
+                    })
+                    .error(function(error) {
+                        context.next(error);
+                    });
+            })
+            .error(function(error) {
+                context.next(error);
+            });
+    },
+    findAll: function(context, name) {
+        var promise = this.model.findAll();
         this.handlePromise(promise, context, name);
     },
     show: function(context, name, id) {
@@ -44,29 +67,6 @@ Dao.prototype = {
             .error(function(error) {
                 context.next(error);
             });
-    },
-    destroy: function(context, name, id) {
-        this.model.find(id)
-            .success(function(result) {
-                result.destroy()
-                    .success(function(result) {
-                        var respObj = {};
-                        respObj[name] = {};
-                        context.res.send(respObj);
-                    })
-                    .error(function(error) {
-                        context.next(error);
-                    });
-            })
-            .error(function(error) {
-                context.next(error);
-            });
-    },
-    deleteAll: function(context) {
-        if (process.env.NODE_ENV === 'test') {
-            this.model.destroy();
-        }
-        context.res.send({});
     }
 };
 
