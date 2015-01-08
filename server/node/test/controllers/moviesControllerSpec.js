@@ -2,7 +2,8 @@ process.env.NODE_ENV = 'test';
 
 var should = require('should'),
     request = require('supertest'),
-    url = 'http://localhost:3000';
+    config = require(process.env.PWD + '/config/server.json')['test'],
+    url = 'http://localhost:' + config.port;
 describe('Controllers/MoviesController', function() {
     before(function(done) {
         request(url)
@@ -105,7 +106,6 @@ describe('Controllers/MoviesController', function() {
             .expect(200)
             .end(function(err, res) {
                 var movie = res.body.movie;
-                console.log('delete',movie);
                 movie.should.be.an.Object;
                 movie.should.be.empty;
                 should.not.exist(err);

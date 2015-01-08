@@ -1,5 +1,7 @@
 var locomotive = require('locomotive'),
-    bootable = require('bootable');
+    bootable = require('bootable'),
+    env = process.env.NODE_ENV || 'development',
+    config = require(process.env.PWD + '/config/server.json')[env];
 
 // Create a new application and initialize it with *required* support for
 // controllers and views.  Move (or remove) these lines at your own peril.
@@ -14,12 +16,11 @@ app.phase(locomotive.boot.views());
 app.phase(require('bootable-environment')(__dirname + '/config/environments'));
 app.phase(bootable.initializers(__dirname + '/config/initializers'));
 app.phase(locomotive.boot.routes(__dirname + '/config/routes'));
-app.phase(locomotive.boot.httpServer(3000, '0.0.0.0'));
+app.phase(locomotive.boot.httpServer(config.port, '0.0.0.0'));
 
 // Boot the application.  The phases registered above will be executed
 // sequentially, resulting in a fully initialized server that is listening
 // for requests.
-var env = process.env.NODE_ENV || 'development';
 app.init(env);
 app.boot(function(err) {
     if (err) {
