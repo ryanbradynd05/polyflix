@@ -22,7 +22,7 @@
     "hint": "./node_modules/.bin/jshint ./app --reporter=./node_modules/jshint-full-path/index.js; true",
     "lcm_start": "lcm server --debug",
     "start": "node server.js",
-    "mocha": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --recursive -R spec -r should",
+    "mocha": "./node_modules/.bin/istanbul cover app/**/*.js ./node_modules/.bin/_mocha -- --recursive -R spec -r should",
     "coverage": "CODECLIMATE_REPO_TOKEN=fd79c38c1c17d81505200389731c98b3d63516d61154edcb7103b3213a710fa9 codeclimate < coverage/lcov.info",
     "test_server": "NODE_ENV=test node server.js",
     "test": "npm run mocha; npm run coverage"
