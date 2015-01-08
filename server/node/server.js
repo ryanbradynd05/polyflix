@@ -15,20 +15,16 @@ app.phase(require('bootable-environment')(__dirname + '/config/environments'));
 app.phase(bootable.initializers(__dirname + '/config/initializers'));
 app.phase(locomotive.boot.routes(__dirname + '/config/routes'));
 app.phase(locomotive.boot.httpServer(3000, '0.0.0.0'));
-app.init();
 
-function start() {
-    // Boot the application.  The phases registered above will be executed
-    // sequentially, resulting in a fully initialized server that is listening
-    // for requests.
-    app.boot(function(err) {
-        if (err) {
-            console.error(err.message);
-            console.error(err.stack);
-            return process.exit(-1);
-        }
-    });
-}
-
-exports.express = app.express;
-exports.start = start;
+// Boot the application.  The phases registered above will be executed
+// sequentially, resulting in a fully initialized server that is listening
+// for requests.
+var env = process.env.NODE_ENV || 'development';
+app.init(env);
+app.boot(function(err) {
+    if (err) {
+        console.error(err.message);
+        console.error(err.stack);
+        return process.exit(-1);
+    }
+});
