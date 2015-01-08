@@ -11,7 +11,7 @@ module.exports = function routes() {
     this.resources('movies', {
         only: [ 'index', 'create', 'show', 'update', 'destroy' ]
     });
-    this.match("movies", "movies#deleteAll", {
-        via: "delete"
+    this.match('movies', 'movies#deleteAll', {
+        via: 'delete'
     });
 };

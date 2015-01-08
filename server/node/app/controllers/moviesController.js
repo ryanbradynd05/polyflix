@@ -49,8 +49,6 @@ moviesController.update = function() {
     var params = this.req.body,
         movieId = this.req.params.id;
 
-    console.log('update',params,movieId);
-
     Movie.find(movieId)
         .success(function(movie) {
             movie.updateAttributes(params)
