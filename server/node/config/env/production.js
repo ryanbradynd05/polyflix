@@ -22,6 +22,9 @@ module.exports = {
       host: 'localhost',
         database: 'polyflix-node'
     }
+  },
+  models: {
+    migrate: "safe"
   }
 
   /***************************************************************************

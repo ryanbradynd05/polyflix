@@ -11,8 +11,5 @@
       "backend": "sails-generate-backend-gulp",
       "gulpfile": "sails-generate-gulpfile"
     }
-  },
-  "models": {
-    "migrate": "alter"
   }
 }
