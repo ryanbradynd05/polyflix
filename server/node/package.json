@@ -38,6 +38,8 @@
     "gulp-uglify": "1.0.1",
     "gulp-util": "3.0.0",
     "include-all": "~0.1.3",
+    "lodash": "^2.4.1",
+    "pluralize": "^1.1.0",
     "rc": "~0.5.0",
     "rimraf": "*",
     "run-sequence": "1.0.0",
@@ -50,6 +52,7 @@
     "jshint": "^2.5.11",
     "jshint-full-path": "^1.1.1",
     "mocha": "^2.1.0",
+    "sails-generate-ember-blueprints": "0.0.2",
     "should": "^4.4.2",
     "supertest": "^0.15.0"
   },
