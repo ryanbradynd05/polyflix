@@ -14,7 +14,7 @@ describe('Controllers/MoviesController', function() {
           .get('/movies')
           .expect(200)
           .end(function(err, res) {
-              var movies = res.body;
+              var movies = res.body.movies;
               should.equal(movies.length,0);
               should.not.exist(err);
               if (err) { return done(err); }
