@@ -4,6 +4,7 @@ var should = require('should'),
     request = require('supertest'),
     config = require(process.env.PWD + '/config/server.json')['test'],
     url = 'http://localhost:' + config.port;
+
 describe('Controllers/MoviesController', function() {
     before(function(done) {
         request(url)
@@ -21,9 +22,7 @@ describe('Controllers/MoviesController', function() {
                 var movies = res.body.movies;
                 should.equal(movies.length,0);
                 should.not.exist(err);
-                if (err) {
-                    return done(err);
-                }
+                if (err) { return done(err); }
                 done();
             });
     });
@@ -57,9 +56,7 @@ describe('Controllers/MoviesController', function() {
                 var movies = res.body.movies;
                 movies.length.should.equal(1);
                 should.not.exist(err);
-                if (err) {
-                    return done(err);
-                }
+                if (err) { return done(err); }
                 done();
             });
     });
