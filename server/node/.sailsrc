@@ -1,0 +1,18 @@
+{
+  "hooks": {
+    "grunt": false
+  },
+  "generators": {
+    "modules": {
+      "bower": "sails-generate-bower-gulp",
+      "angular": "sails-generate-angular-gws",
+      "new": "sails-generate-new-gulp",
+      "frontend": "sails-generate-frontend-gulp",
+      "backend": "sails-generate-backend-gulp",
+      "gulpfile": "sails-generate-gulpfile"
+    }
+  },
+  "models": {
+    "migrate": "alter"
+  }
+}
