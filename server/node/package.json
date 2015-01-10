@@ -54,8 +54,13 @@
     "supertest": "^0.15.0"
   },
   "scripts": {
-    "start": "node app.js",
-    "debug": "node debug app.js"
+    "start": "sails lift",
+    "debug": "node debug app.js",
+    "hint": "./node_modules/.bin/jshint ./api --reporter=./node_modules/jshint-full-path/index.js; true",
+    "istanbul": "./node_modules/.bin/istanbul cover api/**/*.js",
+    "mocha": "./node_modules/.bin/_mocha ./test --recursive --timeout 5000 -R spec",
+    "coverage": "CODECLIMATE_REPO_TOKEN=fd79c38c1c17d81505200389731c98b3d63516d61154edcb7103b3213a710fa9 codeclimate < coverage/lcov.info",
+    "test": "npm run mocha; npm run istanbul; npm run coverage"
   },
   "main": "app.js"
 }
