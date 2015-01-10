@@ -1,7 +1,6 @@
 'use strict';
 
-var should = require('should'),
-    Sails = require('sails').constructor;;
+var Sails = require('sails').constructor;
 
 module.exports = {
   before: function(done) {
