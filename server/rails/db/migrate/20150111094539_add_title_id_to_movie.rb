@@ -4,4 +4,3 @@ class AddTitleIdToMovie < ActiveRecord::Migration
     add_column :movies, :themoviedbid, :integer
   end
 end
-`
