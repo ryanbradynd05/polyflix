@@ -25,6 +25,7 @@ module.exports = {
   },
   models: {
     migrate: "alter"
-  }
+  },
+  port: 3000
 
 };

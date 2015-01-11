@@ -5,7 +5,7 @@ process.env.NODE_ENV = 'test';
 var should = require('should'),
   request = require('supertest'),
   testSetup = require('../util/testSetup'),
-  url = 'http://localhost:1337';
+  url = 'http://localhost:3000';
 
 describe('Controllers/MoviesController', function() {
   before(function(done) {

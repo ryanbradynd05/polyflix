@@ -8,7 +8,7 @@ module.exports = {
       hooks: {
         grunt: false
       },
-      port: 1337,
+      port: 3000,
       connections: {
         mysql: {
           host: 'localhost',
