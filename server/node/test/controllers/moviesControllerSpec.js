@@ -119,6 +119,40 @@ describe('Controllers/MoviesController', function() {
         done();
       });
   });
+  it('search - should return search results from themoviedb', function(done) {
+    request(url)
+      .get('/movies/search/Fight%20Club')
+      .expect(200)
+      .end(function(err, res) {
+        var searchResults = res.body;
+        searchResults.should.be.an.Object; // jshint ignore:line
+        searchResults.results.should.be.an.Array; // jshint ignore:line
+        searchResults.results[0].title.should.equal('Fight Club');
+        searchResults.results[0].id.should.equal(550);
+        should.not.exist(err);
+        if (err) {
+          return done(err);
+        }
+        done();
+      });
+  });
+  it('info - should return movie from themoviedb', function(done) {
+    request(url)
+      .get('/movies/info/550')
+      .expect(200)
+      .end(function(err, res) {
+        var queryResult = res.body;
+        queryResult.should.be.an.Object; // jshint ignore:line
+        queryResult.title.should.equal('Fight Club');
+        queryResult.id.should.equal(550);
+        queryResult.imdb_id.should.equal('tt0137523');
+        should.not.exist(err);
+        if (err) {
+          return done(err);
+        }
+        done();
+      });
+  });
   after(function(done) {
     testSetup.after(done);
   });

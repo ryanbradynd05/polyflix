@@ -31,5 +31,6 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
-
+  'GET /movies/search/:id': 'Movies.search',
+  'GET /movies/info/:id': 'Movies.info'
 };
