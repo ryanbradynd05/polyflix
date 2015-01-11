@@ -1,3 +1,7 @@
+'use strict';
+
+/* global sails */
+
 /**
  * MovieController
  *
