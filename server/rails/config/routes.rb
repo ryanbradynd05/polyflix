@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  get 'movies/index'
-
+  resources :movies, except: [:new, :edit]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
