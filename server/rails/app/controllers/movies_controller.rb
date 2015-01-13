@@ -12,7 +12,7 @@ class MoviesController < ApplicationController
     end
 
     def create
-        @movie = Movie.new(params[:movie])
+        @movie = Movie.new(movie_params)
 
         @movie.save
         render json: @movie, root: 'movie'
@@ -21,7 +21,7 @@ class MoviesController < ApplicationController
     def update
         @movie = Movie.find(params[:id])
 
-        @movie.update(params[:movie])
+        @movie.update(movie_params)
         render json: @movie, root: 'movie'
     end
 
@@ -31,4 +31,11 @@ class MoviesController < ApplicationController
 
         render json: @movie, root: 'movie'
     end
+
+    private
+
+        def movie_params
+            params.require(:movie).permit(:title, :themoviedb)
+        end
+
 end
