@@ -11,9 +11,8 @@ class MoviesControllerTest < ActionController::TestCase
     end
 
     test "should get index" do
-        @response = get :index
+        get :index
         assert_response :success
-        puts response.body
     end
 
     test "should create movie" do
