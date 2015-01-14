@@ -7,10 +7,6 @@ class MoviesController < ApplicationController
         render json: Movie.find_by_id(params[:id]), root: 'movie'
     end
 
-    def new
-        render json: Movie.new, root: 'movie'
-    end
-
     def create
         movie = Movie.new(movie_params)
 
