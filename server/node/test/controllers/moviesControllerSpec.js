@@ -136,7 +136,7 @@ describe('Controllers/MoviesController', function() {
         done();
       });
   });
-  it('info - should return movie from themoviedb', function(done) {
+  it('info - should return movie info from themoviedb', function(done) {
     request(url)
       .get('/movies/info/550')
       .expect(200)
