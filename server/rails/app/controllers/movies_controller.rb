@@ -12,24 +12,34 @@ class MoviesController < ApplicationController
     end
 
     def create
-        @movie = Movie.new(movie_params)
+        movie = Movie.new(movie_params)
 
-        @movie.save
-        render json: @movie, root: 'movie'
+        movie.save
+        render json: movie, root: 'movie'
     end
 
     def update
-        @movie = Movie.find_by_id(params[:id])
+        movie = Movie.find_by_id(params[:id])
 
-        @movie.update(movie_params)
+        movie.update(movie_params)
         render json: Movie.find_by_id(params[:id]), root: 'movie'
     end
 
     def destroy
-        @movie = Movie.find_by_id(params[:id])
-        @movie.destroy
+        movie = Movie.find_by_id(params[:id])
+        movie.destroy
 
         render json: '{"movie": {}}'
+    end
+
+    def search
+        movies = Tmdb::Movie.find(params[:id])
+        render json: movies.to_json
+    end
+
+    def info
+        movie = Tmdb::Movie.detail(params[:id])
+        render json: movie
     end
 
     private

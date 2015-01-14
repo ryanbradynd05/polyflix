@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get '/movies/search/:id' => 'movies#search'
+  get '/movies/info/:id' => 'movies#info'
   resources :movies, except: [:new, :edit]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
