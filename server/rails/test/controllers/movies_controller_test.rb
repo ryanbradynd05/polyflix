@@ -49,6 +49,24 @@ class MoviesControllerTest < ActionController::TestCase
         movie = ActiveSupport::JSON.decode(@response.body)['movie']
         assert_equal(movie, {})
     end
+
+    test "should return search results from themoviedb" do
+        get :search, id: 'Fight%20Club'
+        results = ActiveSupport::JSON.decode(@response.body)
+        assert_response :success
+        assert results.count>1
+        assert_equal(results[0]['title'], "Fight Club")
+        assert_equal(results[0]['id'], 550)
+    end
+
+    test "should return movie info from themoviedb" do
+        get :info, id: 550
+        movie = ActiveSupport::JSON.decode(@response.body)['table']
+        assert_response :success
+        assert_equal(movie['title'], "Fight Club")
+        assert_equal(movie['id'], 550)
+    end
+
     private
 
         def initialize_movies
