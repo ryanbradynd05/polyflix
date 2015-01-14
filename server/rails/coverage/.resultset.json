@@ -1,0 +1,81 @@
+{
+  "MiniTest": {
+    "coverage": {
+      "/Users/ryanbrady/Projects/Personal/polyflix/server/rails/app/models/movie.rb": [
+        1,
+        null
+      ],
+      "/Users/ryanbrady/Projects/Personal/polyflix/server/rails/app/controllers/movies_controller.rb": [
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        null,
+        1,
+        2,
+        null,
+        null,
+        null
+      ],
+      "/Users/ryanbrady/Projects/Personal/polyflix/server/rails/app/controllers/application_controller.rb": [
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        7,
+        null,
+        null
+      ],
+      "/Users/ryanbrady/Projects/Personal/polyflix/server/rails/app/serializers/movie_serializer.rb": [
+        1,
+        1,
+        null
+      ]
+    },
+    "timestamp": 1421207016
+  }
+}
