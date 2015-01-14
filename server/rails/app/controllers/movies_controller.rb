@@ -4,7 +4,7 @@ class MoviesController < ApplicationController
     end
 
     def show
-        render json: Movie.find(params[:id]), root: 'movie'
+        render json: Movie.find_by_id(params[:id]), root: 'movie'
     end
 
     def new
@@ -19,23 +19,23 @@ class MoviesController < ApplicationController
     end
 
     def update
-        @movie = Movie.find(params[:id])
+        @movie = Movie.find_by_id(params[:id])
 
         @movie.update(movie_params)
-        render json: @movie, root: 'movie'
+        render json: Movie.find_by_id(params[:id]), root: 'movie'
     end
 
     def destroy
-        @movie = Movie.find(params[:id])
+        @movie = Movie.find_by_id(params[:id])
         @movie.destroy
 
-        render json: @movie, root: 'movie'
+        render json: '{"movie": {}}'
     end
 
     private
 
         def movie_params
-            params.require(:movie).permit(:title, :themoviedb)
+            params.require(:movie).permit(:title, :themoviedbid)
         end
 
 end
