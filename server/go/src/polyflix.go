@@ -6,7 +6,23 @@ import (
     "net/http"
 )
 
-var url = "localhost:3000"
+var (
+    url = "localhost:3000"
+)
+type ArrayPayload struct {
+    Movies Movies `json:"movies"`
+}
+
+type SinglePayload struct {
+    Movie Movie `json:"movie"`
+}
+
+type Movies []Movie
+
+type Movie struct {
+    Title string `json:"title"`
+    Themoviedbid int `json:"themoviedbid"`
+}
 
 func main() {
     http.HandleFunc("/", serveRest)
@@ -15,6 +31,7 @@ func main() {
 
 func serveRest(w http.ResponseWriter, r *http.Request) {
     response, err := getJsonResponse()
+    fmt.Printf(string(response))
     if err != nil {
         panic(err)
     }
@@ -23,5 +40,14 @@ func serveRest(w http.ResponseWriter, r *http.Request) {
 }
 
 func getJsonResponse() ([] byte, error) {
-    return json.MarshalIndent(nil, "", "  ")
+    // Single Payload
+    // movie := Movie{"Fight Club", 550}
+    // p := SinglePayload{movie}
+
+    // Array Payload
+    movie1 := Movie{"Fight Club", 550}
+    movie2 := Movie{"The Matrix", 120}
+    movies := []Movie{movie1, movie2}
+    p := ArrayPayload{movies}
+    return json.MarshalIndent(p, "", "  ")
 }
