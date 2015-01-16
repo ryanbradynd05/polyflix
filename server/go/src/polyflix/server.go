@@ -12,14 +12,14 @@ var (
 
 func main() {
 	router := mux.NewRouter().StrictSlash(true)
-	sMovies := router.PathPrefix("/movies").Subrouter().StrictSlash(true)
-	sMovies.HandleFunc("/search/{id}", controllers.MoviesSearchHandler).Methods("GET")
-	sMovies.HandleFunc("/info/{id}", controllers.MoviesInfoHandler).Methods("GET")
-	sMovies.HandleFunc("/{id}", controllers.MoviesShowHandler).Methods("GET")
-	sMovies.HandleFunc("/{id}", controllers.MoviesUpdateHandler).Methods("PUT")
-	sMovies.HandleFunc("/{id}", controllers.MoviesDestroyHandler).Methods("DELETE")
-	sMovies.HandleFunc("/", controllers.MoviesIndexHandler).Methods("GET")
-	sMovies.HandleFunc("/", controllers.MoviesCreateHandler).Methods("POST")
+	movies := router.PathPrefix("/movies").Subrouter().StrictSlash(true)
+	movies.HandleFunc("/search/{id}", controllers.MoviesSearchHandler).Methods("GET")
+	movies.HandleFunc("/info/{id}", controllers.MoviesInfoHandler).Methods("GET")
+	movies.HandleFunc("/{id}", controllers.MoviesShowHandler).Methods("GET")
+	movies.HandleFunc("/{id}", controllers.MoviesUpdateHandler).Methods("PUT")
+	movies.HandleFunc("/{id}", controllers.MoviesDestroyHandler).Methods("DELETE")
+	movies.HandleFunc("/", controllers.MoviesIndexHandler).Methods("GET")
+	movies.HandleFunc("/", controllers.MoviesCreateHandler).Methods("POST")
 	http.Handle("/", router)
 	http.ListenAndServe(url, nil)
 }

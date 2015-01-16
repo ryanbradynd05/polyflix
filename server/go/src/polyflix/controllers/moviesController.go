@@ -16,7 +16,6 @@ type SinglePayload struct {
 }
 
 func MoviesIndexHandler(res http.ResponseWriter, req *http.Request) {
-	fmt.Printf(string("GET /movies"))
 	movie1 := models.Movie{"Fight Club", 550}
 	movie2 := models.Movie{"The Matrix", 120}
 	movies := []models.Movie{movie1, movie2}
