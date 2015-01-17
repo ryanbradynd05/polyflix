@@ -4,6 +4,7 @@ import (
 	"github.com/gorilla/mux"
 	"net/http"
 	"polyflix/controllers"
+	"polyflix/database"
 )
 
 var (
@@ -11,6 +12,7 @@ var (
 )
 
 func main() {
+	var _ = database.New()
 	router := mux.NewRouter().StrictSlash(true)
 	movies := router.PathPrefix("/movies").Subrouter().StrictSlash(true)
 	movies.HandleFunc("/search/{id}", controllers.MoviesSearchHandler).Methods("GET")
