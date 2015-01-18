@@ -12,16 +12,17 @@ var (
 )
 
 func main() {
-	var _ = database.New()
+	var db = database.New()
 	router := mux.NewRouter().StrictSlash(true)
 	movies := router.PathPrefix("/movies").Subrouter().StrictSlash(true)
-	movies.HandleFunc("/search/{id}", controllers.MoviesSearchHandler).Methods("GET")
-	movies.HandleFunc("/info/{id}", controllers.MoviesInfoHandler).Methods("GET")
-	movies.HandleFunc("/{id}", controllers.MoviesShowHandler).Methods("GET")
-	movies.HandleFunc("/{id}", controllers.MoviesUpdateHandler).Methods("PUT")
-	movies.HandleFunc("/{id}", controllers.MoviesDestroyHandler).Methods("DELETE")
-	movies.HandleFunc("/", controllers.MoviesIndexHandler).Methods("GET")
-	movies.HandleFunc("/", controllers.MoviesCreateHandler).Methods("POST")
+	moviesController := controllers.MoviesController{DB: db}
+	movies.HandleFunc("/search/{id}", moviesController.SearchHandler).Methods("GET")
+	movies.HandleFunc("/info/{id}", moviesController.InfoHandler).Methods("GET")
+	movies.HandleFunc("/{id}", moviesController.ShowHandler).Methods("GET")
+	movies.HandleFunc("/{id}", moviesController.UpdateHandler).Methods("PUT")
+	movies.HandleFunc("/{id}", moviesController.DestroyHandler).Methods("DELETE")
+	movies.HandleFunc("/", moviesController.IndexHandler).Methods("GET")
+	movies.HandleFunc("/", moviesController.CreateHandler).Methods("POST")
 	http.Handle("/", router)
 	http.ListenAndServe(url, nil)
 }

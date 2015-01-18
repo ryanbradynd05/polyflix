@@ -1,5 +1,5 @@
 !<arch>
-__.PKGDEF       0           0     0     644     50002     `
+__.PKGDEF       0           0     0     644     117243    `
 go object darwin amd64 go1.4 X:precisestack
 
 $$
@@ -7,11 +7,479 @@ package controllers
 	import runtime "runtime"
 	import http "net/http"
 	import models "polyflix/models"
+	import gorm "github.com/jinzhu/gorm"
 	import fmt "fmt"
 	import json "encoding/json"
-	type @"polyflix/models".Movie struct { Title string "json:\"title\""; Themoviedbid int "json:\"themoviedbid\"" }
-	type @"".ArrayPayload struct { Movies []@"polyflix/models".Movie "json:\"movies\"" }
-	type @"".SinglePayload struct { Movie @"polyflix/models".Movie "json:\"movie\"" }
+	import reflect "reflect" // indirect
+	type @"reflect".typeAlg struct { @"reflect".hash func(? @"unsafe".Pointer, ? uintptr, ? uintptr) (? uintptr); @"reflect".equal func(? @"unsafe".Pointer, ? @"unsafe".Pointer, ? uintptr) (? bool) }
+	type @"reflect".method struct { @"reflect".name *string; @"reflect".pkgPath *string; @"reflect".mtyp *@"reflect".rtype; @"reflect".typ *@"reflect".rtype; @"reflect".ifn @"unsafe".Pointer; @"reflect".tfn @"unsafe".Pointer }
+	type @"reflect".ChanDir int
+	func (@"reflect".dÂ·2 @"reflect".ChanDir) String () (? string)
+	type @"reflect".StructTag string
+	func (@"reflect".tagÂ·2 @"reflect".StructTag "esc:0x0") Get (@"reflect".keyÂ·3 string "esc:0x0") (? string)
+	type @"reflect".StructField struct { Name string; PkgPath string; Type @"reflect".Type; Tag @"reflect".StructTag; Offset uintptr; Index []int; Anonymous bool }
+	type @"reflect".Kind uint
+	func (@"reflect".kÂ·2 @"reflect".Kind) String () (? string)
+	type @"reflect".Type interface { Align() (? int); AssignableTo(@"reflect".u @"reflect".Type) (? bool); Bits() (? int); ChanDir() (? @"reflect".ChanDir); Comparable() (? bool); ConvertibleTo(@"reflect".u @"reflect".Type) (? bool); Elem() (? @"reflect".Type); Field(@"reflect".i int) (? @"reflect".StructField); FieldAlign() (? int); FieldByIndex(@"reflect".index []int) (? @"reflect".StructField); FieldByName(@"reflect".name string) (? @"reflect".StructField, ? bool); FieldByNameFunc(@"reflect".match func(? string) (? bool)) (? @"reflect".StructField, ? bool); Implements(@"reflect".u @"reflect".Type) (? bool); In(@"reflect".i int) (? @"reflect".Type); IsVariadic() (? bool); Key() (? @"reflect".Type); Kind() (? @"reflect".Kind); Len() (? int); Method(? int) (? @"reflect".Method); MethodByName(? string) (? @"reflect".Method, ? bool); Name() (? string); NumField() (? int); NumIn() (? int); NumMethod() (? int); NumOut() (? int); Out(@"reflect".i int) (? @"reflect".Type); PkgPath() (? string); Size() (? uintptr); String() (? string); @"reflect".common() (? *@"reflect".rtype); @"reflect".uncommon() (? *@"reflect".uncommonType) }
+	type @"reflect".Method struct { Name string; PkgPath string; Type @"reflect".Type; Func @"reflect".Value; Index int }
+	type @"reflect".uncommonType struct { @"reflect".name *string; @"reflect".pkgPath *string; @"reflect".methods []@"reflect".method }
+	func (@"reflect".tÂ·2 *@"reflect".uncommonType "esc:0x1") Method (@"reflect".iÂ·3 int) (@"reflect".mÂ·1 @"reflect".Method)
+	func (@"reflect".tÂ·3 *@"reflect".uncommonType "esc:0x0") MethodByName (@"reflect".nameÂ·4 string "esc:0x0") (@"reflect".mÂ·1 @"reflect".Method, @"reflect".okÂ·2 bool)
+	func (@"reflect".tÂ·2 *@"reflect".uncommonType "esc:0x1") Name () (? string) { if @"reflect".tÂ·2 == nil || @"reflect".tÂ·2.@"reflect".name == nil { return "" }; return *@"reflect".tÂ·2.@"reflect".name }
+	func (@"reflect".tÂ·2 *@"reflect".uncommonType "esc:0x0") NumMethod () (? int) { if @"reflect".tÂ·2 == nil { return 0x0 }; return len(@"reflect".tÂ·2.@"reflect".methods) }
+	func (@"reflect".tÂ·2 *@"reflect".uncommonType "esc:0x1") PkgPath () (? string) { if @"reflect".tÂ·2 == nil || @"reflect".tÂ·2.@"reflect".pkgPath == nil { return "" }; return *@"reflect".tÂ·2.@"reflect".pkgPath }
+	func (@"reflect".tÂ·2 *@"reflect".uncommonType "esc:0x2") @"reflect".uncommon () (? *@"reflect".uncommonType) { return @"reflect".tÂ·2 }
+	type @"reflect".rtype struct { @"reflect".size uintptr; @"reflect".hash uint32; _ uint8; @"reflect".align uint8; @"reflect".fieldAlign uint8; @"reflect".kind uint8; @"reflect".alg *@"reflect".typeAlg; @"reflect".gc [2]@"unsafe".Pointer; @"reflect".string *string; @"reflect".? *@"reflect".uncommonType; @"reflect".ptrToThis *@"reflect".rtype; @"reflect".zero @"unsafe".Pointer }
+	func (@"reflect".tÂ·2 *@"reflect".rtype "esc:0x0") Align () (? int) { return int(@"reflect".tÂ·2.@"reflect".align) }
+	func (@"reflect".tÂ·2 *@"reflect".rtype "esc:0x0") AssignableTo (@"reflect".uÂ·3 @"reflect".Type "esc:0x0") (? bool)
+	func (@"reflect".tÂ·2 *@"reflect".rtype "esc:0x0") Bits () (? int)
+	func (@"reflect".tÂ·2 *@"reflect".rtype "esc:0x0") ChanDir () (? @"reflect".ChanDir)
+	func (@"reflect".tÂ·2 *@"reflect".rtype "esc:0x0") Comparable () (? bool) { return @"reflect".tÂ·2.@"reflect".alg != nil && @"reflect".tÂ·2.@"reflect".alg.@"reflect".equal != nil }
+	func (@"reflect".tÂ·2 *@"reflect".rtype "esc:0x0") ConvertibleTo (@"reflect".uÂ·3 @"reflect".Type "esc:0x0") (? bool)
+	func (@"reflect".tÂ·2 *@"reflect".rtype "esc:0x1") Elem () (? @"reflect".Type)
+	func (@"reflect".tÂ·2 *@"reflect".rtype) Field (@"reflect".iÂ·3 int) (? @"reflect".StructField)
+	func (@"reflect".tÂ·2 *@"reflect".rtype "esc:0x0") FieldAlign () (? int) { return int(@"reflect".tÂ·2.@"reflect".fieldAlign) }
+	func (@"reflect".tÂ·2 *@"reflect".rtype) FieldByIndex (@"reflect".indexÂ·3 []int "esc:0x0") (? @"reflect".StructField)
+	func (@"reflect".tÂ·3 *@"reflect".rtype) FieldByName (@"reflect".nameÂ·4 string "esc:0x0") (? @"reflect".StructField, ? bool)
+	func (@"reflect".tÂ·3 *@"reflect".rtype) FieldByNameFunc (@"reflect".matchÂ·4 func(? string) (? bool) "esc:0x0") (? @"reflect".StructField, ? bool)
+	func (@"reflect".tÂ·2 *@"reflect".rtype "esc:0x0") Implements (@"reflect".uÂ·3 @"reflect".Type) (? bool)
+	func (@"reflect".tÂ·2 *@"reflect".rtype "esc:0x0") In (@"reflect".iÂ·3 int) (? @"reflect".Type)
+	func (@"reflect".tÂ·2 *@"reflect".rtype "esc:0x0") IsVariadic () (? bool)
+	func (@"reflect".tÂ·2 *@"reflect".rtype "esc:0x1") Key () (? @"reflect".Type)
+	func (@"reflect".tÂ·2 *@"reflect".rtype "esc:0x0") Kind () (? @"reflect".Kind) { return @"reflect".Kind(@"reflect".tÂ·2.@"reflect".kind & 0x1F) }
+	func (@"reflect".tÂ·2 *@"reflect".rtype "esc:0x0") Len () (? int)
+	func (@"reflect".tÂ·2 *@"reflect".rtype "esc:0x0") Method (@"reflect".iÂ·3 int) (@"reflect".mÂ·1 @"reflect".Method)
+	func (@"reflect".tÂ·3 *@"reflect".rtype "esc:0x0") MethodByName (@"reflect".nameÂ·4 string "esc:0x0") (@"reflect".mÂ·1 @"reflect".Method, @"reflect".okÂ·2 bool)
+	func (@"reflect".tÂ·2 *@"reflect".rtype "esc:0x1") Name () (? string)
+	func (@"reflect".tÂ·2 *@"reflect".rtype "esc:0x0") NumField () (? int)
+	func (@"reflect".tÂ·2 *@"reflect".rtype "esc:0x0") NumIn () (? int)
+	func (@"reflect".tÂ·2 *@"reflect".rtype "esc:0x0") NumMethod () (? int)
+	func (@"reflect".tÂ·2 *@"reflect".rtype "esc:0x0") NumOut () (? int)
+	func (@"reflect".tÂ·2 *@"reflect".rtype "esc:0x0") Out (@"reflect".iÂ·3 int) (? @"reflect".Type)
+	func (@"reflect".tÂ·2 *@"reflect".rtype "esc:0x1") PkgPath () (? string)
+	func (@"reflect".tÂ·2 *@"reflect".rtype "esc:0x0") Size () (? uintptr) { return @"reflect".tÂ·2.@"reflect".size }
+	func (@"reflect".tÂ·2 *@"reflect".rtype "esc:0x1") String () (? string) { return *@"reflect".tÂ·2.@"reflect".string }
+	func (@"reflect".tÂ·2 *@"reflect".rtype "esc:0x2") @"reflect".common () (? *@"reflect".rtype) { return @"reflect".tÂ·2 }
+	func (@"reflect".tÂ·2 *@"reflect".rtype "esc:0x0") @"reflect".pointers () (? bool) { return @"reflect".tÂ·2.@"reflect".kind & 0x80 == 0x0 }
+	func (@"reflect".tÂ·2 *@"reflect".rtype) @"reflect".ptrTo () (? *@"reflect".rtype)
+	type @"reflect".flag uintptr
+	func (@"reflect".fÂ·2 @"reflect".flag) @"reflect".kind () (? @"reflect".Kind) { return @"reflect".Kind(@"reflect".fÂ·2 & @"reflect".flag(0x1F)) }
+	func (@"reflect".fÂ·1 @"reflect".flag) @"reflect".mustBe (@"reflect".expectedÂ·2 @"reflect".Kind)
+	func (@"reflect".fÂ·1 @"reflect".flag) @"reflect".mustBeAssignable ()
+	func (@"reflect".fÂ·1 @"reflect".flag) @"reflect".mustBeExported ()
+	type @"reflect".Value struct { @"reflect".typ *@"reflect".rtype; @"reflect".ptr @"unsafe".Pointer; @"reflect".? @"reflect".flag }
+	func (@"reflect".vÂ·2 @"reflect".Value) Addr () (? @"reflect".Value)
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x0") Bool () (? bool)
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x1") Bytes () (? []byte)
+	func (@"reflect".vÂ·2 @"reflect".Value) Call (@"reflect".inÂ·3 []@"reflect".Value "esc:0x0") (? []@"reflect".Value)
+	func (@"reflect".vÂ·2 @"reflect".Value) CallSlice (@"reflect".inÂ·3 []@"reflect".Value "esc:0x0") (? []@"reflect".Value)
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x0") CanAddr () (? bool) { return @"reflect".vÂ·2.@"reflect".flag & @"reflect".flag(0x80) != @"reflect".flag(0x0) }
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x0") CanInterface () (? bool)
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x0") CanSet () (? bool) { return @"reflect".vÂ·2.@"reflect".flag & @"reflect".flag(0xA0) == @"reflect".flag(0x80) }
+	func (@"reflect".vÂ·2 @"reflect".Value) Cap () (? int)
+	func (@"reflect".vÂ·1 @"reflect".Value) Close ()
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x0") Complex () (? complex128)
+	func (@"reflect".vÂ·2 @"reflect".Value) Convert (@"reflect".tÂ·3 @"reflect".Type) (? @"reflect".Value)
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x3") Elem () (? @"reflect".Value)
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x3") Field (@"reflect".iÂ·3 int) (? @"reflect".Value)
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x2") FieldByIndex (@"reflect".indexÂ·3 []int "esc:0x0") (? @"reflect".Value)
+	func (@"reflect".vÂ·2 @"reflect".Value) FieldByName (@"reflect".nameÂ·3 string "esc:0x0") (? @"reflect".Value)
+	func (@"reflect".vÂ·2 @"reflect".Value) FieldByNameFunc (@"reflect".matchÂ·3 func(? string) (? bool) "esc:0x0") (? @"reflect".Value)
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x0") Float () (? float64)
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x3") Index (@"reflect".iÂ·3 int) (? @"reflect".Value)
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x0") Int () (? int64)
+	func (@"reflect".vÂ·2 @"reflect".Value) Interface () (@"reflect".iÂ·1 interface {})
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x0") InterfaceData () (? [2]uintptr)
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x0") IsNil () (? bool)
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x0") IsValid () (? bool) { return @"reflect".vÂ·2.@"reflect".flag != @"reflect".flag(0x0) }
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x0") Kind () (? @"reflect".Kind)
+	func (@"reflect".vÂ·2 @"reflect".Value) Len () (? int)
+	func (@"reflect".vÂ·2 @"reflect".Value) MapIndex (@"reflect".keyÂ·3 @"reflect".Value) (? @"reflect".Value)
+	func (@"reflect".vÂ·2 @"reflect".Value) MapKeys () (? []@"reflect".Value)
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x2") Method (@"reflect".iÂ·3 int) (? @"reflect".Value)
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x2") MethodByName (@"reflect".nameÂ·3 string "esc:0x0") (? @"reflect".Value)
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x0") NumField () (? int)
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x0") NumMethod () (? int)
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x0") OverflowComplex (@"reflect".xÂ·3 complex128) (? bool)
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x0") OverflowFloat (@"reflect".xÂ·3 float64) (? bool)
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x0") OverflowInt (@"reflect".xÂ·3 int64) (? bool)
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x0") OverflowUint (@"reflect".xÂ·3 uint64) (? bool)
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x2") Pointer () (? uintptr)
+	func (@"reflect".vÂ·3 @"reflect".Value) Recv () (@"reflect".xÂ·1 @"reflect".Value, @"reflect".okÂ·2 bool)
+	func (@"reflect".vÂ·1 @"reflect".Value) Send (@"reflect".xÂ·2 @"reflect".Value)
+	func (@"reflect".vÂ·1 @"reflect".Value) Set (@"reflect".xÂ·2 @"reflect".Value)
+	func (@"reflect".vÂ·1 @"reflect".Value "esc:0x0") SetBool (@"reflect".xÂ·2 bool)
+	func (@"reflect".vÂ·1 @"reflect".Value "esc:0x0") SetBytes (@"reflect".xÂ·2 []byte)
+	func (@"reflect".vÂ·1 @"reflect".Value "esc:0x0") SetCap (@"reflect".nÂ·2 int)
+	func (@"reflect".vÂ·1 @"reflect".Value "esc:0x0") SetComplex (@"reflect".xÂ·2 complex128)
+	func (@"reflect".vÂ·1 @"reflect".Value "esc:0x0") SetFloat (@"reflect".xÂ·2 float64)
+	func (@"reflect".vÂ·1 @"reflect".Value "esc:0x0") SetInt (@"reflect".xÂ·2 int64)
+	func (@"reflect".vÂ·1 @"reflect".Value "esc:0x0") SetLen (@"reflect".nÂ·2 int)
+	func (@"reflect".vÂ·1 @"reflect".Value) SetMapIndex (@"reflect".keyÂ·2 @"reflect".Value, @"reflect".valÂ·3 @"reflect".Value)
+	func (@"reflect".vÂ·1 @"reflect".Value "esc:0x0") SetPointer (@"reflect".xÂ·2 @"unsafe".Pointer)
+	func (@"reflect".vÂ·1 @"reflect".Value "esc:0x0") SetString (@"reflect".xÂ·2 string)
+	func (@"reflect".vÂ·1 @"reflect".Value "esc:0x0") SetUint (@"reflect".xÂ·2 uint64)
+	func (@"reflect".vÂ·2 @"reflect".Value) Slice (@"reflect".iÂ·3 int, @"reflect".jÂ·4 int) (? @"reflect".Value)
+	func (@"reflect".vÂ·2 @"reflect".Value) Slice3 (@"reflect".iÂ·3 int, @"reflect".jÂ·4 int, @"reflect".kÂ·5 int) (? @"reflect".Value)
+	func (@"reflect".vÂ·2 @"reflect".Value) String () (? string)
+	func (@"reflect".vÂ·3 @"reflect".Value) TryRecv () (@"reflect".xÂ·1 @"reflect".Value, @"reflect".okÂ·2 bool)
+	func (@"reflect".vÂ·2 @"reflect".Value) TrySend (@"reflect".xÂ·3 @"reflect".Value) (? bool)
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x3") Type () (? @"reflect".Type)
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x0") Uint () (? uint64)
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x2") UnsafeAddr () (? uintptr)
+	func (@"reflect".vÂ·2 @"reflect".Value) @"reflect".assignTo (@"reflect".contextÂ·3 string "esc:0x0", @"reflect".dstÂ·4 *@"reflect".rtype, @"reflect".targetÂ·5 @"unsafe".Pointer) (? @"reflect".Value)
+	func (@"reflect".vÂ·2 @"reflect".Value) @"reflect".call (@"reflect".opÂ·3 string "esc:0x0", @"reflect".inÂ·4 []@"reflect".Value "esc:0x0") (? []@"reflect".Value)
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x3") @"reflect".pointer () (? @"unsafe".Pointer)
+	func (@"reflect".vÂ·3 @"reflect".Value) @"reflect".recv (@"reflect".nbÂ·4 bool) (@"reflect".valÂ·1 @"reflect".Value, @"reflect".okÂ·2 bool)
+	func (@"reflect".vÂ·2 @"reflect".Value "esc:0x1") @"reflect".runes () (? []rune)
+	func (@"reflect".vÂ·2 @"reflect".Value) @"reflect".send (@"reflect".xÂ·3 @"reflect".Value, @"reflect".nbÂ·4 bool) (@"reflect".selectedÂ·1 bool)
+	func (@"reflect".vÂ·1 @"reflect".Value "esc:0x0") @"reflect".setRunes (@"reflect".xÂ·2 []rune)
+	type @"github.com/jinzhu/gorm".search struct { @"github.com/jinzhu/gorm".db *@"github.com/jinzhu/gorm".DB; WhereConditions []map[string]interface {}; OrConditions []map[string]interface {}; NotConditions []map[string]interface {}; InitAttrs []interface {}; AssignAttrs []interface {}; HavingCondition map[string]interface {}; Orders []string; Joins string; Selects []map[string]interface {}; Offset string; Limit string; Group string; TableName string; Unscope bool; Raw bool }
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".search) @"github.com/jinzhu/gorm".assign (@"github.com/jinzhu/gorm".attrsÂ·3 ...interface {} "esc:0x0") (? *@"github.com/jinzhu/gorm".search)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".search) @"github.com/jinzhu/gorm".attrs (@"github.com/jinzhu/gorm".attrsÂ·3 ...interface {} "esc:0x0") (? *@"github.com/jinzhu/gorm".search)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".search) @"github.com/jinzhu/gorm".clone () (? *@"github.com/jinzhu/gorm".search)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".search) @"github.com/jinzhu/gorm".getInterfaceAsSql (@"github.com/jinzhu/gorm".valueÂ·3 interface {}) (@"github.com/jinzhu/gorm".strÂ·1 string)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".search) @"github.com/jinzhu/gorm".group (@"github.com/jinzhu/gorm".queryÂ·3 string) (? *@"github.com/jinzhu/gorm".search)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".search "esc:0x2") @"github.com/jinzhu/gorm".having (@"github.com/jinzhu/gorm".queryÂ·3 string, @"github.com/jinzhu/gorm".valuesÂ·4 ...interface {}) (? *@"github.com/jinzhu/gorm".search)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".search "esc:0x2") @"github.com/jinzhu/gorm".includes (@"github.com/jinzhu/gorm".valueÂ·3 interface {} "esc:0x0") (? *@"github.com/jinzhu/gorm".search) { return @"github.com/jinzhu/gorm".sÂ·2 }
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".search "esc:0x2") @"github.com/jinzhu/gorm".joins (@"github.com/jinzhu/gorm".queryÂ·3 string) (? *@"github.com/jinzhu/gorm".search) { @"github.com/jinzhu/gorm".sÂ·2.Joins = @"github.com/jinzhu/gorm".queryÂ·3; return @"github.com/jinzhu/gorm".sÂ·2 }
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".search) @"github.com/jinzhu/gorm".limit (@"github.com/jinzhu/gorm".valueÂ·3 interface {}) (? *@"github.com/jinzhu/gorm".search)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".search) @"github.com/jinzhu/gorm".not (@"github.com/jinzhu/gorm".queryÂ·3 interface {}, @"github.com/jinzhu/gorm".valuesÂ·4 ...interface {}) (? *@"github.com/jinzhu/gorm".search)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".search) @"github.com/jinzhu/gorm".offset (@"github.com/jinzhu/gorm".valueÂ·3 interface {}) (? *@"github.com/jinzhu/gorm".search)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".search) @"github.com/jinzhu/gorm".or (@"github.com/jinzhu/gorm".queryÂ·3 interface {}, @"github.com/jinzhu/gorm".valuesÂ·4 ...interface {}) (? *@"github.com/jinzhu/gorm".search)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".search) @"github.com/jinzhu/gorm".order (@"github.com/jinzhu/gorm".valueÂ·3 string, @"github.com/jinzhu/gorm".reorderÂ·4 ...bool "esc:0x0") (? *@"github.com/jinzhu/gorm".search)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".search "esc:0x2") @"github.com/jinzhu/gorm".raw (@"github.com/jinzhu/gorm".bÂ·3 bool) (? *@"github.com/jinzhu/gorm".search) { @"github.com/jinzhu/gorm".sÂ·2.Raw = @"github.com/jinzhu/gorm".bÂ·3; return @"github.com/jinzhu/gorm".sÂ·2 }
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".search) @"github.com/jinzhu/gorm".selects (@"github.com/jinzhu/gorm".queryÂ·3 interface {}, @"github.com/jinzhu/gorm".argsÂ·4 ...interface {}) (? *@"github.com/jinzhu/gorm".search)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".search "esc:0x2") @"github.com/jinzhu/gorm".table (@"github.com/jinzhu/gorm".nameÂ·3 string) (? *@"github.com/jinzhu/gorm".search) { @"github.com/jinzhu/gorm".sÂ·2.TableName = @"github.com/jinzhu/gorm".nameÂ·3; return @"github.com/jinzhu/gorm".sÂ·2 }
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".search "esc:0x2") @"github.com/jinzhu/gorm".unscoped () (? *@"github.com/jinzhu/gorm".search) { @"github.com/jinzhu/gorm".sÂ·2.Unscope = true; return @"github.com/jinzhu/gorm".sÂ·2 }
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".search) @"github.com/jinzhu/gorm".where (@"github.com/jinzhu/gorm".queryÂ·3 interface {}, @"github.com/jinzhu/gorm".valuesÂ·4 ...interface {}) (? *@"github.com/jinzhu/gorm".search)
+	type @"github.com/jinzhu/gorm".relationship struct { JoinTable string; ForeignKey string; ForeignType string; AssociationForeignKey string; Kind string }
+	type @"github.com/jinzhu/gorm".Field struct { Name string; DBName string; Field @"reflect".Value; Tag @"reflect".StructTag; Relationship *@"github.com/jinzhu/gorm".relationship; IsNormal bool; IsBlank bool; IsIgnored bool; IsPrimaryKey bool; DefaultValue interface {} }
+	func (@"github.com/jinzhu/gorm".fieldÂ·2 *@"github.com/jinzhu/gorm".Field) IsScanner () (? bool)
+	func (@"github.com/jinzhu/gorm".fieldÂ·2 *@"github.com/jinzhu/gorm".Field) IsTime () (? bool)
+	func (@"github.com/jinzhu/gorm".fieldÂ·2 *@"github.com/jinzhu/gorm".Field) Set (@"github.com/jinzhu/gorm".valueÂ·3 interface {}) (@"github.com/jinzhu/gorm".errÂ·1 error)
+	import sql "database/sql" // indirect
+	type @"database/sql".Result interface { LastInsertId() (? int64, ? error); RowsAffected() (? int64, ? error) }
+	import driver "database/sql/driver" // indirect
+	type @"database/sql/driver".Tx interface { Commit() (? error); Rollback() (? error) }
+	type @"database/sql/driver".Result interface { LastInsertId() (? int64, ? error); RowsAffected() (? int64, ? error) }
+	type @"database/sql/driver".Value interface {}
+	type @"database/sql/driver".Rows interface { Close() (? error); Columns() (? []string); Next(@"database/sql/driver".dest []@"database/sql/driver".Value) (? error) }
+	type @"database/sql/driver".Stmt interface { Close() (? error); Exec(@"database/sql/driver".args []@"database/sql/driver".Value) (? @"database/sql/driver".Result, ? error); NumInput() (? int); Query(@"database/sql/driver".args []@"database/sql/driver".Value) (? @"database/sql/driver".Rows, ? error) }
+	type @"database/sql/driver".Conn interface { Begin() (? @"database/sql/driver".Tx, ? error); Close() (? error); Prepare(@"database/sql/driver".query string) (? @"database/sql/driver".Stmt, ? error) }
+	type @"database/sql/driver".Driver interface { Open(@"database/sql/driver".name string) (? @"database/sql/driver".Conn, ? error) }
+	import sync "sync" // indirect
+	type @"sync".Mutex struct { @"sync".state int32; @"sync".sema uint32 }
+	func (@"sync".mÂ·1 *@"sync".Mutex) Lock ()
+	func (@"sync".mÂ·1 *@"sync".Mutex) Unlock ()
+	type @"database/sql".driverConn struct { @"database/sql".db *@"database/sql".DB; ? @"sync".Mutex; @"database/sql".ci @"database/sql/driver".Conn; @"database/sql".closed bool; @"database/sql".finalClosed bool; @"database/sql".openStmt map[@"database/sql/driver".Stmt]bool; @"database/sql".inUse bool; @"database/sql".onPut []func(); @"database/sql".dbmuClosed bool }
+	func (@"database/sql".dcÂ·2 *@"database/sql".driverConn) Close () (? error)
+	func (@"database/sql".dcÂ·2 *@"database/sql".driverConn) @"database/sql".closeDBLocked () (? func() (? error))
+	func (@"database/sql".dcÂ·2 *@"database/sql".driverConn) @"database/sql".finalClose () (? error)
+	func (@"database/sql".dcÂ·3 *@"database/sql".driverConn) @"database/sql".prepareLocked (@"database/sql".queryÂ·4 string) (? @"database/sql/driver".Stmt, ? error)
+	func (@"database/sql".dcÂ·1 *@"database/sql".driverConn) @"database/sql".releaseConn (@"database/sql".errÂ·2 error "esc:0x0")
+	func (@"database/sql".dcÂ·1 *@"database/sql".driverConn) @"database/sql".removeOpenStmt (@"database/sql".siÂ·2 @"database/sql/driver".Stmt "esc:0x0")
+	type @"database/sql".connRequest struct { @"database/sql".conn *@"database/sql".driverConn; @"database/sql".err error }
+	type @"database/sql".depSet map[interface {}]bool
+	type @"database/sql".finalCloser interface { @"database/sql".finalClose() (? error) }
+	type @"database/sql".Rows struct { @"database/sql".dc *@"database/sql".driverConn; @"database/sql".releaseConn func(? error); @"database/sql".rowsi @"database/sql/driver".Rows; @"database/sql".closed bool; @"database/sql".lastcols []@"database/sql/driver".Value; @"database/sql".lasterr error; @"database/sql".closeStmt @"database/sql/driver".Stmt }
+	func (@"database/sql".rsÂ·2 *@"database/sql".Rows) Close () (? error)
+	func (@"database/sql".rsÂ·3 *@"database/sql".Rows) Columns () (? []string, ? error)
+	func (@"database/sql".rsÂ·2 *@"database/sql".Rows "esc:0x1") Err () (? error) { if @"database/sql".rsÂ·2.@"database/sql".lasterr == @"io".EOF { return nil }; return @"database/sql".rsÂ·2.@"database/sql".lasterr }
+	func (@"database/sql".rsÂ·2 *@"database/sql".Rows) Next () (? bool)
+	func (@"database/sql".rsÂ·2 *@"database/sql".Rows "esc:0x0") Scan (@"database/sql".destÂ·3 ...interface {} "esc:0x0") (? error)
+	type @"database/sql".Row struct { @"database/sql".err error; @"database/sql".rows *@"database/sql".Rows }
+	func (@"database/sql".rÂ·2 *@"database/sql".Row) Scan (@"database/sql".destÂ·3 ...interface {} "esc:0x0") (? error)
+	type @"database/sql".Tx struct { @"database/sql".db *@"database/sql".DB; @"database/sql".dc *@"database/sql".driverConn; @"database/sql".txi @"database/sql/driver".Tx; @"database/sql".done bool; @"database/sql".stmts struct { ? @"sync".Mutex; @"database/sql".v []*@"database/sql".Stmt } }
+	func (@"database/sql".txÂ·2 *@"database/sql".Tx) Commit () (? error)
+	func (@"database/sql".txÂ·3 *@"database/sql".Tx) Exec (@"database/sql".queryÂ·4 string, @"database/sql".argsÂ·5 ...interface {} "esc:0x0") (? @"database/sql".Result, ? error)
+	func (@"database/sql".txÂ·3 *@"database/sql".Tx) Prepare (@"database/sql".queryÂ·4 string) (? *@"database/sql".Stmt, ? error)
+	func (@"database/sql".txÂ·3 *@"database/sql".Tx) Query (@"database/sql".queryÂ·4 string, @"database/sql".argsÂ·5 ...interface {} "esc:0x0") (? *@"database/sql".Rows, ? error)
+	func (@"database/sql".txÂ·2 *@"database/sql".Tx) QueryRow (@"database/sql".queryÂ·3 string, @"database/sql".argsÂ·4 ...interface {} "esc:0x0") (? *@"database/sql".Row)
+	func (@"database/sql".txÂ·2 *@"database/sql".Tx) Rollback () (? error)
+	func (@"database/sql".txÂ·2 *@"database/sql".Tx) Stmt (@"database/sql".stmtÂ·3 *@"database/sql".Stmt) (? *@"database/sql".Stmt)
+	func (@"database/sql".txÂ·1 *@"database/sql".Tx) @"database/sql".close ()
+	func (@"database/sql".txÂ·1 *@"database/sql".Tx) @"database/sql".closePrepared ()
+	func (@"database/sql".txÂ·3 *@"database/sql".Tx "esc:0x1") @"database/sql".grabConn () (? *@"database/sql".driverConn, ? error) { if @"database/sql".txÂ·3.@"database/sql".done { return nil, @"database/sql".ErrTxDone }; return @"database/sql".txÂ·3.@"database/sql".dc, nil }
+	type @"database/sql".DB struct { @"database/sql".driver @"database/sql/driver".Driver; @"database/sql".dsn string; @"database/sql".mu @"sync".Mutex; @"database/sql".freeConn []*@"database/sql".driverConn; @"database/sql".connRequests []chan @"database/sql".connRequest; @"database/sql".numOpen int; @"database/sql".pendingOpens int; @"database/sql".openerCh chan struct {}; @"database/sql".closed bool; @"database/sql".dep map[@"database/sql".finalCloser]@"database/sql".depSet; @"database/sql".lastPut map[*@"database/sql".driverConn]string; @"database/sql".maxIdle int; @"database/sql".maxOpen int }
+	func (@"database/sql".dbÂ·3 *@"database/sql".DB) Begin () (? *@"database/sql".Tx, ? error)
+	func (@"database/sql".dbÂ·2 *@"database/sql".DB) Close () (? error)
+	func (@"database/sql".dbÂ·2 *@"database/sql".DB "esc:0x1") Driver () (? @"database/sql/driver".Driver) { return @"database/sql".dbÂ·2.@"database/sql".driver }
+	func (@"database/sql".dbÂ·3 *@"database/sql".DB) Exec (@"database/sql".queryÂ·4 string, @"database/sql".argsÂ·5 ...interface {} "esc:0x0") (? @"database/sql".Result, ? error)
+	func (@"database/sql".dbÂ·2 *@"database/sql".DB) Ping () (? error)
+	func (@"database/sql".dbÂ·3 *@"database/sql".DB) Prepare (@"database/sql".queryÂ·4 string) (? *@"database/sql".Stmt, ? error)
+	func (@"database/sql".dbÂ·3 *@"database/sql".DB) Query (@"database/sql".queryÂ·4 string, @"database/sql".argsÂ·5 ...interface {} "esc:0x0") (? *@"database/sql".Rows, ? error)
+	func (@"database/sql".dbÂ·2 *@"database/sql".DB) QueryRow (@"database/sql".queryÂ·3 string, @"database/sql".argsÂ·4 ...interface {} "esc:0x0") (? *@"database/sql".Row)
+	func (@"database/sql".dbÂ·1 *@"database/sql".DB) SetMaxIdleConns (@"database/sql".nÂ·2 int)
+	func (@"database/sql".dbÂ·1 *@"database/sql".DB) SetMaxOpenConns (@"database/sql".nÂ·2 int)
+	func (@"database/sql".dbÂ·1 *@"database/sql".DB) @"database/sql".addDep (@"database/sql".xÂ·2 @"database/sql".finalCloser, @"database/sql".depÂ·3 interface {})
+	func (@"database/sql".dbÂ·1 *@"database/sql".DB "esc:0x0") @"database/sql".addDepLocked (@"database/sql".xÂ·2 @"database/sql".finalCloser, @"database/sql".depÂ·3 interface {})
+	func (@"database/sql".dbÂ·3 *@"database/sql".DB) @"database/sql".begin () (@"database/sql".txÂ·1 *@"database/sql".Tx, @"database/sql".errÂ·2 error)
+	func (@"database/sql".dbÂ·3 *@"database/sql".DB) @"database/sql".conn () (? *@"database/sql".driverConn, ? error)
+	func (@"database/sql".dbÂ·3 *@"database/sql".DB) @"database/sql".connIfFree (@"database/sql".wantedÂ·4 *@"database/sql".driverConn "esc:0x2") (? *@"database/sql".driverConn, ? error)
+	func (@"database/sql".dbÂ·1 *@"database/sql".DB) @"database/sql".connectionOpener ()
+	func (@"database/sql".dbÂ·3 *@"database/sql".DB) @"database/sql".exec (@"database/sql".queryÂ·4 string, @"database/sql".argsÂ·5 []interface {} "esc:0x0") (@"database/sql".resÂ·1 @"database/sql".Result, @"database/sql".errÂ·2 error)
+	func (@"database/sql".dbÂ·2 *@"database/sql".DB "esc:0x0") @"database/sql".maxIdleConnsLocked () (? int)
+	func (@"database/sql".dbÂ·1 *@"database/sql".DB "esc:0x0") @"database/sql".maybeOpenNewConnections ()
+	func (@"database/sql".dbÂ·1 *@"database/sql".DB) @"database/sql".noteUnusedDriverStatement (@"database/sql".cÂ·2 *@"database/sql".driverConn, @"database/sql".siÂ·3 @"database/sql/driver".Stmt)
+	func (@"database/sql".dbÂ·1 *@"database/sql".DB) @"database/sql".openNewConnection ()
+	func (@"database/sql".dbÂ·3 *@"database/sql".DB) @"database/sql".prepare (@"database/sql".queryÂ·4 string) (? *@"database/sql".Stmt, ? error)
+	func (@"database/sql".dbÂ·1 *@"database/sql".DB) @"database/sql".putConn (@"database/sql".dcÂ·2 *@"database/sql".driverConn, @"database/sql".errÂ·3 error "esc:0x0")
+	func (@"database/sql".dbÂ·2 *@"database/sql".DB) @"database/sql".putConnDBLocked (@"database/sql".dcÂ·3 *@"database/sql".driverConn, @"database/sql".errÂ·4 error) (? bool)
+	func (@"database/sql".dbÂ·3 *@"database/sql".DB) @"database/sql".query (@"database/sql".queryÂ·4 string, @"database/sql".argsÂ·5 []interface {} "esc:0x0") (? *@"database/sql".Rows, ? error)
+	func (@"database/sql".dbÂ·3 *@"database/sql".DB "esc:0x0") @"database/sql".queryConn (@"database/sql".dcÂ·4 *@"database/sql".driverConn, @"database/sql".releaseConnÂ·5 func(? error), @"database/sql".queryÂ·6 string, @"database/sql".argsÂ·7 []interface {} "esc:0x0") (? *@"database/sql".Rows, ? error)
+	func (@"database/sql".dbÂ·2 *@"database/sql".DB) @"database/sql".removeDep (@"database/sql".xÂ·3 @"database/sql".finalCloser, @"database/sql".depÂ·4 interface {}) (? error)
+	func (@"database/sql".dbÂ·2 *@"database/sql".DB "esc:0x0") @"database/sql".removeDepLocked (@"database/sql".xÂ·3 @"database/sql".finalCloser, @"database/sql".depÂ·4 interface {}) (? func() (? error))
+	type @"sync".Locker interface { Lock(); Unlock() }
+	type @"sync".RWMutex struct { @"sync".w @"sync".Mutex; @"sync".writerSem uint32; @"sync".readerSem uint32; @"sync".readerCount int32; @"sync".readerWait int32 }
+	func (@"sync".rwÂ·1 *@"sync".RWMutex) Lock ()
+	func (@"sync".rwÂ·1 *@"sync".RWMutex) RLock ()
+	func (@"sync".rwÂ·2 *@"sync".RWMutex "esc:0x2") RLocker () (? @"sync".Locker) { return (*@"sync".rlocker)(@"sync".rwÂ·2) }
+	func (@"sync".rwÂ·1 *@"sync".RWMutex) RUnlock ()
+	func (@"sync".rwÂ·1 *@"sync".RWMutex) Unlock ()
+	type @"database/sql".driverStmt struct { ? @"sync".Locker; @"database/sql".si @"database/sql/driver".Stmt }
+	func (@"database/sql".dsÂ·2 *@"database/sql".driverStmt) Close () (? error)
+	type @"database/sql".connStmt struct { @"database/sql".dc *@"database/sql".driverConn; @"database/sql".si @"database/sql/driver".Stmt }
+	type @"database/sql".Stmt struct { @"database/sql".db *@"database/sql".DB; @"database/sql".query string; @"database/sql".stickyErr error; @"database/sql".closemu @"sync".RWMutex; @"database/sql".tx *@"database/sql".Tx; @"database/sql".txsi *@"database/sql".driverStmt; @"database/sql".mu @"sync".Mutex; @"database/sql".closed bool; @"database/sql".css []@"database/sql".connStmt }
+	func (@"database/sql".sÂ·2 *@"database/sql".Stmt) Close () (? error)
+	func (@"database/sql".sÂ·3 *@"database/sql".Stmt) Exec (@"database/sql".argsÂ·4 ...interface {} "esc:0x0") (? @"database/sql".Result, ? error)
+	func (@"database/sql".sÂ·3 *@"database/sql".Stmt) Query (@"database/sql".argsÂ·4 ...interface {} "esc:0x0") (? *@"database/sql".Rows, ? error)
+	func (@"database/sql".sÂ·2 *@"database/sql".Stmt) QueryRow (@"database/sql".argsÂ·3 ...interface {} "esc:0x0") (? *@"database/sql".Row)
+	func (@"database/sql".sÂ·5 *@"database/sql".Stmt) @"database/sql".connStmt () (@"database/sql".ciÂ·1 *@"database/sql".driverConn, @"database/sql".releaseConnÂ·2 func(? error), @"database/sql".siÂ·3 @"database/sql/driver".Stmt, @"database/sql".errÂ·4 error)
+	func (@"database/sql".sÂ·2 *@"database/sql".Stmt) @"database/sql".finalClose () (? error)
+	type @"github.com/jinzhu/gorm".sqlCommon interface { Exec(@"github.com/jinzhu/gorm".query string, @"github.com/jinzhu/gorm".args ...interface {}) (? @"database/sql".Result, ? error); Prepare(@"github.com/jinzhu/gorm".query string) (? *@"database/sql".Stmt, ? error); Query(@"github.com/jinzhu/gorm".query string, @"github.com/jinzhu/gorm".args ...interface {}) (? *@"database/sql".Rows, ? error); QueryRow(@"github.com/jinzhu/gorm".query string, @"github.com/jinzhu/gorm".args ...interface {}) (? *@"database/sql".Row) }
+	type @"github.com/jinzhu/gorm".Dialect interface { BinVar(@"github.com/jinzhu/gorm".i int) (? string); HasColumn(@"github.com/jinzhu/gorm".scope *@"github.com/jinzhu/gorm".Scope, @"github.com/jinzhu/gorm".tableName string, @"github.com/jinzhu/gorm".columnName string) (? bool); HasTable(@"github.com/jinzhu/gorm".scope *@"github.com/jinzhu/gorm".Scope, @"github.com/jinzhu/gorm".tableName string) (? bool); HasTop() (? bool); PrimaryKeyTag(@"github.com/jinzhu/gorm".value @"reflect".Value, @"github.com/jinzhu/gorm".size int) (? string); Quote(@"github.com/jinzhu/gorm".key string) (? string); RemoveIndex(@"github.com/jinzhu/gorm".scope *@"github.com/jinzhu/gorm".Scope, @"github.com/jinzhu/gorm".indexName string); ReturningStr(@"github.com/jinzhu/gorm".tableName string, @"github.com/jinzhu/gorm".key string) (? string); SelectFromDummyTable() (? string); SqlTag(@"github.com/jinzhu/gorm".value @"reflect".Value, @"github.com/jinzhu/gorm".size int) (? string); SupportLastInsertId() (? bool) }
+	import time "time" // indirect
+	type @"time".zone struct { @"time".name string; @"time".offset int; @"time".isDST bool }
+	type @"time".zoneTrans struct { @"time".when int64; @"time".index uint8; @"time".isstd bool; @"time".isutc bool }
+	type @"time".Location struct { @"time".name string; @"time".zone []@"time".zone; @"time".tx []@"time".zoneTrans; @"time".cacheStart int64; @"time".cacheEnd int64; @"time".cacheZone *@"time".zone }
+	func (@"time".lÂ·2 *@"time".Location "esc:0x0") String () (? string)
+	func (@"time".lÂ·2 *@"time".Location "esc:0x0") @"time".firstZoneUsed () (? bool)
+	func (@"time".lÂ·2 *@"time".Location "esc:0x2") @"time".get () (? *@"time".Location)
+	func (@"time".lÂ·6 *@"time".Location "esc:0x1") @"time".lookup (@"time".secÂ·7 int64) (@"time".nameÂ·1 string, @"time".offsetÂ·2 int, @"time".isDSTÂ·3 bool, @"time".startÂ·4 int64, @"time".endÂ·5 int64)
+	func (@"time".lÂ·2 *@"time".Location "esc:0x0") @"time".lookupFirstZone () (? int)
+	func (@"time".lÂ·4 *@"time".Location "esc:0x0") @"time".lookupName (@"time".nameÂ·5 string "esc:0x0", @"time".unixÂ·6 int64) (@"time".offsetÂ·1 int, @"time".isDSTÂ·2 bool, @"time".okÂ·3 bool)
+	type @"time".Duration int64
+	func (@"time".dÂ·2 @"time".Duration) Hours () (? float64) { var @"time".hourÂ·3 @"time".Duration; ; @"time".hourÂ·3 = @"time".dÂ·2 / @"time".Duration(0x34630B8A000); var @"time".nsecÂ·4 @"time".Duration; ; @"time".nsecÂ·4 = @"time".dÂ·2 % @"time".Duration(0x34630B8A000); return float64(@"time".hourÂ·3) + float64(@"time".nsecÂ·4) * 0x9C5FFF26ED75Fp-93 }
+	func (@"time".dÂ·2 @"time".Duration) Minutes () (? float64) { var @"time".minÂ·3 @"time".Duration; ; @"time".minÂ·3 = @"time".dÂ·2 / @"time".Duration(0xDF8475800); var @"time".nsecÂ·4 @"time".Duration; ; @"time".nsecÂ·4 = @"time".dÂ·2 % @"time".Duration(0xDF8475800); return float64(@"time".minÂ·3) + float64(@"time".nsecÂ·4) * 0x9299FF347E9E9p-87 }
+	func (@"time".dÂ·2 @"time".Duration) Nanoseconds () (? int64) { return int64(@"time".dÂ·2) }
+	func (@"time".dÂ·2 @"time".Duration) Seconds () (? float64) { var @"time".secÂ·3 @"time".Duration; ; @"time".secÂ·3 = @"time".dÂ·2 / @"time".Duration(0x3B9ACA00); var @"time".nsecÂ·4 @"time".Duration; ; @"time".nsecÂ·4 = @"time".dÂ·2 % @"time".Duration(0x3B9ACA00); return float64(@"time".secÂ·3) + float64(@"time".nsecÂ·4) * 0x112E0BE826D695p-82 }
+	func (@"time".dÂ·2 @"time".Duration) String () (? string)
+	type @"time".Month int
+	func (@"time".mÂ·2 @"time".Month) String () (? string) { return @"time".months[@"time".mÂ·2 - @"time".Month(0x1)] }
+	type @"time".Weekday int
+	func (@"time".dÂ·2 @"time".Weekday) String () (? string) { return @"time".days[@"time".dÂ·2] }
+	type @"time".Time struct { @"time".sec int64; @"time".nsec int32; @"time".loc *@"time".Location }
+	func (@"time".tÂ·2 @"time".Time "esc:0x2") Add (@"time".dÂ·3 @"time".Duration) (? @"time".Time)
+	func (@"time".tÂ·2 @"time".Time "esc:0x2") AddDate (@"time".yearsÂ·3 int, @"time".monthsÂ·4 int, @"time".daysÂ·5 int) (? @"time".Time)
+	func (@"time".tÂ·2 @"time".Time "esc:0x0") After (@"time".uÂ·3 @"time".Time "esc:0x0") (? bool) { return @"time".tÂ·2.@"time".sec > @"time".uÂ·3.@"time".sec || @"time".tÂ·2.@"time".sec == @"time".uÂ·3.@"time".sec && @"time".tÂ·2.@"time".nsec > @"time".uÂ·3.@"time".nsec }
+	func (@"time".tÂ·2 @"time".Time "esc:0x0") Before (@"time".uÂ·3 @"time".Time "esc:0x0") (? bool) { return @"time".tÂ·2.@"time".sec < @"time".uÂ·3.@"time".sec || @"time".tÂ·2.@"time".sec == @"time".uÂ·3.@"time".sec && @"time".tÂ·2.@"time".nsec < @"time".uÂ·3.@"time".nsec }
+	func (@"time".tÂ·4 @"time".Time "esc:0x0") Clock () (@"time".hourÂ·1 int, @"time".minÂ·2 int, @"time".secÂ·3 int)
+	func (@"time".tÂ·4 @"time".Time "esc:0x0") Date () (@"time".yearÂ·1 int, @"time".monthÂ·2 @"time".Month, @"time".dayÂ·3 int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x0") Day () (? int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x0") Equal (@"time".uÂ·3 @"time".Time "esc:0x0") (? bool) { return @"time".tÂ·2.@"time".sec == @"time".uÂ·3.@"time".sec && @"time".tÂ·2.@"time".nsec == @"time".uÂ·3.@"time".nsec }
+	func (@"time".tÂ·2 @"time".Time "esc:0x0") Format (@"time".layoutÂ·3 string "esc:0x0") (? string)
+	func (@"time".tÂ·2 *@"time".Time "esc:0x0") GobDecode (@"time".dataÂ·3 []byte "esc:0x0") (? error)
+	func (@"time".tÂ·3 @"time".Time "esc:0x0") GobEncode () (? []byte, ? error)
+	func (@"time".tÂ·2 @"time".Time "esc:0x0") Hour () (? int)
+	func (@"time".tÂ·3 @"time".Time "esc:0x0") ISOWeek () (@"time".yearÂ·1 int, @"time".weekÂ·2 int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x2") In (@"time".locÂ·3 *@"time".Location "esc:0x2") (? @"time".Time)
+	func (@"time".tÂ·2 @"time".Time "esc:0x0") IsZero () (? bool) { return @"time".tÂ·2.@"time".sec == 0x0 && @"time".tÂ·2.@"time".nsec == 0x0 }
+	func (@"time".tÂ·2 @"time".Time "esc:0x2") Local () (? @"time".Time) { @"time".tÂ·2.@"time".loc = @"time".Local; return @"time".tÂ·2 }
+	func (@"time".tÂ·2 @"time".Time "esc:0x2") Location () (? *@"time".Location) { var @"time".lÂ·3 *@"time".Location; ; @"time".lÂ·3 = @"time".tÂ·2.@"time".loc; if @"time".lÂ·3 == nil { @"time".lÂ·3 = @"time".UTC }; return @"time".lÂ·3 }
+	func (@"time".tÂ·3 @"time".Time "esc:0x0") MarshalBinary () (? []byte, ? error)
+	func (@"time".tÂ·3 @"time".Time "esc:0x0") MarshalJSON () (? []byte, ? error)
+	func (@"time".tÂ·3 @"time".Time "esc:0x0") MarshalText () (? []byte, ? error)
+	func (@"time".tÂ·2 @"time".Time "esc:0x0") Minute () (? int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x0") Month () (? @"time".Month)
+	func (@"time".tÂ·2 @"time".Time "esc:0x0") Nanosecond () (? int) { return int(@"time".tÂ·2.@"time".nsec) }
+	func (@"time".tÂ·2 @"time".Time "esc:0x2") Round (@"time".dÂ·3 @"time".Duration) (? @"time".Time)
+	func (@"time".tÂ·2 @"time".Time "esc:0x0") Second () (? int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x0") String () (? string)
+	func (@"time".tÂ·2 @"time".Time "esc:0x0") Sub (@"time".uÂ·3 @"time".Time "esc:0x0") (? @"time".Duration)
+	func (@"time".tÂ·2 @"time".Time "esc:0x2") Truncate (@"time".dÂ·3 @"time".Duration) (? @"time".Time)
+	func (@"time".tÂ·2 @"time".Time "esc:0x2") UTC () (? @"time".Time) { @"time".tÂ·2.@"time".loc = @"time".UTC; return @"time".tÂ·2 }
+	func (@"time".tÂ·2 @"time".Time "esc:0x0") Unix () (? int64) { return @"time".tÂ·2.@"time".sec + -0xE7791F700 }
+	func (@"time".tÂ·2 @"time".Time "esc:0x0") UnixNano () (? int64) { return (@"time".tÂ·2.@"time".sec + -0xE7791F700) * 0x3B9ACA00 + int64(@"time".tÂ·2.@"time".nsec) }
+	func (@"time".tÂ·2 *@"time".Time "esc:0x0") UnmarshalBinary (@"time".dataÂ·3 []byte "esc:0x0") (? error)
+	func (@"time".tÂ·2 *@"time".Time "esc:0x0") UnmarshalJSON (@"time".dataÂ·3 []byte "esc:0x0") (@"time".errÂ·1 error)
+	func (@"time".tÂ·2 *@"time".Time "esc:0x0") UnmarshalText (@"time".dataÂ·3 []byte "esc:0x0") (@"time".errÂ·1 error)
+	func (@"time".tÂ·2 @"time".Time "esc:0x0") Weekday () (? @"time".Weekday)
+	func (@"time".tÂ·2 @"time".Time "esc:0x0") Year () (? int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x0") YearDay () (? int)
+	func (@"time".tÂ·3 @"time".Time "esc:0x0") Zone () (@"time".nameÂ·1 string, @"time".offsetÂ·2 int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x0") @"time".abs () (? uint64)
+	func (@"time".tÂ·5 @"time".Time "esc:0x0") @"time".date (@"time".fullÂ·6 bool) (@"time".yearÂ·1 int, @"time".monthÂ·2 @"time".Month, @"time".dayÂ·3 int, @"time".ydayÂ·4 int)
+	func (@"time".tÂ·4 @"time".Time "esc:0x1") @"time".locabs () (@"time".nameÂ·1 string, @"time".offsetÂ·2 int, @"time".absÂ·3 uint64)
+	type @"github.com/jinzhu/gorm".Scope struct { Value interface {}; @"github.com/jinzhu/gorm".indirectValue *@"reflect".Value; Search *@"github.com/jinzhu/gorm".search; Sql string; SqlVars []interface {}; @"github.com/jinzhu/gorm".db *@"github.com/jinzhu/gorm".DB; @"github.com/jinzhu/gorm".skipLeft bool; @"github.com/jinzhu/gorm".primaryKeyField *@"github.com/jinzhu/gorm".Field; @"github.com/jinzhu/gorm".instanceId string; @"github.com/jinzhu/gorm".fields map[string]*@"github.com/jinzhu/gorm".Field }
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) AddToVars (@"github.com/jinzhu/gorm".valueÂ·3 interface {}) (? string)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) Begin () (? *@"github.com/jinzhu/gorm".Scope)
+	func (@"github.com/jinzhu/gorm".scopeÂ·1 *@"github.com/jinzhu/gorm".Scope) CallMethod (@"github.com/jinzhu/gorm".nameÂ·2 string)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) CombinedConditionSql () (? string)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) CommitOrRollback () (? *@"github.com/jinzhu/gorm".Scope)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope "esc:0x1") DB () (? @"github.com/jinzhu/gorm".sqlCommon) { return @"github.com/jinzhu/gorm".scopeÂ·2.@"github.com/jinzhu/gorm".db.@"github.com/jinzhu/gorm".db }
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope "esc:0x1") Dialect () (? @"github.com/jinzhu/gorm".Dialect) { return @"github.com/jinzhu/gorm".scopeÂ·2.@"github.com/jinzhu/gorm".db.@"github.com/jinzhu/gorm".parent.@"github.com/jinzhu/gorm".dialect }
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) Err (@"github.com/jinzhu/gorm".errÂ·3 error) (? error)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) Exec () (? *@"github.com/jinzhu/gorm".Scope)
+	func (@"github.com/jinzhu/gorm".scopeÂ·3 *@"github.com/jinzhu/gorm".Scope) FieldByName (@"github.com/jinzhu/gorm".nameÂ·4 string "esc:0x0") (@"github.com/jinzhu/gorm".fieldÂ·1 *@"github.com/jinzhu/gorm".Field, @"github.com/jinzhu/gorm".okÂ·2 bool)
+	func (@"github.com/jinzhu/gorm".scopeÂ·3 *@"github.com/jinzhu/gorm".Scope) FieldValueByName (@"github.com/jinzhu/gorm".nameÂ·4 string) (? interface {}, ? error)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) Fields (@"github.com/jinzhu/gorm".noRelationsÂ·3 ...bool "esc:0x0") (? map[string]*@"github.com/jinzhu/gorm".Field)
+	func (@"github.com/jinzhu/gorm".scopeÂ·3 *@"github.com/jinzhu/gorm".Scope "esc:0x0") Get (@"github.com/jinzhu/gorm".nameÂ·4 string "esc:0x0") (? interface {}, ? bool)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) HasColumn (@"github.com/jinzhu/gorm".columnÂ·3 string) (@"github.com/jinzhu/gorm".hasColumnÂ·1 bool)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope "esc:0x0") HasError () (? bool) { return @"github.com/jinzhu/gorm".scopeÂ·2.@"github.com/jinzhu/gorm".db.Error != nil }
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) IndirectValue () (? @"reflect".Value)
+	func (@"github.com/jinzhu/gorm".scopeÂ·3 *@"github.com/jinzhu/gorm".Scope) InstanceGet (@"github.com/jinzhu/gorm".nameÂ·4 string "esc:0x0") (? interface {}, ? bool)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) InstanceId () (? string)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) InstanceSet (@"github.com/jinzhu/gorm".nameÂ·3 string "esc:0x0", @"github.com/jinzhu/gorm".valueÂ·4 interface {}) (? *@"github.com/jinzhu/gorm".Scope)
+	func (@"github.com/jinzhu/gorm".scopeÂ·1 *@"github.com/jinzhu/gorm".Scope) Log (@"github.com/jinzhu/gorm".vÂ·2 ...interface {} "esc:0x0")
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) NeedPtr () (? *@"github.com/jinzhu/gorm".Scope)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) New (@"github.com/jinzhu/gorm".valueÂ·3 interface {}) (? *@"github.com/jinzhu/gorm".Scope) { return (&@"github.com/jinzhu/gorm".Scope{ @"github.com/jinzhu/gorm".db:@"github.com/jinzhu/gorm".scopeÂ·2.@"github.com/jinzhu/gorm".db, Search:(&@"github.com/jinzhu/gorm".search{  }), Value:@"github.com/jinzhu/gorm".valueÂ·3 }) }
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) NewDB () (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) PrimaryKey () (? string)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) PrimaryKeyField () (? *@"github.com/jinzhu/gorm".Field)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) PrimaryKeyValue () (? interface {})
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) PrimaryKeyZero () (? bool)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) Quote (@"github.com/jinzhu/gorm".strÂ·3 string) (? string)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) QuotedTableName () (? string)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope "esc:0x2") Raw (@"github.com/jinzhu/gorm".sqlÂ·3 string) (? *@"github.com/jinzhu/gorm".Scope)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope "esc:0x2") Set (@"github.com/jinzhu/gorm".nameÂ·3 string, @"github.com/jinzhu/gorm".valueÂ·4 interface {}) (? *@"github.com/jinzhu/gorm".Scope)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) SetColumn (@"github.com/jinzhu/gorm".columnÂ·3 interface {}, @"github.com/jinzhu/gorm".valueÂ·4 interface {}) (? error)
+	func (@"github.com/jinzhu/gorm".scopeÂ·1 *@"github.com/jinzhu/gorm".Scope "esc:0x0") SkipLeft () { @"github.com/jinzhu/gorm".scopeÂ·1.@"github.com/jinzhu/gorm".skipLeft = true }
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) TableName () (? string)
+	func (@"github.com/jinzhu/gorm".scopeÂ·1 *@"github.com/jinzhu/gorm".Scope) Trace (@"github.com/jinzhu/gorm".tÂ·2 @"time".Time "esc:0x0")
+	func (@"github.com/jinzhu/gorm".scopeÂ·1 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".addIndex (@"github.com/jinzhu/gorm".uniqueÂ·2 bool, @"github.com/jinzhu/gorm".indexNameÂ·3 string, @"github.com/jinzhu/gorm".columnÂ·4 ...string "esc:0x0")
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".autoMigrate () (? *@"github.com/jinzhu/gorm".Scope)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".buildNotCondition (@"github.com/jinzhu/gorm".clauseÂ·3 map[string]interface {} "esc:0x0") (@"github.com/jinzhu/gorm".strÂ·1 string)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".buildSelectQuery (@"github.com/jinzhu/gorm".clauseÂ·3 map[string]interface {} "esc:0x0") (@"github.com/jinzhu/gorm".strÂ·1 string)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".buildWhereCondition (@"github.com/jinzhu/gorm".clauseÂ·3 map[string]interface {} "esc:0x0") (@"github.com/jinzhu/gorm".strÂ·1 string)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".callCallbacks (@"github.com/jinzhu/gorm".funcsÂ·3 []*func(@"github.com/jinzhu/gorm".s *@"github.com/jinzhu/gorm".Scope) "esc:0x0") (? *@"github.com/jinzhu/gorm".Scope)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".count (@"github.com/jinzhu/gorm".valueÂ·3 interface {}) (? *@"github.com/jinzhu/gorm".Scope)
+	func (@"github.com/jinzhu/gorm".scopeÂ·1 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".createJoinTable (@"github.com/jinzhu/gorm".fieldÂ·2 *@"github.com/jinzhu/gorm".Field)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".createTable () (? *@"github.com/jinzhu/gorm".Scope)
+	func (@"github.com/jinzhu/gorm".scopeÂ·1 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".dropColumn (@"github.com/jinzhu/gorm".columnÂ·2 string)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".dropTable () (? *@"github.com/jinzhu/gorm".Scope)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".dropTableIfExists () (? *@"github.com/jinzhu/gorm".Scope)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".fieldFromStruct (@"github.com/jinzhu/gorm".fieldStructÂ·3 @"reflect".StructField, @"github.com/jinzhu/gorm".withRelationÂ·4 bool) (? []*@"github.com/jinzhu/gorm".Field)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".Scope "esc:0x0") @"github.com/jinzhu/gorm".groupSql () (? string) { if len(@"github.com/jinzhu/gorm".sÂ·2.Search.Group) == 0x0 { return "" } else { return " GROUP BY " + @"github.com/jinzhu/gorm".sÂ·2.Search.Group } }
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".havingSql () (? string)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".initialize () (? *@"github.com/jinzhu/gorm".Scope)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".inlineCondition (@"github.com/jinzhu/gorm".valuesÂ·3 ...interface {}) (? *@"github.com/jinzhu/gorm".Scope)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".Scope "esc:0x0") @"github.com/jinzhu/gorm".joinsSql () (? string) { return @"github.com/jinzhu/gorm".sÂ·2.Search.Joins + " " }
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".limitSql () (? string)
+	func (@"github.com/jinzhu/gorm".scopeÂ·1 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".modifyColumn (@"github.com/jinzhu/gorm".columnÂ·2 string, @"github.com/jinzhu/gorm".typÂ·3 string)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".offsetSql () (? string)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".Scope "esc:0x0") @"github.com/jinzhu/gorm".orderSql () (? string)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".pluck (@"github.com/jinzhu/gorm".columnÂ·3 string, @"github.com/jinzhu/gorm".valueÂ·4 interface {}) (? *@"github.com/jinzhu/gorm".Scope)
+	func (@"github.com/jinzhu/gorm".scopeÂ·1 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".prepareQuerySql ()
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".primaryCondiation (@"github.com/jinzhu/gorm".valueÂ·3 interface {}) (? string)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".related (@"github.com/jinzhu/gorm".valueÂ·3 interface {}, @"github.com/jinzhu/gorm".foreignKeysÂ·4 ...string) (? *@"github.com/jinzhu/gorm".Scope)
+	func (@"github.com/jinzhu/gorm".scopeÂ·1 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".removeIndex (@"github.com/jinzhu/gorm".indexNameÂ·2 string)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".row () (? *@"database/sql".Row)
+	func (@"github.com/jinzhu/gorm".scopeÂ·3 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".rows () (? *@"database/sql".Rows, ? error)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".selectSql () (? string)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".sqlTagForField (@"github.com/jinzhu/gorm".fieldÂ·3 *@"github.com/jinzhu/gorm".Field) (@"github.com/jinzhu/gorm".typÂ·1 string)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".topSql () (? string)
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".typeName () (? string)
+	func (@"github.com/jinzhu/gorm".scopeÂ·3 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".updatedAttrsWithValues (@"github.com/jinzhu/gorm".valuesÂ·4 map[string]interface {} "esc:0x2", @"github.com/jinzhu/gorm".ignoreProtectedAttrsÂ·5 bool) (@"github.com/jinzhu/gorm".resultsÂ·1 map[string]interface {}, @"github.com/jinzhu/gorm".hasUpdateÂ·2 bool)
+	func (@"github.com/jinzhu/gorm".scopeÂ·1 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".where (@"github.com/jinzhu/gorm".whereÂ·2 ...interface {})
+	func (@"github.com/jinzhu/gorm".scopeÂ·2 *@"github.com/jinzhu/gorm".Scope) @"github.com/jinzhu/gorm".whereSql () (@"github.com/jinzhu/gorm".sqlÂ·1 string)
+	type @"github.com/jinzhu/gorm".callback_processor struct { @"github.com/jinzhu/gorm".name string; @"github.com/jinzhu/gorm".before string; @"github.com/jinzhu/gorm".after string; @"github.com/jinzhu/gorm".replace bool; @"github.com/jinzhu/gorm".remove bool; @"github.com/jinzhu/gorm".typ string; @"github.com/jinzhu/gorm".processor *func(@"github.com/jinzhu/gorm".scope *@"github.com/jinzhu/gorm".Scope); @"github.com/jinzhu/gorm".callback *@"github.com/jinzhu/gorm".callback }
+	func (@"github.com/jinzhu/gorm".cpÂ·2 *@"github.com/jinzhu/gorm".callback_processor "esc:0x2") After (@"github.com/jinzhu/gorm".nameÂ·3 string) (? *@"github.com/jinzhu/gorm".callback_processor) { @"github.com/jinzhu/gorm".cpÂ·2.@"github.com/jinzhu/gorm".after = @"github.com/jinzhu/gorm".nameÂ·3; return @"github.com/jinzhu/gorm".cpÂ·2 }
+	func (@"github.com/jinzhu/gorm".cpÂ·2 *@"github.com/jinzhu/gorm".callback_processor "esc:0x2") Before (@"github.com/jinzhu/gorm".nameÂ·3 string) (? *@"github.com/jinzhu/gorm".callback_processor) { @"github.com/jinzhu/gorm".cpÂ·2.@"github.com/jinzhu/gorm".before = @"github.com/jinzhu/gorm".nameÂ·3; return @"github.com/jinzhu/gorm".cpÂ·2 }
+	func (@"github.com/jinzhu/gorm".cpÂ·1 *@"github.com/jinzhu/gorm".callback_processor "esc:0x0") Register (@"github.com/jinzhu/gorm".nameÂ·2 string, @"github.com/jinzhu/gorm".fcÂ·3 func(@"github.com/jinzhu/gorm".scope *@"github.com/jinzhu/gorm".Scope))
+	func (@"github.com/jinzhu/gorm".cpÂ·1 *@"github.com/jinzhu/gorm".callback_processor "esc:0x0") Remove (@"github.com/jinzhu/gorm".nameÂ·2 string)
+	func (@"github.com/jinzhu/gorm".cpÂ·1 *@"github.com/jinzhu/gorm".callback_processor "esc:0x0") Replace (@"github.com/jinzhu/gorm".nameÂ·2 string, @"github.com/jinzhu/gorm".fcÂ·3 func(@"github.com/jinzhu/gorm".scope *@"github.com/jinzhu/gorm".Scope))
+	type @"github.com/jinzhu/gorm".callback struct { @"github.com/jinzhu/gorm".creates []*func(@"github.com/jinzhu/gorm".scope *@"github.com/jinzhu/gorm".Scope); @"github.com/jinzhu/gorm".updates []*func(@"github.com/jinzhu/gorm".scope *@"github.com/jinzhu/gorm".Scope); @"github.com/jinzhu/gorm".deletes []*func(@"github.com/jinzhu/gorm".scope *@"github.com/jinzhu/gorm".Scope); @"github.com/jinzhu/gorm".queries []*func(@"github.com/jinzhu/gorm".scope *@"github.com/jinzhu/gorm".Scope); @"github.com/jinzhu/gorm".processors []*@"github.com/jinzhu/gorm".callback_processor }
+	func (@"github.com/jinzhu/gorm".cÂ·2 *@"github.com/jinzhu/gorm".callback) Create () (? *@"github.com/jinzhu/gorm".callback_processor)
+	func (@"github.com/jinzhu/gorm".cÂ·2 *@"github.com/jinzhu/gorm".callback) Delete () (? *@"github.com/jinzhu/gorm".callback_processor)
+	func (@"github.com/jinzhu/gorm".cÂ·2 *@"github.com/jinzhu/gorm".callback) Query () (? *@"github.com/jinzhu/gorm".callback_processor)
+	func (@"github.com/jinzhu/gorm".cÂ·2 *@"github.com/jinzhu/gorm".callback) Update () (? *@"github.com/jinzhu/gorm".callback_processor)
+	func (@"github.com/jinzhu/gorm".cÂ·2 *@"github.com/jinzhu/gorm".callback) @"github.com/jinzhu/gorm".addProcessor (@"github.com/jinzhu/gorm".typÂ·3 string) (? *@"github.com/jinzhu/gorm".callback_processor) { var @"github.com/jinzhu/gorm".cpÂ·4 *@"github.com/jinzhu/gorm".callback_processor; ; @"github.com/jinzhu/gorm".cpÂ·4 = (&@"github.com/jinzhu/gorm".callback_processor{ @"github.com/jinzhu/gorm".typ:@"github.com/jinzhu/gorm".typÂ·3, @"github.com/jinzhu/gorm".callback:@"github.com/jinzhu/gorm".cÂ·2 }); @"github.com/jinzhu/gorm".cÂ·2.@"github.com/jinzhu/gorm".processors = append(@"github.com/jinzhu/gorm".cÂ·2.@"github.com/jinzhu/gorm".processors, @"github.com/jinzhu/gorm".cpÂ·4); return @"github.com/jinzhu/gorm".cpÂ·4 }
+	func (@"github.com/jinzhu/gorm".cÂ·2 *@"github.com/jinzhu/gorm".callback) @"github.com/jinzhu/gorm".clone () (? *@"github.com/jinzhu/gorm".callback) { return (&@"github.com/jinzhu/gorm".callback{ @"github.com/jinzhu/gorm".processors:@"github.com/jinzhu/gorm".cÂ·2.@"github.com/jinzhu/gorm".processors }) }
+	func (@"github.com/jinzhu/gorm".cÂ·1 *@"github.com/jinzhu/gorm".callback "esc:0x0") @"github.com/jinzhu/gorm".sort ()
+	type @"github.com/jinzhu/gorm".logger interface { Print(@"github.com/jinzhu/gorm".v ...interface {}) }
+	type @"github.com/jinzhu/gorm".Association struct { Scope *@"github.com/jinzhu/gorm".Scope; PrimaryKey interface {}; PrimaryType interface {}; Column string; Error error; Field *@"github.com/jinzhu/gorm".Field }
+	func (@"github.com/jinzhu/gorm".associationÂ·2 *@"github.com/jinzhu/gorm".Association) Append (@"github.com/jinzhu/gorm".valuesÂ·3 ...interface {} "esc:0x0") (? *@"github.com/jinzhu/gorm".Association)
+	func (@"github.com/jinzhu/gorm".associationÂ·2 *@"github.com/jinzhu/gorm".Association) Clear () (? *@"github.com/jinzhu/gorm".Association)
+	func (@"github.com/jinzhu/gorm".associationÂ·2 *@"github.com/jinzhu/gorm".Association) Count () (? int)
+	func (@"github.com/jinzhu/gorm".associationÂ·2 *@"github.com/jinzhu/gorm".Association) Delete (@"github.com/jinzhu/gorm".valuesÂ·3 ...interface {} "esc:0x0") (? *@"github.com/jinzhu/gorm".Association)
+	func (@"github.com/jinzhu/gorm".associationÂ·2 *@"github.com/jinzhu/gorm".Association) Find (@"github.com/jinzhu/gorm".valueÂ·3 interface {}) (? *@"github.com/jinzhu/gorm".Association)
+	func (@"github.com/jinzhu/gorm".associationÂ·2 *@"github.com/jinzhu/gorm".Association) Replace (@"github.com/jinzhu/gorm".valuesÂ·3 ...interface {} "esc:0x0") (? *@"github.com/jinzhu/gorm".Association)
+	func (@"github.com/jinzhu/gorm".associationÂ·2 *@"github.com/jinzhu/gorm".Association "esc:0x2") @"github.com/jinzhu/gorm".err (@"github.com/jinzhu/gorm".errÂ·3 error) (? *@"github.com/jinzhu/gorm".Association) { if @"github.com/jinzhu/gorm".errÂ·3 != nil { @"github.com/jinzhu/gorm".associationÂ·2.Error = @"github.com/jinzhu/gorm".errÂ·3 }; return @"github.com/jinzhu/gorm".associationÂ·2 }
+	func (@"github.com/jinzhu/gorm".associationÂ·2 *@"github.com/jinzhu/gorm".Association) @"github.com/jinzhu/gorm".getPrimaryKeys (@"github.com/jinzhu/gorm".valuesÂ·3 ...interface {} "esc:0x0") (? []interface {})
+	type @"github.com/jinzhu/gorm".DB struct { Value interface {}; Error error; RowsAffected int64; @"github.com/jinzhu/gorm".callback *@"github.com/jinzhu/gorm".callback; @"github.com/jinzhu/gorm".db @"github.com/jinzhu/gorm".sqlCommon; @"github.com/jinzhu/gorm".parent *@"github.com/jinzhu/gorm".DB; @"github.com/jinzhu/gorm".search *@"github.com/jinzhu/gorm".search; @"github.com/jinzhu/gorm".logMode int; @"github.com/jinzhu/gorm".logger @"github.com/jinzhu/gorm".logger; @"github.com/jinzhu/gorm".dialect @"github.com/jinzhu/gorm".Dialect; @"github.com/jinzhu/gorm".tagIdentifier string; @"github.com/jinzhu/gorm".singularTable bool; @"github.com/jinzhu/gorm".source string; @"github.com/jinzhu/gorm".values map[string]interface {} }
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) AddIndex (@"github.com/jinzhu/gorm".indexNameÂ·3 string, @"github.com/jinzhu/gorm".columnÂ·4 ...string "esc:0x0") (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) AddUniqueIndex (@"github.com/jinzhu/gorm".indexNameÂ·3 string, @"github.com/jinzhu/gorm".columnÂ·4 ...string "esc:0x0") (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Assign (@"github.com/jinzhu/gorm".attrsÂ·3 ...interface {} "esc:0x0") (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Association (@"github.com/jinzhu/gorm".columnÂ·3 string) (? *@"github.com/jinzhu/gorm".Association)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Attrs (@"github.com/jinzhu/gorm".attrsÂ·3 ...interface {} "esc:0x0") (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) AutoMigrate (@"github.com/jinzhu/gorm".valuesÂ·3 ...interface {} "esc:0x0") (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Begin () (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Callback () (? *@"github.com/jinzhu/gorm".callback)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Close () (? error)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Commit () (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB "esc:0x1") CommonDB () (? @"github.com/jinzhu/gorm".sqlCommon) { return @"github.com/jinzhu/gorm".sÂ·2.@"github.com/jinzhu/gorm".db }
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Count (@"github.com/jinzhu/gorm".valueÂ·3 interface {}) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Create (@"github.com/jinzhu/gorm".valueÂ·3 interface {}) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) CreateTable (@"github.com/jinzhu/gorm".valueÂ·3 interface {}) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB "esc:0x1") DB () (? *@"database/sql".DB) { return @"github.com/jinzhu/gorm".sÂ·2.@"github.com/jinzhu/gorm".db.(*@"database/sql".DB) }
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Debug () (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Delete (@"github.com/jinzhu/gorm".valueÂ·3 interface {}, @"github.com/jinzhu/gorm".whereÂ·4 ...interface {}) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) DropColumn (@"github.com/jinzhu/gorm".columnÂ·3 string) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) DropTable (@"github.com/jinzhu/gorm".valueÂ·3 interface {}) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) DropTableIfExists (@"github.com/jinzhu/gorm".valueÂ·3 interface {}) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Exec (@"github.com/jinzhu/gorm".sqlÂ·3 string, @"github.com/jinzhu/gorm".valuesÂ·4 ...interface {}) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Find (@"github.com/jinzhu/gorm".outÂ·3 interface {}, @"github.com/jinzhu/gorm".whereÂ·4 ...interface {}) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) First (@"github.com/jinzhu/gorm".outÂ·3 interface {}, @"github.com/jinzhu/gorm".whereÂ·4 ...interface {}) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) FirstOrCreate (@"github.com/jinzhu/gorm".outÂ·3 interface {}, @"github.com/jinzhu/gorm".whereÂ·4 ...interface {}) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) FirstOrInit (@"github.com/jinzhu/gorm".outÂ·3 interface {}, @"github.com/jinzhu/gorm".whereÂ·4 ...interface {}) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·3 *@"github.com/jinzhu/gorm".DB "esc:0x0") Get (@"github.com/jinzhu/gorm".nameÂ·4 string "esc:0x0") (@"github.com/jinzhu/gorm".valueÂ·1 interface {}, @"github.com/jinzhu/gorm".okÂ·2 bool) { @"github.com/jinzhu/gorm".valueÂ·1, @"github.com/jinzhu/gorm".okÂ·2 = @"github.com/jinzhu/gorm".sÂ·3.@"github.com/jinzhu/gorm".values[@"github.com/jinzhu/gorm".nameÂ·4]; return  }
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Group (@"github.com/jinzhu/gorm".queryÂ·3 string) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) HasTable (@"github.com/jinzhu/gorm".valueÂ·3 interface {}) (? bool)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Having (@"github.com/jinzhu/gorm".queryÂ·3 string, @"github.com/jinzhu/gorm".valuesÂ·4 ...interface {}) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Includes (@"github.com/jinzhu/gorm".valueÂ·3 interface {} "esc:0x0") (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB "esc:0x2") InstantSet (@"github.com/jinzhu/gorm".nameÂ·3 string, @"github.com/jinzhu/gorm".valueÂ·4 interface {}) (? *@"github.com/jinzhu/gorm".DB) { @"github.com/jinzhu/gorm".sÂ·2.@"github.com/jinzhu/gorm".values[@"github.com/jinzhu/gorm".nameÂ·3] = @"github.com/jinzhu/gorm".valueÂ·4; return @"github.com/jinzhu/gorm".sÂ·2 }
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Joins (@"github.com/jinzhu/gorm".queryÂ·3 string) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Last (@"github.com/jinzhu/gorm".outÂ·3 interface {}, @"github.com/jinzhu/gorm".whereÂ·4 ...interface {}) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Limit (@"github.com/jinzhu/gorm".valueÂ·3 interface {}) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB "esc:0x2") LogMode (@"github.com/jinzhu/gorm".bÂ·3 bool) (? *@"github.com/jinzhu/gorm".DB) { if @"github.com/jinzhu/gorm".bÂ·3 { @"github.com/jinzhu/gorm".sÂ·2.@"github.com/jinzhu/gorm".logMode = 0x2 } else { @"github.com/jinzhu/gorm".sÂ·2.@"github.com/jinzhu/gorm".logMode = 0x1 }; return @"github.com/jinzhu/gorm".sÂ·2 }
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Model (@"github.com/jinzhu/gorm".valueÂ·3 interface {}) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) ModifyColumn (@"github.com/jinzhu/gorm".columnÂ·3 string, @"github.com/jinzhu/gorm".typÂ·4 string) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) New () (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) NewRecord (@"github.com/jinzhu/gorm".valueÂ·3 interface {}) (? bool)
+	func (@"github.com/jinzhu/gorm".dbÂ·2 *@"github.com/jinzhu/gorm".DB) NewScope (@"github.com/jinzhu/gorm".valueÂ·3 interface {}) (? *@"github.com/jinzhu/gorm".Scope) { @"github.com/jinzhu/gorm".dbÂ·2.Value = @"github.com/jinzhu/gorm".valueÂ·3; return (&@"github.com/jinzhu/gorm".Scope{ @"github.com/jinzhu/gorm".db:@"github.com/jinzhu/gorm".dbÂ·2, Search:@"github.com/jinzhu/gorm".dbÂ·2.@"github.com/jinzhu/gorm".search, Value:@"github.com/jinzhu/gorm".valueÂ·3 }) }
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Not (@"github.com/jinzhu/gorm".queryÂ·3 interface {}, @"github.com/jinzhu/gorm".argsÂ·4 ...interface {}) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Offset (@"github.com/jinzhu/gorm".valueÂ·3 interface {}) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Or (@"github.com/jinzhu/gorm".queryÂ·3 interface {}, @"github.com/jinzhu/gorm".argsÂ·4 ...interface {}) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Order (@"github.com/jinzhu/gorm".valueÂ·3 string, @"github.com/jinzhu/gorm".reorderÂ·4 ...bool "esc:0x0") (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Pluck (@"github.com/jinzhu/gorm".columnÂ·3 string, @"github.com/jinzhu/gorm".valueÂ·4 interface {}) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Raw (@"github.com/jinzhu/gorm".sqlÂ·3 string, @"github.com/jinzhu/gorm".valuesÂ·4 ...interface {}) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB "esc:0x0") RecordNotFound () (? bool) { return @"github.com/jinzhu/gorm".sÂ·2.Error == @"github.com/jinzhu/gorm".RecordNotFound }
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Related (@"github.com/jinzhu/gorm".valueÂ·3 interface {}, @"github.com/jinzhu/gorm".foreignKeysÂ·4 ...string) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) RemoveIndex (@"github.com/jinzhu/gorm".indexNameÂ·3 string) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Rollback () (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Row () (? *@"database/sql".Row)
+	func (@"github.com/jinzhu/gorm".sÂ·3 *@"github.com/jinzhu/gorm".DB) Rows () (? *@"database/sql".Rows, ? error)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Save (@"github.com/jinzhu/gorm".valueÂ·3 interface {}) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Scan (@"github.com/jinzhu/gorm".destÂ·3 interface {}) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Scopes (@"github.com/jinzhu/gorm".funcsÂ·3 ...func(? *@"github.com/jinzhu/gorm".DB) (? *@"github.com/jinzhu/gorm".DB) "esc:0x0") (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Select (@"github.com/jinzhu/gorm".queryÂ·3 interface {}, @"github.com/jinzhu/gorm".argsÂ·4 ...interface {}) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Set (@"github.com/jinzhu/gorm".nameÂ·3 string, @"github.com/jinzhu/gorm".valueÂ·4 interface {}) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·1 *@"github.com/jinzhu/gorm".DB "esc:0x0") SetLogger (@"github.com/jinzhu/gorm".lÂ·2 @"github.com/jinzhu/gorm".logger) { @"github.com/jinzhu/gorm".sÂ·1.@"github.com/jinzhu/gorm".parent.@"github.com/jinzhu/gorm".logger = @"github.com/jinzhu/gorm".lÂ·2 }
+	func (@"github.com/jinzhu/gorm".sÂ·1 *@"github.com/jinzhu/gorm".DB "esc:0x0") SetTagIdentifier (@"github.com/jinzhu/gorm".strÂ·2 string) { @"github.com/jinzhu/gorm".sÂ·1.@"github.com/jinzhu/gorm".parent.@"github.com/jinzhu/gorm".tagIdentifier = @"github.com/jinzhu/gorm".strÂ·2 }
+	func (@"github.com/jinzhu/gorm".sÂ·1 *@"github.com/jinzhu/gorm".DB "esc:0x0") SingularTable (@"github.com/jinzhu/gorm".bÂ·2 bool) { @"github.com/jinzhu/gorm".sÂ·1.@"github.com/jinzhu/gorm".parent.@"github.com/jinzhu/gorm".singularTable = @"github.com/jinzhu/gorm".bÂ·2 }
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Table (@"github.com/jinzhu/gorm".nameÂ·3 string) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Unscoped () (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Update (@"github.com/jinzhu/gorm".attrsÂ·3 ...interface {} "esc:0x0") (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) UpdateColumn (@"github.com/jinzhu/gorm".attrsÂ·3 ...interface {} "esc:0x0") (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) UpdateColumns (@"github.com/jinzhu/gorm".valuesÂ·3 interface {}) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Updates (@"github.com/jinzhu/gorm".valuesÂ·3 interface {}, @"github.com/jinzhu/gorm".ignoreProtectedAttrsÂ·4 ...bool "esc:0x0") (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) Where (@"github.com/jinzhu/gorm".queryÂ·3 interface {}, @"github.com/jinzhu/gorm".argsÂ·4 ...interface {}) (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) @"github.com/jinzhu/gorm".clone () (? *@"github.com/jinzhu/gorm".DB)
+	func (@"github.com/jinzhu/gorm".sÂ·2 *@"github.com/jinzhu/gorm".DB) @"github.com/jinzhu/gorm".err (@"github.com/jinzhu/gorm".errÂ·3 error) (? error)
+	func (@"github.com/jinzhu/gorm".sÂ·1 *@"github.com/jinzhu/gorm".DB) @"github.com/jinzhu/gorm".log (@"github.com/jinzhu/gorm".vÂ·2 ...interface {} "esc:0x0")
+	func (@"github.com/jinzhu/gorm".sÂ·1 *@"github.com/jinzhu/gorm".DB) @"github.com/jinzhu/gorm".print (@"github.com/jinzhu/gorm".vÂ·2 ...interface {})
+	func (@"github.com/jinzhu/gorm".sÂ·1 *@"github.com/jinzhu/gorm".DB) @"github.com/jinzhu/gorm".slog (@"github.com/jinzhu/gorm".sqlÂ·2 string, @"github.com/jinzhu/gorm".tÂ·3 @"time".Time "esc:0x0", @"github.com/jinzhu/gorm".varsÂ·4 ...interface {})
 	import io "io" // indirect
 	type @"io".Writer interface { Write(@"io".p []byte) (@"io".n int, @"io".err error) }
 	type @"net/http".keyValues struct { @"net/http".key string; @"net/http".values []string }
@@ -188,68 +656,6 @@ package controllers
 	type @"crypto/x509/pkix".Name struct { Country []string; Organization []string; OrganizationalUnit []string; Locality []string; Province []string; StreetAddress []string; PostalCode []string; SerialNumber string; CommonName string; Names []@"crypto/x509/pkix".AttributeTypeAndValue }
 	func (@"crypto/x509/pkix".nÂ·1 *@"crypto/x509/pkix".Name) FillFromRDNSequence (@"crypto/x509/pkix".rdnsÂ·2 *@"crypto/x509/pkix".RDNSequence "esc:0x0")
 	func (@"crypto/x509/pkix".nÂ·2 @"crypto/x509/pkix".Name) ToRDNSequence () (@"crypto/x509/pkix".retÂ·1 @"crypto/x509/pkix".RDNSequence)
-	import time "time" // indirect
-	type @"time".zone struct { @"time".name string; @"time".offset int; @"time".isDST bool }
-	type @"time".zoneTrans struct { @"time".when int64; @"time".index uint8; @"time".isstd bool; @"time".isutc bool }
-	type @"time".Location struct { @"time".name string; @"time".zone []@"time".zone; @"time".tx []@"time".zoneTrans; @"time".cacheStart int64; @"time".cacheEnd int64; @"time".cacheZone *@"time".zone }
-	func (@"time".lÂ·2 *@"time".Location "esc:0x0") String () (? string)
-	func (@"time".lÂ·2 *@"time".Location "esc:0x0") @"time".firstZoneUsed () (? bool)
-	func (@"time".lÂ·2 *@"time".Location "esc:0x2") @"time".get () (? *@"time".Location)
-	func (@"time".lÂ·6 *@"time".Location "esc:0x1") @"time".lookup (@"time".secÂ·7 int64) (@"time".nameÂ·1 string, @"time".offsetÂ·2 int, @"time".isDSTÂ·3 bool, @"time".startÂ·4 int64, @"time".endÂ·5 int64)
-	func (@"time".lÂ·2 *@"time".Location "esc:0x0") @"time".lookupFirstZone () (? int)
-	func (@"time".lÂ·4 *@"time".Location "esc:0x0") @"time".lookupName (@"time".nameÂ·5 string "esc:0x0", @"time".unixÂ·6 int64) (@"time".offsetÂ·1 int, @"time".isDSTÂ·2 bool, @"time".okÂ·3 bool)
-	type @"time".Duration int64
-	func (@"time".dÂ·2 @"time".Duration) Hours () (? float64) { var @"time".hourÂ·3 @"time".Duration; ; @"time".hourÂ·3 = @"time".dÂ·2 / @"time".Duration(0x34630B8A000); var @"time".nsecÂ·4 @"time".Duration; ; @"time".nsecÂ·4 = @"time".dÂ·2 % @"time".Duration(0x34630B8A000); return float64(@"time".hourÂ·3) + float64(@"time".nsecÂ·4) * 0x9C5FFF26ED75Fp-93 }
-	func (@"time".dÂ·2 @"time".Duration) Minutes () (? float64) { var @"time".minÂ·3 @"time".Duration; ; @"time".minÂ·3 = @"time".dÂ·2 / @"time".Duration(0xDF8475800); var @"time".nsecÂ·4 @"time".Duration; ; @"time".nsecÂ·4 = @"time".dÂ·2 % @"time".Duration(0xDF8475800); return float64(@"time".minÂ·3) + float64(@"time".nsecÂ·4) * 0x9299FF347E9E9p-87 }
-	func (@"time".dÂ·2 @"time".Duration) Nanoseconds () (? int64) { return int64(@"time".dÂ·2) }
-	func (@"time".dÂ·2 @"time".Duration) Seconds () (? float64) { var @"time".secÂ·3 @"time".Duration; ; @"time".secÂ·3 = @"time".dÂ·2 / @"time".Duration(0x3B9ACA00); var @"time".nsecÂ·4 @"time".Duration; ; @"time".nsecÂ·4 = @"time".dÂ·2 % @"time".Duration(0x3B9ACA00); return float64(@"time".secÂ·3) + float64(@"time".nsecÂ·4) * 0x112E0BE826D695p-82 }
-	func (@"time".dÂ·2 @"time".Duration) String () (? string)
-	type @"time".Month int
-	func (@"time".mÂ·2 @"time".Month) String () (? string) { return @"time".months[@"time".mÂ·2 - @"time".Month(0x1)] }
-	type @"time".Weekday int
-	func (@"time".dÂ·2 @"time".Weekday) String () (? string) { return @"time".days[@"time".dÂ·2] }
-	type @"time".Time struct { @"time".sec int64; @"time".nsec int32; @"time".loc *@"time".Location }
-	func (@"time".tÂ·2 @"time".Time "esc:0x2") Add (@"time".dÂ·3 @"time".Duration) (? @"time".Time)
-	func (@"time".tÂ·2 @"time".Time "esc:0x2") AddDate (@"time".yearsÂ·3 int, @"time".monthsÂ·4 int, @"time".daysÂ·5 int) (? @"time".Time)
-	func (@"time".tÂ·2 @"time".Time "esc:0x0") After (@"time".uÂ·3 @"time".Time "esc:0x0") (? bool) { return @"time".tÂ·2.@"time".sec > @"time".uÂ·3.@"time".sec || @"time".tÂ·2.@"time".sec == @"time".uÂ·3.@"time".sec && @"time".tÂ·2.@"time".nsec > @"time".uÂ·3.@"time".nsec }
-	func (@"time".tÂ·2 @"time".Time "esc:0x0") Before (@"time".uÂ·3 @"time".Time "esc:0x0") (? bool) { return @"time".tÂ·2.@"time".sec < @"time".uÂ·3.@"time".sec || @"time".tÂ·2.@"time".sec == @"time".uÂ·3.@"time".sec && @"time".tÂ·2.@"time".nsec < @"time".uÂ·3.@"time".nsec }
-	func (@"time".tÂ·4 @"time".Time "esc:0x0") Clock () (@"time".hourÂ·1 int, @"time".minÂ·2 int, @"time".secÂ·3 int)
-	func (@"time".tÂ·4 @"time".Time "esc:0x0") Date () (@"time".yearÂ·1 int, @"time".monthÂ·2 @"time".Month, @"time".dayÂ·3 int)
-	func (@"time".tÂ·2 @"time".Time "esc:0x0") Day () (? int)
-	func (@"time".tÂ·2 @"time".Time "esc:0x0") Equal (@"time".uÂ·3 @"time".Time "esc:0x0") (? bool) { return @"time".tÂ·2.@"time".sec == @"time".uÂ·3.@"time".sec && @"time".tÂ·2.@"time".nsec == @"time".uÂ·3.@"time".nsec }
-	func (@"time".tÂ·2 @"time".Time "esc:0x0") Format (@"time".layoutÂ·3 string "esc:0x0") (? string)
-	func (@"time".tÂ·2 *@"time".Time "esc:0x0") GobDecode (@"time".dataÂ·3 []byte "esc:0x0") (? error)
-	func (@"time".tÂ·3 @"time".Time "esc:0x0") GobEncode () (? []byte, ? error)
-	func (@"time".tÂ·2 @"time".Time "esc:0x0") Hour () (? int)
-	func (@"time".tÂ·3 @"time".Time "esc:0x0") ISOWeek () (@"time".yearÂ·1 int, @"time".weekÂ·2 int)
-	func (@"time".tÂ·2 @"time".Time "esc:0x2") In (@"time".locÂ·3 *@"time".Location "esc:0x2") (? @"time".Time)
-	func (@"time".tÂ·2 @"time".Time "esc:0x0") IsZero () (? bool) { return @"time".tÂ·2.@"time".sec == 0x0 && @"time".tÂ·2.@"time".nsec == 0x0 }
-	func (@"time".tÂ·2 @"time".Time "esc:0x2") Local () (? @"time".Time) { @"time".tÂ·2.@"time".loc = @"time".Local; return @"time".tÂ·2 }
-	func (@"time".tÂ·2 @"time".Time "esc:0x2") Location () (? *@"time".Location) { var @"time".lÂ·3 *@"time".Location; ; @"time".lÂ·3 = @"time".tÂ·2.@"time".loc; if @"time".lÂ·3 == nil { @"time".lÂ·3 = @"time".UTC }; return @"time".lÂ·3 }
-	func (@"time".tÂ·3 @"time".Time "esc:0x0") MarshalBinary () (? []byte, ? error)
-	func (@"time".tÂ·3 @"time".Time "esc:0x0") MarshalJSON () (? []byte, ? error)
-	func (@"time".tÂ·3 @"time".Time "esc:0x0") MarshalText () (? []byte, ? error)
-	func (@"time".tÂ·2 @"time".Time "esc:0x0") Minute () (? int)
-	func (@"time".tÂ·2 @"time".Time "esc:0x0") Month () (? @"time".Month)
-	func (@"time".tÂ·2 @"time".Time "esc:0x0") Nanosecond () (? int) { return int(@"time".tÂ·2.@"time".nsec) }
-	func (@"time".tÂ·2 @"time".Time "esc:0x2") Round (@"time".dÂ·3 @"time".Duration) (? @"time".Time)
-	func (@"time".tÂ·2 @"time".Time "esc:0x0") Second () (? int)
-	func (@"time".tÂ·2 @"time".Time "esc:0x0") String () (? string)
-	func (@"time".tÂ·2 @"time".Time "esc:0x0") Sub (@"time".uÂ·3 @"time".Time "esc:0x0") (? @"time".Duration)
-	func (@"time".tÂ·2 @"time".Time "esc:0x2") Truncate (@"time".dÂ·3 @"time".Duration) (? @"time".Time)
-	func (@"time".tÂ·2 @"time".Time "esc:0x2") UTC () (? @"time".Time) { @"time".tÂ·2.@"time".loc = @"time".UTC; return @"time".tÂ·2 }
-	func (@"time".tÂ·2 @"time".Time "esc:0x0") Unix () (? int64) { return @"time".tÂ·2.@"time".sec + -0xE7791F700 }
-	func (@"time".tÂ·2 @"time".Time "esc:0x0") UnixNano () (? int64) { return (@"time".tÂ·2.@"time".sec + -0xE7791F700) * 0x3B9ACA00 + int64(@"time".tÂ·2.@"time".nsec) }
-	func (@"time".tÂ·2 *@"time".Time "esc:0x0") UnmarshalBinary (@"time".dataÂ·3 []byte "esc:0x0") (? error)
-	func (@"time".tÂ·2 *@"time".Time "esc:0x0") UnmarshalJSON (@"time".dataÂ·3 []byte "esc:0x0") (@"time".errÂ·1 error)
-	func (@"time".tÂ·2 *@"time".Time "esc:0x0") UnmarshalText (@"time".dataÂ·3 []byte "esc:0x0") (@"time".errÂ·1 error)
-	func (@"time".tÂ·2 @"time".Time "esc:0x0") Weekday () (? @"time".Weekday)
-	func (@"time".tÂ·2 @"time".Time "esc:0x0") Year () (? int)
-	func (@"time".tÂ·2 @"time".Time "esc:0x0") YearDay () (? int)
-	func (@"time".tÂ·3 @"time".Time "esc:0x0") Zone () (@"time".nameÂ·1 string, @"time".offsetÂ·2 int)
-	func (@"time".tÂ·2 @"time".Time "esc:0x0") @"time".abs () (? uint64)
-	func (@"time".tÂ·5 @"time".Time "esc:0x0") @"time".date (@"time".fullÂ·6 bool) (@"time".yearÂ·1 int, @"time".monthÂ·2 @"time".Month, @"time".dayÂ·3 int, @"time".ydayÂ·4 int)
-	func (@"time".tÂ·4 @"time".Time "esc:0x1") @"time".locabs () (@"time".nameÂ·1 string, @"time".offsetÂ·2 int, @"time".absÂ·3 uint64)
 	type @"crypto/x509".KeyUsage int
 	type @"crypto/x509/pkix".Extension struct { Id @"encoding/asn1".ObjectIdentifier; Critical bool "asn1:\"optional\""; Value []byte }
 	type @"crypto/x509".ExtKeyUsage int
@@ -384,41 +790,34 @@ package controllers
 	func (@"net/http".rÂ·2 *@"net/http".Request "esc:0x0") @"net/http".wantsClose () (? bool)
 	func (@"net/http".rÂ·2 *@"net/http".Request "esc:0x0") @"net/http".wantsHttp10KeepAlive () (? bool)
 	func (@"net/http".reqÂ·2 *@"net/http".Request) @"net/http".write (@"net/http".wÂ·3 @"io".Writer, @"net/http".usingProxyÂ·4 bool, @"net/http".extraHeadersÂ·5 @"net/http".Header "esc:0x0") (? error)
-	func @"".MoviesIndexHandler (@"".resÂ·1 @"net/http".ResponseWriter, @"".reqÂ·2 *@"net/http".Request "esc:0x0")
-	func @"".MoviesShowHandler (@"".resÂ·1 @"net/http".ResponseWriter "esc:0x0", @"".reqÂ·2 *@"net/http".Request "esc:0x0") {  }
-	func @"".MoviesCreateHandler (@"".resÂ·1 @"net/http".ResponseWriter "esc:0x0", @"".reqÂ·2 *@"net/http".Request "esc:0x0") {  }
-	func @"".MoviesUpdateHandler (@"".resÂ·1 @"net/http".ResponseWriter "esc:0x0", @"".reqÂ·2 *@"net/http".Request "esc:0x0") {  }
-	func @"".MoviesDestroyHandler (@"".resÂ·1 @"net/http".ResponseWriter "esc:0x0", @"".reqÂ·2 *@"net/http".Request "esc:0x0") {  }
-	func @"".MoviesSearchHandler (@"".resÂ·1 @"net/http".ResponseWriter "esc:0x0", @"".reqÂ·2 *@"net/http".Request "esc:0x0") {  }
-	func @"".MoviesInfoHandler (@"".resÂ·1 @"net/http".ResponseWriter "esc:0x0", @"".reqÂ·2 *@"net/http".Request "esc:0x0") {  }
+	type @"".MoviesController struct { DB @"github.com/jinzhu/gorm".DB }
+	func (@"".cÂ·1 *@"".MoviesController "esc:0x0") CreateHandler (@"".resÂ·2 @"net/http".ResponseWriter "esc:0x0", @"".reqÂ·3 *@"net/http".Request "esc:0x0") {  }
+	func (@"".cÂ·1 *@"".MoviesController "esc:0x0") DestroyHandler (@"".resÂ·2 @"net/http".ResponseWriter "esc:0x0", @"".reqÂ·3 *@"net/http".Request "esc:0x0") {  }
+	func (@"".cÂ·1 *@"".MoviesController) IndexHandler (@"".resÂ·2 @"net/http".ResponseWriter, @"".reqÂ·3 *@"net/http".Request "esc:0x0")
+	func (@"".cÂ·1 *@"".MoviesController "esc:0x0") InfoHandler (@"".resÂ·2 @"net/http".ResponseWriter "esc:0x0", @"".reqÂ·3 *@"net/http".Request "esc:0x0") {  }
+	func (@"".cÂ·1 *@"".MoviesController "esc:0x0") SearchHandler (@"".resÂ·2 @"net/http".ResponseWriter "esc:0x0", @"".reqÂ·3 *@"net/http".Request "esc:0x0") {  }
+	func (@"".cÂ·1 *@"".MoviesController "esc:0x0") ShowHandler (@"".resÂ·2 @"net/http".ResponseWriter "esc:0x0", @"".reqÂ·3 *@"net/http".Request "esc:0x0") {  }
+	func (@"".cÂ·1 *@"".MoviesController "esc:0x0") UpdateHandler (@"".resÂ·2 @"net/http".ResponseWriter "esc:0x0", @"".reqÂ·3 *@"net/http".Request "esc:0x0") {  }
 	func @"".init ()
+	var @"io".EOF error
+	var @"database/sql".ErrTxDone error
+	type @"sync".rlocker struct { @"sync".w @"sync".Mutex; @"sync".writerSem uint32; @"sync".readerSem uint32; @"sync".readerCount int32; @"sync".readerWait int32 }
+	func (@"sync".rÂ·1 *@"sync".rlocker) Lock ()
+	func (@"sync".rÂ·1 *@"sync".rlocker) Unlock ()
 	var @"time".months [12]string
 	var @"time".days [7]string
 	var @"time".Local *@"time".Location
 	var @"time".UTC *@"time".Location
+	var @"github.com/jinzhu/gorm".RecordNotFound error
 	var @"bufio".ErrInvalidUnreadRune error
 
 $$
-_go_.6          0           0     0     644     18269     `
+ _go_.6          0           0     0     644     15467     `
 go object darwin amd64 go1.4 X:precisestack
 
 !
   go13ldencoding/json.a
-fmt.anet/http.a"polyflix/models.a ş*"".MoviesIndexHandler  €  ğeH‹%    H„$xÿÿÿH;Awè    ëâHì  Hœ$À   HÇ    HÇC    HÇC    Hœ$À   H-    H‰ßH‰îH¥H¥HÇ„$Ğ   &  Hœ$¨   HÇ    HÇC    HÇC    Hœ$¨   H-    H‰ßH‰îH¥H¥HÇ„$¸   x   H    H‰$è    H‹D$Hƒø „e  HÇÂ   HÇÁ   H‰”$˜   H‰Œ$    H‰„$   H‰$HÇD$    Hœ$À   Hl$H‰ïH‰ŞH¥H¥H¥è    H‹´$   HƒÆH‰4$HÇD$    H´$¨   Hl$H‰ïH¥H¥H¥è    H\$xHÇ    HÇC    HÇC    H‹œ$   H‰\$xH‹œ$˜   H‰œ$€   H‹´$    H‰´$ˆ   Ht$xH¬$ğ   H‰ïH¥H¥H¥H    H‰$Hœ$ğ   H‰\$è    H\$H,$H‰ïH‰ŞH¥H¥H\$HÇ    HÇC    H    Hl$ H‰ïH‰ŞH¥H¥è    H‹\$0H‰œ$Ø   H‹\$8H‰œ$à   H‹\$@H‰œ$è   H‹D$HH‹L$PH‰L$`Hƒø H‰D$Xt(H‰$H‰L$è    H\$H,$H‰ïH‰ŞH¥H¥è    H    H‰$H‹œ$  H‰\$H‹œ$  H‰\$è    H‹\$H‰\$hH‹\$ H‰\$pH‹œ$Ø   H‰$H‹œ$à   H‰\$H‹œ$è   H‰\$è    H\$Hl$H‰ïH‰ŞH¥H¥H‹\$hH‰$H‹\$pH‰\$H\$ HÇ    HÇC    HÇC    è    HÄ  Ã‰ é”ıÿÿ$
-      0  0runtime.morestack_noctxt     ,go.string."Fight Club"   ¦  ,go.string."The Matrix"   à  :type.[2]polyflix/models.Movie   ò  "runtime.newobject   ²  0runtime.writebarrierfat3   š  0runtime.writebarrierfat3   æ  (type."".ArrayPayload   ’  runtime.convT2E   î  go.string."  "   –  6encoding/json.MarshalIndent   ´	  runtime.convI2E   ä	  runtime.gopanic   ö	  type.io.Writer   ¼
-  runtime.convI2I   º  2runtime.slicebytetostring   Ê  fmt.Fprintf   0  "".autotmp_0002 ¿type.io.Writer "".autotmp_0000 /(type."".ArrayPayload "".err ßtype.error "".jsonRes _type.[]uint8 "".p Ÿ(type."".ArrayPayload "".movies ï8type.[]polyflix/models.Movie "".movie2 ¿4type.polyflix/models.Movie "".movie1 4type.polyflix/models.Movie "".req  ,type.*net/http.Request "".res  8type.net/http.ResponseWriter %‹ À 4&%DD¤I«(± * ¸`4|‘D
-?H TgclocalsÂ·5fcd0802138fb5a238704a5759b3a110 TgclocalsÂ·5706d3a9d00b11ed1afd9b889eb1331e   Ä/Users/ryanbrady/Projects/Personal/polyflix/server/go/src/polyflix/controllers/moviesController.goş("".MoviesShowHandler     Ã 0   "".req  ,type.*net/http.Request "".res  8type.net/http.ResponseWriter   @  TgclocalsÂ·099986b79bd4df464b634a14757f9178 TgclocalsÂ·3280bececceccd33cb74587feedb1f9f   Ä/Users/ryanbrady/Projects/Personal/polyflix/server/go/src/polyflix/controllers/moviesController.goş,"".MoviesCreateHandler     Ã 0   "".req  ,type.*net/http.Request "".res  8type.net/http.ResponseWriter   F  TgclocalsÂ·099986b79bd4df464b634a14757f9178 TgclocalsÂ·3280bececceccd33cb74587feedb1f9f   Ä/Users/ryanbrady/Projects/Personal/polyflix/server/go/src/polyflix/controllers/moviesController.goş,"".MoviesUpdateHandler     Ã 0   "".req  ,type.*net/http.Request "".res  8type.net/http.ResponseWriter   L  TgclocalsÂ·099986b79bd4df464b634a14757f9178 TgclocalsÂ·3280bececceccd33cb74587feedb1f9f   Ä/Users/ryanbrady/Projects/Personal/polyflix/server/go/src/polyflix/controllers/moviesController.goş."".MoviesDestroyHandler     Ã 0   "".req  ,type.*net/http.Request "".res  8type.net/http.ResponseWriter   R  TgclocalsÂ·099986b79bd4df464b634a14757f9178 TgclocalsÂ·3280bececceccd33cb74587feedb1f9f   Ä/Users/ryanbrady/Projects/Personal/polyflix/server/go/src/polyflix/controllers/moviesController.goş,"".MoviesSearchHandler     Ã 0   "".req  ,type.*net/http.Request "".res  8type.net/http.ResponseWriter   X  TgclocalsÂ·099986b79bd4df464b634a14757f9178 TgclocalsÂ·3280bececceccd33cb74587feedb1f9f   Ä/Users/ryanbrady/Projects/Personal/polyflix/server/go/src/polyflix/controllers/moviesController.goş("".MoviesInfoHandler     Ã 0   "".req  ,type.*net/http.Request "".res  8type.net/http.ResponseWriter   ^  TgclocalsÂ·099986b79bd4df464b634a14757f9178 TgclocalsÂ·3280bececceccd33cb74587feedb1f9f   Ä/Users/ryanbrady/Projects/Personal/polyflix/server/go/src/polyflix/controllers/moviesController.goş"".init  À  ¨eH‹%    H;awè    ëê¶    €û t¶    €ûuÃè    Æ    è    è    è    Æ    Ã
-         0runtime.morestack_noctxt   2  "".initdoneÂ·   J  "".initdoneÂ·   `  "runtime.throwinit   p "".initdoneÂ·   |  net/http.init   †  fmt.init     $encoding/json.init   œ "".initdoneÂ·        ` ` ^` 
- /1 TgclocalsÂ·3280bececceccd33cb74587feedb1f9f TgclocalsÂ·3280bececceccd33cb74587feedb1f9f   Ä/Users/ryanbrady/Projects/Personal/polyflix/server/go/src/polyflix/controllers/moviesController.goşFtype..hash.[2]polyflix/models.Movie à  ÎeH‹%    H;awè    ëêHƒì0H‹L$H1ÀHÇD$    H‹l$ H9è}eH‰D$(H‰ÅH‰ÈHÁÀH»¿c»kïR H¯ØH‰ØH‹\$8Hƒû tDHkíHëH‰$HÇD$   H‰D$HH‰D$è    H‹L$H‹D$(HÿÀH‹l$ H9è|›H‰L$PHƒÄ0Ã‰ë¸
-         0runtime.morestack_noctxt   ü  @type..hash.polyflix/models.Movie   @`  "".autotmp_0008 type.int "".autotmp_0007 type.int "".~r3 0type.uintptr "".h  type.uintptr "".s type.uintptr "".p  <type.*[2]polyflix/models.Movie `ˆ_` ° ° 
- }3 TgclocalsÂ·2dc77d960dd3e4b3de2361f9cbd75783 TgclocalsÂ·3280bececceccd33cb74587feedb1f9f   Ä/Users/ryanbrady/Projects/Personal/polyflix/server/go/src/polyflix/controllers/moviesController.goşBtype..eq.[2]polyflix/models.Movie €  èeH‹%    H;awè    ëêHƒìh1ÀHÇD$(   H‹l$(H9èË   H‰D$0H‹L$pHƒù „æ   H‹\$xH‰ÅHkíHéHƒû „Æ   H‰ÅHkíHëH‰L$@Hƒù „¦   H‹1H‹IH‰\$8Hƒû „‰   H‹H‹CH9ÁupH‰t$XH‰4$H‰L$`H‰L$H‰T$HH‰T$H‰D$PH‰D$è    ¶\$ €û t:H‹l$@H‹]L‹D$8I‹hH9ëu#H‹D$0HÿÀH‹l$(H9èŒ5ÿÿÿÆ„$ˆ   HƒÄhÃÆ„$ˆ    HƒÄhÃ‰épÿÿÿ‰éSÿÿÿ‰é3ÿÿÿ‰éÿÿÿ
-         0runtime.morestack_noctxt   †   runtime.eqstring   @Ğ  "".autotmp_0014 ?type.string "".autotmp_0013 type.string "".autotmp_0012 _6type.*polyflix/models.Movie "".autotmp_0011 O6type.*polyflix/models.Movie "".autotmp_0010 type.int "".autotmp_0009 otype.int "".~r3 0type.bool "".s  type.uintptr "".q <type.*[2]polyflix/models.Movie "".p  <type.*[2]polyflix/models.Movie &ĞğÏĞÏĞ( À À  Â~ TgclocalsÂ·fa7203fd5ed88aea99b7be572f707eb0 TgclocalsÂ·65526a5f07004f02424fe51b799cdd23   Ä/Users/ryanbrady/Projects/Personal/polyflix/server/go/src/polyflix/controllers/moviesController.goş6type..hash."".SinglePayload À  ´eH‹%    H;awè    ëêHƒì H‹\$(H‰$Hƒ<$ t'HÇD$   H‹\$8H‰\$è    H‹\$H‰\$@HƒÄ Ã‰%    ëĞ
-         0runtime.morestack_noctxt   |  @type..hash.polyflix/models.Movie   @@  "".~r3 0type.uintptr "".h  type.uintptr "".s type.uintptr "".p  ,type.*"".SinglePayload @6?@ ` ` 
- =# TgclocalsÂ·2dc77d960dd3e4b3de2361f9cbd75783 TgclocalsÂ·3280bececceccd33cb74587feedb1f9f   Ä/Users/ryanbrady/Projects/Personal/polyflix/server/go/src/polyflix/controllers/moviesController.goş2type..eq."".SinglePayload €  €eH‹%    H;awè    ëêHƒìXH‹L$`Hƒù „   H‹D$hHƒø t~H‰L$0H‹1H‹IH‰D$(H‹H‹@H9ÁuWH‰t$HH‰4$H‰L$PH‰L$H‰T$8H‰T$H‰D$@H‰D$è    ¶\$ €û t!H‹l$0H‹]L‹D$(I‹hH9ëu
-ÆD$xHƒÄXÃÆD$x HƒÄXÃ‰ é{ÿÿÿ‰éiÿÿÿ
-         0runtime.morestack_noctxt   ò   runtime.eqstring   @°  "".autotmp_0019 ?type.string "".autotmp_0018 type.string "".autotmp_0017 _6type.*polyflix/models.Movie "".autotmp_0016 O6type.*polyflix/models.Movie "".~r3 0type.bool "".s  type.uintptr "".q ,type.*"".SinglePayload "".p  ,type.*"".SinglePayload &°¯°	¯° À À 
- xH TgclocalsÂ·fa7203fd5ed88aea99b7be572f707eb0 TgclocalsÂ·65526a5f07004f02424fe51b799cdd23   Ä/Users/ryanbrady/Projects/Personal/polyflix/server/go/src/polyflix/controllers/moviesController.goş,go.string."Fight Club" @  6        
-       Fight Club    ,go.string."Fight Club"   ş,go.string."The Matrix" @  6        
-       The Matrix    ,go.string."The Matrix"   şgo.string."  " 0  &                     go.string."  "   şTgclocalsÂ·5706d3a9d00b11ed1afd9b889eb1331e €  €   ,              I     €      €          €          °        şTgclocalsÂ·5fcd0802138fb5a238704a5759b3a110 H  H      +   +   +   +   +   +   +    şTgclocalsÂ·3280bececceccd33cb74587feedb1f9f           şTgclocalsÂ·099986b79bd4df464b634a14757f9178         +    şTgclocalsÂ·3280bececceccd33cb74587feedb1f9f           şTgclocalsÂ·099986b79bd4df464b634a14757f9178         +    şTgclocalsÂ·3280bececceccd33cb74587feedb1f9f           şTgclocalsÂ·099986b79bd4df464b634a14757f9178         +    şTgclocalsÂ·3280bececceccd33cb74587feedb1f9f           şTgclocalsÂ·099986b79bd4df464b634a14757f9178         +    şTgclocalsÂ·3280bececceccd33cb74587feedb1f9f           şTgclocalsÂ·099986b79bd4df464b634a14757f9178         +    şTgclocalsÂ·3280bececceccd33cb74587feedb1f9f           şTgclocalsÂ·099986b79bd4df464b634a14757f9178         +    şTgclocalsÂ·3280bececceccd33cb74587feedb1f9f           şTgclocalsÂ·3280bececceccd33cb74587feedb1f9f           ş,"".initdoneÂ·  type.uint8   ş0"".MoviesIndexHandlerÂ·f              *"".MoviesIndexHandler   ş(runtime.newobjectÂ·f              "runtime.newobject   ş6runtime.writebarrierfat3Â·f              0runtime.writebarrierfat3   ş$runtime.convT2EÂ·f              runtime.convT2E   ş<encoding/json.MarshalIndentÂ·f              6encoding/json.MarshalIndent   ş$runtime.convI2EÂ·f              runtime.convI2E   ş$runtime.gopanicÂ·f              runtime.gopanic   ş$runtime.convI2IÂ·f              runtime.convI2I   ş8runtime.slicebytetostringÂ·f              2runtime.slicebytetostring   şfmt.FprintfÂ·f              fmt.Fprintf   ş."".MoviesShowHandlerÂ·f              ("".MoviesShowHandler   ş2"".MoviesCreateHandlerÂ·f              ,"".MoviesCreateHandler   ş2"".MoviesUpdateHandlerÂ·f              ,"".MoviesUpdateHandler   ş4"".MoviesDestroyHandlerÂ·f              ."".MoviesDestroyHandler   ş2"".MoviesSearchHandlerÂ·f              ,"".MoviesSearchHandler   ş."".MoviesInfoHandlerÂ·f              ("".MoviesInfoHandler   ş"".initÂ·f              "".init   ş(runtime.throwinitÂ·f              "runtime.throwinit   ş net/http.initÂ·f              net/http.init   şfmt.initÂ·f              fmt.init   ş*encoding/json.initÂ·f              $encoding/json.init   şbruntime.gcbits.0x48844400000000000000000000000000     H„D              ş4go.string."[]models.Movie" @  >               []models.Movie    4go.string."[]models.Movie"   ş8type.[]polyflix/models.Movie            `)%®                                                                     runtime.algarray   0  bruntime.gcbits.0x48844400000000000000000000000000   P  4go.string."[]models.Movie"   p  Jgo.weak.type.*[]polyflix/models.Movie   €  "runtime.zerovalue     4type.polyflix/models.Movie   şdgo.typelink.[]models.Movie/[]polyflix/models.Movie              8type.[]polyflix/models.Movie   şTgclocalsÂ·3280bececceccd33cb74587feedb1f9f           şTgclocalsÂ·2dc77d960dd3e4b3de2361f9cbd75783             şTgclocalsÂ·65526a5f07004f02424fe51b799cdd23               
-    şTgclocalsÂ·fa7203fd5ed88aea99b7be572f707eb0                  şNtype..hashfunc.[2]polyflix/models.Movie              Ftype..hash.[2]polyflix/models.Movie   şJtype..eqfunc.[2]polyflix/models.Movie              Btype..eq.[2]polyflix/models.Movie   şDtype..alg.[2]polyflix/models.Movie                        Ntype..hashfunc.[2]polyflix/models.Movie     Jtype..eqfunc.[2]polyflix/models.Movie   ş6go.string."[2]models.Movie" @  @               [2]models.Movie    6go.string."[2]models.Movie"   ş:type.[2]polyflix/models.Movie À  À0       6ÍÄ                                                                                   Dtype..alg.[2]polyflix/models.Movie   0  bruntime.gcbits.0x48844400000000000000000000000000   P  6go.string."[2]models.Movie"   p  Lgo.weak.type.*[2]polyflix/models.Movie   €  "runtime.zerovalue     4type.polyflix/models.Movie      8type.[]polyflix/models.Movie   şhgo.typelink.[2]models.Movie/[2]polyflix/models.Movie              :type.[2]polyflix/models.Movie   şbruntime.gcbits.0x88000000000000000000000000000000     ˆ                şJgo.string."*controllers.ArrayPayload" `  T               *controllers.ArrayPayload    Jgo.string."*controllers.ArrayPayload"   ş*type.*"".ArrayPayload             ;èê~ 6                                                                    runtime.algarray   0  bruntime.gcbits.0x88000000000000000000000000000000   P  Jgo.string."*controllers.ArrayPayload"   p  <go.weak.type.**"".ArrayPayload   €  "runtime.zerovalue     (type."".ArrayPayload   şHgo.string."controllers.ArrayPayload" `  R               controllers.ArrayPayload    Hgo.string."controllers.ArrayPayload"   ş$go.string."Movies" 0  .               Movies    $go.string."Movies"   ş6go.string."json:\"movies\"" @  <               json:"movies"    6go.string."json:\"movies\""   ş0go.string."ArrayPayload" @  :               ArrayPayload    0go.string."ArrayPayload"   ş(type."".ArrayPayload  à  à       5Óm                                                                                                                                                                à  runtime.algarray   0  bruntime.gcbits.0x48844400000000000000000000000000   P  Hgo.string."controllers.ArrayPayload"   p  *type.*"".ArrayPayload   €  "runtime.zerovalue   À (type."".ArrayPayload   À  $go.string."Movies"   à  8type.[]polyflix/models.Movie   ğ  6go.string."json:\"movies\""   ` (type."".ArrayPayload     0go.string."ArrayPayload"      "go.importpath."".   °à (type."".ArrayPayload   ş&go.string."[]uint8" 0  0               []uint8    &go.string."[]uint8"   ştype.[]uint8            ß~.8                                                                     runtime.algarray   0  bruntime.gcbits.0x48844400000000000000000000000000   P  &go.string."[]uint8"   p  *go.weak.type.*[]uint8   €  "runtime.zerovalue     type.uint8   ş6go.typelink.[]uint8/[]uint8              type.[]uint8   ş8go.string."*[2]models.Movie" P  B               *[2]models.Movie    8go.string."*[2]models.Movie"   ş<type.*[2]polyflix/models.Movie            \ì 6                                                                    runtime.algarray   0  bruntime.gcbits.0x88000000000000000000000000000000   P  8go.string."*[2]models.Movie"   p  Ngo.weak.type.**[2]polyflix/models.Movie   €  "runtime.zerovalue     :type.[2]polyflix/models.Movie   şTgclocalsÂ·3280bececceccd33cb74587feedb1f9f           şTgclocalsÂ·2dc77d960dd3e4b3de2361f9cbd75783             şTgclocalsÂ·65526a5f07004f02424fe51b799cdd23               
-    şTgclocalsÂ·fa7203fd5ed88aea99b7be572f707eb0                  ş>type..hashfunc."".SinglePayload              6type..hash."".SinglePayload   ş:type..eqfunc."".SinglePayload              2type..eq."".SinglePayload   ş4type..alg."".SinglePayload                        >type..hashfunc."".SinglePayload     :type..eqfunc."".SinglePayload   şLgo.string."*controllers.SinglePayload" `  V               *controllers.SinglePayload    Lgo.string."*controllers.SinglePayload"   ş,type.*"".SinglePayload             ¬[å¹ 6                                                                    runtime.algarray   0  bruntime.gcbits.0x88000000000000000000000000000000   P  Lgo.string."*controllers.SinglePayload"   p  >go.weak.type.**"".SinglePayload   €  "runtime.zerovalue     *type."".SinglePayload   şJgo.string."controllers.SinglePayload" `  T               controllers.SinglePayload    Jgo.string."controllers.SinglePayload"   ş"go.string."Movie" 0  ,               Movie    "go.string."Movie"   ş4go.string."json:\"movie\"" @  :               json:"movie"    4go.string."json:\"movie\""   ş2go.string."SinglePayload" @  <               SinglePayload    2go.string."SinglePayload"   ş*type."".SinglePayload  à  à       AŸ4«                                                                                                                                                                  4type..alg."".SinglePayload   0  bruntime.gcbits.0x48844400000000000000000000000000   P  Jgo.string."controllers.SinglePayload"   p  ,type.*"".SinglePayload   €  "runtime.zerovalue   À *type."".SinglePayload   À  "go.string."Movie"   à  4type.polyflix/models.Movie   ğ  4go.string."json:\"movie\""   ` *type."".SinglePayload     2go.string."SinglePayload"      "go.importpath."".   °à *type."".SinglePayload   ş&go.string."runtime" 0  0               runtime    &go.string."runtime"   ş,go.importpath.runtime.                       &go.string."runtime"   ş(go.string."net/http" @  2               net/http    (go.string."net/http"   ş.go.importpath.net/http.                       (go.string."net/http"   ş6go.string."polyflix/models" @  @               polyflix/models    6go.string."polyflix/models"   ş<go.importpath.polyflix/models.                       6go.string."polyflix/models"   şgo.string."fmt" 0  (               fmt    go.string."fmt"   ş$go.importpath.fmt.                       go.string."fmt"   ş2go.string."encoding/json" @  <               encoding/json    2go.string."encoding/json"   ş8go.importpath.encoding/json.                       2go.string."encoding/json"   şLtype..hash.[2]polyflix/models.MovieÂ·f              Ftype..hash.[2]polyflix/models.Movie   şFtype..hash.polyflix/models.MovieÂ·f              @type..hash.polyflix/models.Movie   ş,runtime.throwreturnÂ·f              &runtime.throwreturn   şHtype..eq.[2]polyflix/models.MovieÂ·f              Btype..eq.[2]polyflix/models.Movie   ş&runtime.eqstringÂ·f               runtime.eqstring   ş<type..hash."".SinglePayloadÂ·f              6type..hash."".SinglePayload   ş8type..eq."".SinglePayloadÂ·f              2type..eq."".SinglePayload   ş"runtime.zerovalue      ÿÿgo13ld 
+fmt.a0github.com/jinzhu/gorm.anet/http.a"polyflix/models.a şF"".(*MoviesController).IndexHandler  à  ÆeH‹%    HD$àH;Awè    ëåHì    H    H‰$è    H‹L$HÇ    HÇA    HÇA    H‹œ$¨   H‰$Hƒ<$ „²  H    H‰D$hH‰D$H‰L$pH‰L$H\$HÇ    HÇC    HÇC    è    H‹L$0H    H‰D$hH‰$H‰L$pH‰L$H\$HÇ    HÇC    H    Hl$ H‰ïH‰ŞH¥H¥è    H‹\$0H‰œ$ˆ   H‹\$8H‰œ$   H‹\$@H‰œ$˜   H‹D$HH‹L$PH‰L$`Hƒø H‰D$Xt(H‰$H‰L$è    H\$H,$H‰ïH‰ŞH¥H¥è    H    H‰$H‹œ$°   H‰\$H‹œ$¸   H‰\$è    H‹\$H‰\$xH‹\$ H‰œ$€   H‹œ$ˆ   H‰$H‹œ$   H‰\$H‹œ$˜   H‰\$è    H\$Hl$H‰ïH‰ŞH¥H¥H‹\$xH‰$H‹œ$€   H‰\$H\$ HÇ    HÇC    HÇC    è    HÄ    Ã‰%    éBşÿÿ
+      *  0runtime.morestack_noctxt   J  4type.polyflix/models.Movie   \  "runtime.newobject   Ğ  6type.*polyflix/models.Movie   º  Bgithub.com/jinzhu/gorm.(*DB).Find   Ò  >type.*github.com/jinzhu/gorm.DB   ®  go.string."  "   Ö  6encoding/json.MarshalIndent   ô  runtime.convI2E   ¤  runtime.gopanic   ¶  type.io.Writer   ü  runtime.convI2I   €  2runtime.slicebytetostring   –  fmt.Fprintf   @À  "".autotmp_0004 Otype.io.Writer "".autotmp_0002  >type.*github.com/jinzhu/gorm.DB "".autotmp_0000  6type.*polyflix/models.Movie "".err type.error "".jsonRes /type.[]uint8 "".req 0,type.*net/http.Request "".res 8type.net/http.ResponseWriter "".c  2type.*"".MoviesController "Àô¿À ° & "„(·  -ĞBK& TgclocalsÂ·bc335ce91c3a8b5f426dd201465802bd TgclocalsÂ·665f756269dcb2677c5aa59009b3cf8c   Ä/Users/ryanbrady/Projects/Personal/polyflix/server/go/src/polyflix/controllers/moviesController.goşD"".(*MoviesController).ShowHandler     Ã @   "".req 0,type.*net/http.Request "".res 8type.net/http.ResponseWriter "".c  2type.*"".MoviesController   4  TgclocalsÂ·ee0e5af169bfc1eef210605652a1df80 TgclocalsÂ·3280bececceccd33cb74587feedb1f9f   Ä/Users/ryanbrady/Projects/Personal/polyflix/server/go/src/polyflix/controllers/moviesController.goşH"".(*MoviesController).CreateHandler     Ã @   "".req 0,type.*net/http.Request "".res 8type.net/http.ResponseWriter "".c  2type.*"".MoviesController   :  TgclocalsÂ·ee0e5af169bfc1eef210605652a1df80 TgclocalsÂ·3280bececceccd33cb74587feedb1f9f   Ä/Users/ryanbrady/Projects/Personal/polyflix/server/go/src/polyflix/controllers/moviesController.goşH"".(*MoviesController).UpdateHandler     Ã @   "".req 0,type.*net/http.Request "".res 8type.net/http.ResponseWriter "".c  2type.*"".MoviesController   @  TgclocalsÂ·ee0e5af169bfc1eef210605652a1df80 TgclocalsÂ·3280bececceccd33cb74587feedb1f9f   Ä/Users/ryanbrady/Projects/Personal/polyflix/server/go/src/polyflix/controllers/moviesController.goşJ"".(*MoviesController).DestroyHandler     Ã @   "".req 0,type.*net/http.Request "".res 8type.net/http.ResponseWriter "".c  2type.*"".MoviesController   F  TgclocalsÂ·ee0e5af169bfc1eef210605652a1df80 TgclocalsÂ·3280bececceccd33cb74587feedb1f9f   Ä/Users/ryanbrady/Projects/Personal/polyflix/server/go/src/polyflix/controllers/moviesController.goşH"".(*MoviesController).SearchHandler     Ã @   "".req 0,type.*net/http.Request "".res 8type.net/http.ResponseWriter "".c  2type.*"".MoviesController   L  TgclocalsÂ·ee0e5af169bfc1eef210605652a1df80 TgclocalsÂ·3280bececceccd33cb74587feedb1f9f   Ä/Users/ryanbrady/Projects/Personal/polyflix/server/go/src/polyflix/controllers/moviesController.goşD"".(*MoviesController).InfoHandler     Ã @   "".req 0,type.*net/http.Request "".res 8type.net/http.ResponseWriter "".c  2type.*"".MoviesController   R  TgclocalsÂ·ee0e5af169bfc1eef210605652a1df80 TgclocalsÂ·3280bececceccd33cb74587feedb1f9f   Ä/Users/ryanbrady/Projects/Personal/polyflix/server/go/src/polyflix/controllers/moviesController.goş"".init  À  ²eH‹%    H;awè    ëê¶    €û t¶    €ûuÃè    Æ    è    è    è    è    Æ    Ã
+         0runtime.morestack_noctxt   2  "".initdoneÂ·   J  "".initdoneÂ·   `  "runtime.throwinit   p "".initdoneÂ·   |  net/http.init   †  6github.com/jinzhu/gorm.init     fmt.init   š  $encoding/json.init   ¦ "".initdoneÂ·        ` ` R` 
+ /1 TgclocalsÂ·3280bececceccd33cb74587feedb1f9f TgclocalsÂ·3280bececceccd33cb74587feedb1f9f   Ä/Users/ryanbrady/Projects/Personal/polyflix/server/go/src/polyflix/controllers/moviesController.goşgo.string."  " 0  &                     go.string."  "   şTgclocalsÂ·665f756269dcb2677c5aa59009b3cf8c (  (                  şTgclocalsÂ·bc335ce91c3a8b5f426dd201465802bd (  (      ®   ®   ®    şTgclocalsÂ·3280bececceccd33cb74587feedb1f9f           şTgclocalsÂ·ee0e5af169bfc1eef210605652a1df80         ®    şTgclocalsÂ·3280bececceccd33cb74587feedb1f9f           şTgclocalsÂ·ee0e5af169bfc1eef210605652a1df80         ®    şTgclocalsÂ·3280bececceccd33cb74587feedb1f9f           şTgclocalsÂ·ee0e5af169bfc1eef210605652a1df80         ®    şTgclocalsÂ·3280bececceccd33cb74587feedb1f9f           şTgclocalsÂ·ee0e5af169bfc1eef210605652a1df80         ®    şTgclocalsÂ·3280bececceccd33cb74587feedb1f9f           şTgclocalsÂ·ee0e5af169bfc1eef210605652a1df80         ®    şTgclocalsÂ·3280bececceccd33cb74587feedb1f9f           şTgclocalsÂ·ee0e5af169bfc1eef210605652a1df80         ®    şTgclocalsÂ·3280bececceccd33cb74587feedb1f9f           şTgclocalsÂ·3280bececceccd33cb74587feedb1f9f           ş,"".initdoneÂ·  type.uint8   şL"".(*MoviesController).IndexHandlerÂ·f              F"".(*MoviesController).IndexHandler   ş(runtime.newobjectÂ·f              "runtime.newobject   şHgithub.com/jinzhu/gorm.(*DB).FindÂ·f              Bgithub.com/jinzhu/gorm.(*DB).Find   ş<encoding/json.MarshalIndentÂ·f              6encoding/json.MarshalIndent   ş$runtime.convI2EÂ·f              runtime.convI2E   ş$runtime.gopanicÂ·f              runtime.gopanic   ş$runtime.convI2IÂ·f              runtime.convI2I   ş8runtime.slicebytetostringÂ·f              2runtime.slicebytetostring   şfmt.FprintfÂ·f              fmt.Fprintf   şJ"".(*MoviesController).ShowHandlerÂ·f              D"".(*MoviesController).ShowHandler   şN"".(*MoviesController).CreateHandlerÂ·f              H"".(*MoviesController).CreateHandler   şN"".(*MoviesController).UpdateHandlerÂ·f              H"".(*MoviesController).UpdateHandler   şP"".(*MoviesController).DestroyHandlerÂ·f              J"".(*MoviesController).DestroyHandler   şN"".(*MoviesController).SearchHandlerÂ·f              H"".(*MoviesController).SearchHandler   şJ"".(*MoviesController).InfoHandlerÂ·f              D"".(*MoviesController).InfoHandler   ş"".initÂ·f              "".init   ş(runtime.throwinitÂ·f              "runtime.throwinit   ş net/http.initÂ·f              net/http.init   ş<github.com/jinzhu/gorm.initÂ·f              6github.com/jinzhu/gorm.init   şfmt.initÂ·f              fmt.init   ş*encoding/json.initÂ·f              $encoding/json.init   ş,8type..gc."".MoviesController ,    ş@type..gcprog."".MoviesController   ¿¹Ú®e şPgo.string."controllers.MoviesController" `  Z               controllers.MoviesController    Pgo.string."controllers.MoviesController"   şgo.string."DB" 0  &               DB    go.string."DB"   ş8go.string."MoviesController" P  B               MoviesController    8go.string."MoviesController"   ş0type."".MoviesController  à  à¨       ¢£é¦ Y                                                                                                                                                               à  runtime.algarray   0  8type..gc."".MoviesController   @  @type..gcprog."".MoviesController   P  Pgo.string."controllers.MoviesController"   p  2type.*"".MoviesController   €  "runtime.zerovalue   À 0type."".MoviesController   À  go.string."DB"   à  <type.github.com/jinzhu/gorm.DB   ` 0type."".MoviesController     8go.string."MoviesController"      "go.importpath."".   °à 0type."".MoviesController   şbruntime.gcbits.0x88000000000000000000000000000000     ˆ                şRgo.string."*controllers.MoviesController" `  \               *controllers.MoviesController    Rgo.string."*controllers.MoviesController"   ş¦go.string."func(*controllers.MoviesController, http.ResponseWriter, *http.Request)" °  °        G       func(*controllers.MoviesController, http.ResponseWriter, *http.Request)    ¦go.string."func(*controllers.MoviesController, http.ResponseWriter, *http.Request)"   ş–type.func(*"".MoviesController, net/http.ResponseWriter, *net/http.Request) °  °       †×Ş 3                                                                                                                                       €  runtime.algarray   0  bruntime.gcbits.0x88000000000000000000000000000000   P  ¦go.string."func(*controllers.MoviesController, http.ResponseWriter, *http.Request)"   p  ¨go.weak.type.*func(*"".MoviesController, net/http.ResponseWriter, *net/http.Request)   €  "runtime.zerovalue    € –type.func(*"".MoviesController, net/http.ResponseWriter, *net/http.Request)   Ğ° –type.func(*"".MoviesController, net/http.ResponseWriter, *net/http.Request)   €  2type.*"".MoviesController     8type.net/http.ResponseWriter      ,type.*net/http.Request   ş2go.string."CreateHandler" @  <               CreateHandler    2go.string."CreateHandler"   şhgo.string."func(http.ResponseWriter, *http.Request)" €  r        (       func(http.ResponseWriter, *http.Request)    hgo.string."func(http.ResponseWriter, *http.Request)"   şjtype.func(net/http.ResponseWriter, *net/http.Request)            ‘ô› 3                                                                                                                               €  runtime.algarray   0  bruntime.gcbits.0x88000000000000000000000000000000   P  hgo.string."func(http.ResponseWriter, *http.Request)"   p  |go.weak.type.*func(net/http.ResponseWriter, *net/http.Request)   €  "runtime.zerovalue    € jtype.func(net/http.ResponseWriter, *net/http.Request)   Ğ  jtype.func(net/http.ResponseWriter, *net/http.Request)   €  8type.net/http.ResponseWriter     ,type.*net/http.Request   ş4go.string."DestroyHandler" @  >               DestroyHandler    4go.string."DestroyHandler"   ş0go.string."IndexHandler" @  :               IndexHandler    0go.string."IndexHandler"   ş.go.string."InfoHandler" @  8               InfoHandler    .go.string."InfoHandler"   ş2go.string."SearchHandler" @  <               SearchHandler    2go.string."SearchHandler"   ş.go.string."ShowHandler" @  8               ShowHandler    .go.string."ShowHandler"   ş2go.string."UpdateHandler" @  <               UpdateHandler    2go.string."UpdateHandler"   ş2type.*"".MoviesController           y•( 6                                                                                                                                                                                                                                                                                                                                                                                                                                                      V    runtime.algarray   0  bruntime.gcbits.0x88000000000000000000000000000000   P  Rgo.string."*controllers.MoviesController"   p  Dgo.weak.type.**"".MoviesController   €  "runtime.zerovalue     0type."".MoviesController   `  2type.*"".MoviesController   Àğ 2type.*"".MoviesController   ğ  2go.string."CreateHandler"     jtype.func(net/http.ResponseWriter, *net/http.Request)      –type.func(*"".MoviesController, net/http.ResponseWriter, *net/http.Request)   °  H"".(*MoviesController).CreateHandler   À  H"".(*MoviesController).CreateHandler   Ğ  4go.string."DestroyHandler"   ğ  jtype.func(net/http.ResponseWriter, *net/http.Request)   €  –type.func(*"".MoviesController, net/http.ResponseWriter, *net/http.Request)     J"".(*MoviesController).DestroyHandler      J"".(*MoviesController).DestroyHandler   °  0go.string."IndexHandler"   Ğ  jtype.func(net/http.ResponseWriter, *net/http.Request)   à  –type.func(*"".MoviesController, net/http.ResponseWriter, *net/http.Request)   ğ  F"".(*MoviesController).IndexHandler   €  F"".(*MoviesController).IndexHandler     .go.string."InfoHandler"   °  jtype.func(net/http.ResponseWriter, *net/http.Request)   À  –type.func(*"".MoviesController, net/http.ResponseWriter, *net/http.Request)   Ğ  D"".(*MoviesController).InfoHandler   à  D"".(*MoviesController).InfoHandler   ğ  2go.string."SearchHandler"     jtype.func(net/http.ResponseWriter, *net/http.Request)      –type.func(*"".MoviesController, net/http.ResponseWriter, *net/http.Request)   °  H"".(*MoviesController).SearchHandler   À  H"".(*MoviesController).SearchHandler   Ğ  .go.string."ShowHandler"   ğ  jtype.func(net/http.ResponseWriter, *net/http.Request)   €  –type.func(*"".MoviesController, net/http.ResponseWriter, *net/http.Request)     D"".(*MoviesController).ShowHandler      D"".(*MoviesController).ShowHandler   °  2go.string."UpdateHandler"   Ğ  jtype.func(net/http.ResponseWriter, *net/http.Request)   à  –type.func(*"".MoviesController, net/http.ResponseWriter, *net/http.Request)   ğ  H"".(*MoviesController).UpdateHandler   €  H"".(*MoviesController).UpdateHandler   şbruntime.gcbits.0x48844400000000000000000000000000     H„D              ş&go.string."[]uint8" 0  0               []uint8    &go.string."[]uint8"   ştype.[]uint8            ß~.8                                                                     runtime.algarray   0  bruntime.gcbits.0x48844400000000000000000000000000   P  &go.string."[]uint8"   p  *go.weak.type.*[]uint8   €  "runtime.zerovalue     type.uint8   ş6go.typelink.[]uint8/[]uint8              type.[]uint8   ş&go.string."runtime" 0  0               runtime    &go.string."runtime"   ş,go.importpath.runtime.                       &go.string."runtime"   ş(go.string."net/http" @  2               net/http    (go.string."net/http"   ş.go.importpath.net/http.                       (go.string."net/http"   ş6go.string."polyflix/models" @  @               polyflix/models    6go.string."polyflix/models"   ş<go.importpath.polyflix/models.                       6go.string."polyflix/models"   şDgo.string."github.com/jinzhu/gorm" P  N               github.com/jinzhu/gorm    Dgo.string."github.com/jinzhu/gorm"   şJgo.importpath.github.com/jinzhu/gorm.                       Dgo.string."github.com/jinzhu/gorm"   şgo.string."fmt" 0  (               fmt    go.string."fmt"   ş$go.importpath.fmt.                       go.string."fmt"   ş2go.string."encoding/json" @  <               encoding/json    2go.string."encoding/json"   ş8go.importpath.encoding/json.                       2go.string."encoding/json"   ş"runtime.zerovalue      ÿÿgo13ld 
