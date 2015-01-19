@@ -33,6 +33,15 @@ func (c *MoviesController) ShowHandler(res http.ResponseWriter, req *http.Reques
 }
 
 func (c *MoviesController) CreateHandler(res http.ResponseWriter, req *http.Request) {
+	title := req.FormValue("title")
+	themoviedbid, _ := strconv.Atoi(req.FormValue("themoviedbid"))
+	movie := models.Movie{Title: title, Themoviedbid: themoviedbid}
+	var result = c.DB.Create(&movie)
+	jsonRes, err := json.MarshalIndent(result, "", "  ")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Fprintf(res, string(jsonRes))
 }
 
 func (c *MoviesController) UpdateHandler(res http.ResponseWriter, req *http.Request) {
