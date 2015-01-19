@@ -6,6 +6,7 @@ import (
 	"github.com/jinzhu/gorm"
 	"net/http"
 	"polyflix/models"
+	"strconv"
 )
 
 type MoviesController struct {
@@ -22,6 +23,13 @@ func (c *MoviesController) IndexHandler(res http.ResponseWriter, req *http.Reque
 }
 
 func (c *MoviesController) ShowHandler(res http.ResponseWriter, req *http.Request) {
+	id, _ := strconv.Atoi(req.FormValue("id"))
+	var result = c.DB.Where("id = ?", id).First(&models.Movie{})
+	jsonRes, err := json.MarshalIndent(result, "", "  ")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Fprintf(res, string(jsonRes))
 }
 
 func (c *MoviesController) CreateHandler(res http.ResponseWriter, req *http.Request) {
