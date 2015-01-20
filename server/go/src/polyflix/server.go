@@ -12,7 +12,12 @@ var (
 )
 
 func main() {
-	var db = database.New()
+	http.Handle("/", Handlers())
+	http.ListenAndServe(url, nil)
+}
+
+func Handlers() *mux.Router {
+	db := database.New()
 	router := mux.NewRouter().StrictSlash(true)
 	movies := router.PathPrefix("/movies").Subrouter().StrictSlash(true)
 	moviesController := controllers.MoviesController{DB: db}
@@ -23,6 +28,6 @@ func main() {
 	movies.HandleFunc("/{id}", moviesController.DestroyHandler).Methods("DELETE")
 	movies.HandleFunc("/", moviesController.IndexHandler).Methods("GET")
 	movies.HandleFunc("/", moviesController.CreateHandler).Methods("POST")
-	http.Handle("/", router)
-	http.ListenAndServe(url, nil)
+
+	return router
 }
