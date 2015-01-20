@@ -48,7 +48,7 @@ func (c *MoviesController) UpdateHandler(res http.ResponseWriter, req *http.Requ
 	title := req.FormValue("title")
 	themoviedbid, _ := strconv.Atoi(req.FormValue("themoviedbid"))
 	movie := models.Movie{Title: title, Themoviedbid: themoviedbid}
-	var result = c.DB.Model(&models.Movie{}).Updates(&movie)
+	var result = c.DB.Model(&models.Movie{}).UpdateColumns(&movie)
 	jsonRes, err := json.MarshalIndent(result, "", "  ")
 	if err != nil {
 		panic(err)
