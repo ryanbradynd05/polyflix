@@ -2,7 +2,7 @@
 
 Node: [![Code Climate](https://codeclimate.com/github/ryanbradynd05/polyflix/badges/gpa.svg)](https://codeclimate.com/github/ryanbradynd05/polyflix) [![Dependency Status](https://www.versioneye.com/user/projects/54a9256e27b014d85a000622/badge.svg?style=flat)](https://www.versioneye.com/user/projects/54a9256e27b014d85a000622) [Coverage Report](http://rawgit.com/ryanbradynd05/polyflix/master/server/node/coverage/lcov-report/index.html)
 
-Ruby: [Coverage Report](http://rawgit.com/ryanbradynd05/polyflix/master/server/rails/coverage/index.html#_AllFiles)
+Ruby: [![Dependency Status](https://gemnasium.com/ryanbradynd05/polyflix.svg)](https://gemnasium.com/ryanbradynd05/polyflix) [Coverage Report](http://rawgit.com/ryanbradynd05/polyflix/master/server/rails/coverage/index.html#_AllFiles)
 
 polyflix  
 ========
