@@ -4,6 +4,8 @@ Node: [![Code Climate](https://codeclimate.com/github/ryanbradynd05/polyflix/bad
 
 Ruby: [![Dependency Status](https://gemnasium.com/ryanbradynd05/polyflix.svg)](https://gemnasium.com/ryanbradynd05/polyflix) [Coverage Report](http://rawgit.com/ryanbradynd05/polyflix/master/server/rails/coverage/index.html#_AllFiles)
 
+Go: [Coverage Report](http://rawgit.com/ryanbradynd05/polyflix/master/server/go/coverage/coverage_report.html)
+
 polyflix  
 ========
 
