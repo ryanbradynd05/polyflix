@@ -23,6 +23,7 @@ func main() {
 	http.ListenAndServe(url, nil)
 }
 
+// LoadConfig loads configuration from env flag and dbconf.yml
 func LoadConfig() {
 	config, _ := yaml.ReadFile("db/dbconf.yml")
 	flag.StringVar(&env, "env", "development", "Environment")
@@ -33,11 +34,13 @@ func LoadConfig() {
 	fmt.Printf("DB Connection:  %v\n", dbConn)
 }
 
+// DbInit initializes the gorm.DB using polyflix/database.New()
 func DbInit() gorm.DB {
 	db := database.New(dbConn)
 	return db
 }
 
+// Handlers creates gorilla/mux router, subrouter and handler functions
 func Handlers() *mux.Router {
 	db := DbInit()
 	router := mux.NewRouter().StrictSlash(true)

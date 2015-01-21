@@ -2,22 +2,26 @@ package database
 
 import (
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/go-sql-driver/mysql" // Only needed for GORM connection
 	"github.com/jinzhu/gorm"
 	"os"
 	"sync"
 )
 
+// Database holds the gorm.DB
 type Database struct {
 	DB gorm.DB
 }
 
-var _init_ctx sync.Once
-var _instance *Database
+var (
+	initCtx  sync.Once
+	instance *Database
+)
 
+// New create gorm.DB from connection string in dbconfig.yml
 func New(dbConn string) gorm.DB {
-	_init_ctx.Do(func() {
-		_instance = new(Database)
+	initCtx.Do(func() {
+		instance = new(Database)
 		connString := fmt.Sprintf("%s", dbConn)
 		db, err := gorm.Open("mysql", connString)
 		if err != nil {
