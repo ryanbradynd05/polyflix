@@ -20,8 +20,10 @@ var (
 
 func main() {
 	LoadConfig()
-	http.Handle("/", Handlers())
-	http.ListenAndServe(url, nil)
+	if env != "test" {
+		http.Handle("/", Handlers())
+		http.ListenAndServe(url, nil)
+	}
 }
 
 // LoadConfig loads configuration from env flag and dbconf.yml
