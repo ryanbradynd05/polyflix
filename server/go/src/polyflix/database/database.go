@@ -4,6 +4,7 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql" // Only needed for GORM connection
 	"github.com/jinzhu/gorm"
+	"log"
 	"os"
 	"sync"
 )
@@ -25,15 +26,15 @@ func New(dbConn string) gorm.DB {
 		connString := fmt.Sprintf("%s", dbConn)
 		db, err := gorm.Open("mysql", connString)
 		if err != nil {
-			fmt.Printf("Gorm error: %+v\n", err)
+			log.Printf("Gorm error: %+v\n", err)
 			os.Exit(1)
 		}
-		fmt.Printf("Database opened\n")
+		log.Printf("Database opened\n")
 		db.DB()
 		db.DB().Ping()
 		db.DB().SetMaxIdleConns(10)
 		db.DB().SetMaxOpenConns(100)
-		_instance.DB = db
+		instance.DB = db
 	})
-	return _instance.DB
+	return instance.DB
 }

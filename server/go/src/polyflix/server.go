@@ -6,8 +6,9 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
 	"github.com/kylelemons/go-gypsy/yaml"
+	"log"
 	"net/http"
-	"polyflix/controllers"
+	. "polyflix/controllers"
 	"polyflix/database"
 )
 
@@ -28,10 +29,10 @@ func LoadConfig() {
 	config, _ := yaml.ReadFile("db/dbconf.yml")
 	flag.StringVar(&env, "env", "development", "Environment")
 	flag.Parse()
-	fmt.Printf("Load %v config\n", env)
+	log.Printf("Load %v config\n", env)
 	conn, _ := config.Get(fmt.Sprintf("%s.open", env))
 	dbConn = conn
-	fmt.Printf("DB Connection:  %v\n", dbConn)
+	log.Printf("DB Connection:  %v\n", dbConn)
 }
 
 // DbInit initializes the gorm.DB using polyflix/database.New()
@@ -45,7 +46,7 @@ func Handlers() *mux.Router {
 	db := DbInit()
 	router := mux.NewRouter().StrictSlash(true)
 	movies := router.PathPrefix("/movies").Subrouter().StrictSlash(true)
-	moviesController := controllers.MoviesController{DB: db}
+	moviesController := MoviesController{DB: db}
 	movies.HandleFunc("/search/{id}", moviesController.SearchHandler).Methods("GET")
 	movies.HandleFunc("/info/{id}", moviesController.InfoHandler).Methods("GET")
 	movies.HandleFunc("/{id}", moviesController.ShowHandler).Methods("GET")
