@@ -1,18 +1,21 @@
 package main_test
 
 import (
-	"fmt"
+	. "gopkg.in/check.v1"
 	"net/http/httptest"
 	"polyflix"
+	"testing"
 )
 
-var (
-	server    *httptest.Server
-	moviesUrl string
-)
+// Hook up gocheck into the "go test" runner.
+func Test(t *testing.T) { TestingT(t) }
 
-func init() {
-	server = httptest.NewServer(main.Handlers())
+type ServerSuite struct{}
 
-	moviesUrl = fmt.Sprintf("%s/movies", server.URL)
+var _ = Suite(&ServerSuite{})
+
+func (s *ServerSuite) TestMain(c *C) {
+	server := httptest.NewServer(main.Handlers())
+	c.Assert(server.URL, Matches, "http://127.0.0.1:56.*")
+	c.Assert(server, FitsTypeOf, &httptest.Server{})
 }
