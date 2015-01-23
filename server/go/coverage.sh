@@ -12,7 +12,3 @@ gocov-html ${BASEDIR}/coverage/coverage.json >> ${BASEDIR}/coverage/coverage_rep
 cd "${BASEDIR}/src/polyflix/database"
 gocov test > ${BASEDIR}/coverage/coverage.json
 gocov-html ${BASEDIR}/coverage/coverage.json >> ${BASEDIR}/coverage/coverage_report.html
-
-# cd "${BASEDIR}/src/polyflix/models"
-# gocov test >> ${BASEDIR}/coverage/coverage.json
-# gocov-html ${BASEDIR}/coverage/coverage.json >> ${BASEDIR}/coverage/coverage_report.html
