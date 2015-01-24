@@ -8,44 +8,55 @@ import (
 	"github.com/kylelemons/go-gypsy/yaml"
 	"log"
 	"net/http"
+	"os"
 	. "polyflix/controllers"
 	"polyflix/database"
+	"strings"
 )
 
 var (
-	url    = "localhost:3000"
-	env    string
-	dbConn string
+	url = "localhost:3000"
 )
 
 func main() {
-	LoadConfig()
-	if env != "test" {
-		http.Handle("/", Handlers())
-		http.ListenAndServe(url, nil)
-	}
+	env := GetEnv()
+	dbConn := GetDbConn(env)
+	db := DbInit(dbConn)
+	http.Handle("/", Handlers(db))
+	http.ListenAndServe(url, nil)
 }
 
-// LoadConfig loads configuration from env flag and dbconf.yml
-func LoadConfig() {
-	config, _ := yaml.ReadFile("db/dbconf.yml")
-	flag.StringVar(&env, "env", "development", "Environment")
+// GetEnv Gets the env flag
+func GetEnv() string {
+	env := flag.String("env", "development", "Environment")
 	flag.Parse()
+	envString := *env
+	return envString
+}
+
+// LoadDbConn loads configuration from env flag and dbconf.yml
+func GetDbConn(env string) string {
+	pwd, _ := os.Getwd()
+	basedir := strings.SplitAfter(pwd, "go")
+	filename := fmt.Sprintf("%s/db/dbconf.yml", basedir[0])
+	config, _ := yaml.ReadFile(filename)
 	log.Printf("Load %v config\n", env)
-	conn, _ := config.Get(fmt.Sprintf("%s.open", env))
-	dbConn = conn
+	prop := fmt.Sprintf("%s.open", env)
+	log.Printf("Prop: %v", prop)
+	conn, _ := config.Get(prop)
+	dbConn := conn
 	log.Printf("DB Connection:  %v\n", dbConn)
+	return dbConn
 }
 
 // DbInit initializes the gorm.DB using polyflix/database.New()
-func DbInit() gorm.DB {
+func DbInit(dbConn string) gorm.DB {
 	db := database.New(dbConn)
 	return db
 }
 
 // Handlers creates gorilla/mux router, subrouter and handler functions
-func Handlers() *mux.Router {
-	db := DbInit()
+func Handlers(db gorm.DB) *mux.Router {
 	router := mux.NewRouter().StrictSlash(true)
 	movies := router.PathPrefix("/movies").Subrouter().StrictSlash(true)
 	moviesController := MoviesController{DB: db}
