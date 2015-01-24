@@ -82,3 +82,15 @@ func (s *MovieControllerSuite) TestShowHandler(c *C) {
 
 	c.Assert(recorder.Code, Equals, 200)
 }
+
+func (s *MovieControllerSuite) TestDestroyHandler(c *C) {
+	controller := MoviesController{DB: s.db}
+	recorder := httptest.NewRecorder()
+	url := fmt.Sprintf("%s/movies/1", s.server.URL)
+	req, err := http.NewRequest("DELETE", url, nil)
+	c.Assert(err, IsNil)
+
+	controller.ShowHandler(recorder, req)
+
+	c.Assert(recorder.Code, Equals, 200)
+}
