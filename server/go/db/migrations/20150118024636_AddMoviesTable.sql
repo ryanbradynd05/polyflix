@@ -2,7 +2,7 @@
 -- +goose Up
 -- SQL in section 'Up' is executed when this migration is applied
 CREATE TABLE movies (
-    id int(10) UNSIGNED NOT NULL,
+    id int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
     createdAt date,
     updatedAt date,
     title varchar(255),
