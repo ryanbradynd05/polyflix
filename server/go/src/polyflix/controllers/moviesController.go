@@ -3,6 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
 	"net/http"
 	"strconv"
@@ -47,9 +48,12 @@ func (c *MoviesController) IndexHandler(res http.ResponseWriter, req *http.Reque
 
 // ShowHandler handles GET to /movies/{id}
 func (c *MoviesController) ShowHandler(res http.ResponseWriter, req *http.Request) {
-	id, _ := strconv.Atoi(req.FormValue("id"))
-	var result = c.DB.Where("id = ?", id).First(&Movie{})
-	jsonRes, err := json.MarshalIndent(result, "", "  ")
+	vars := mux.Vars(req)
+	id := vars["id"]
+	var movie Movie
+	c.DB.Where("id = ?", id).First(&movie)
+	payload := SinglePayload{Movie: movie}
+	jsonRes, err := json.MarshalIndent(payload, "", "  ")
 	if err != nil {
 		panic(err)
 	}

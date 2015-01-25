@@ -90,16 +90,21 @@ func (s *MovieControllerSuite) TestIndexHandler(c *C) {
 }
 
 func (s *MovieControllerSuite) TestShowHandler(c *C) {
-	controller := MoviesController{DB: s.db}
 	recorder := httptest.NewRecorder()
-	url := fmt.Sprintf("%s/movies/1", s.server.URL)
+	url := fmt.Sprintf("%s/movies/%v", s.server.URL, movie1.Id)
 	req, err := http.NewRequest("GET", url, nil)
 	c.Assert(err, IsNil)
 
-	controller.ShowHandler(recorder, req)
-
 	s.router.ServeHTTP(recorder, req)
 	c.Assert(recorder.Code, Equals, http.StatusOK)
+
+	var payload SinglePayload
+	// fmt.Printf("%v\n", recorder.Body.String())
+	contents, err := ioutil.ReadAll(recorder.Body)
+	json.Unmarshal(contents, &payload)
+
+	c.Assert(payload.Movie.Title, Equals, movie1.Title)
+	c.Assert(payload.Movie.Themoviedbid, Equals, movie1.Themoviedbid)
 }
 
 func (s *MovieControllerSuite) TestDestroyHandler(c *C) {
