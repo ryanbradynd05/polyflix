@@ -6,6 +6,7 @@ import (
 	"github.com/jinzhu/gorm"
 	"net/http"
 	"strconv"
+	"time"
 )
 
 // ArrayPayload struct to hold multiple movies for JSON marshalling
@@ -20,8 +21,11 @@ type SinglePayload struct {
 
 // Movie type for movie objects
 type Movie struct {
-	Title        string `json:"title"`
-	Themoviedbid int    `json:"themoviedbid"`
+	Id           int64     `json:"id",gorm:"primary_key:yes"`
+	CreatedAt    time.Time `json:"createdAt",gorm:"column:createdAt"`
+	UpdatedAt    time.Time `json:"updatedAt",gorm:"column:updatedAt"`
+	Title        string    `json:"title"`
+	Themoviedbid int       `json:"themoviedbid"`
 }
 
 // MoviesController controller for the movies subroute
@@ -31,8 +35,9 @@ type MoviesController struct {
 
 // IndexHandler handles GET to /movies/
 func (c *MoviesController) IndexHandler(res http.ResponseWriter, req *http.Request) {
-	var result = c.DB.Find(&Movie{})
-	jsonRes, err := json.MarshalIndent(result, "", "  ")
+	var movies []Movie
+	result := c.DB.Find(&movies)
+	jsonRes, err := json.MarshalIndent(result.Value, "", "  ")
 	if err != nil {
 		panic(err)
 	}
