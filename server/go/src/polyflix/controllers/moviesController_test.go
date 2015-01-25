@@ -9,11 +9,15 @@ import (
 	"polyflix"
 	. "polyflix/controllers"
 	"testing"
+	"time"
 )
 
 var (
 	url    = "localhost:3000"
 	dbConn string
+	now    = time.Now()
+	movie1 = Movie{Title: "Fury", Themoviedbid: 228150, CreatedAt: now, UpdatedAt: now}
+	movie2 = Movie{Title: "Interstellar", Themoviedbid: 157336, CreatedAt: now, UpdatedAt: now}
 )
 
 // Hook up gocheck into the "go test" runner.
@@ -31,6 +35,12 @@ func (s *MovieControllerSuite) SetUpSuite(c *C) {
 	dbConn := main.GetDbConn(env)
 	s.db = main.DbInit(dbConn)
 	s.server = httptest.NewServer(main.Handlers(s.db))
+	s.db.Where(Movie{Themoviedbid: 228150}).FirstOrCreate(&movie1)
+	s.db.Where(Movie{Themoviedbid: 157336}).FirstOrCreate(&movie2)
+}
+
+func (s *MovieControllerSuite) TearDownSuite(c *C) {
+	s.server.Close()
 }
 
 func (s *MovieControllerSuite) TestMovie(c *C) {
@@ -68,7 +78,7 @@ func (s *MovieControllerSuite) TestIndexHandler(c *C) {
 
 	controller.IndexHandler(recorder, req)
 
-	c.Assert(recorder.Code, Equals, 200)
+	c.Assert(recorder.Code, Equals, http.StatusOK)
 }
 
 func (s *MovieControllerSuite) TestShowHandler(c *C) {
@@ -80,7 +90,7 @@ func (s *MovieControllerSuite) TestShowHandler(c *C) {
 
 	controller.ShowHandler(recorder, req)
 
-	c.Assert(recorder.Code, Equals, 200)
+	c.Assert(recorder.Code, Equals, http.StatusOK)
 }
 
 func (s *MovieControllerSuite) TestDestroyHandler(c *C) {
@@ -92,5 +102,5 @@ func (s *MovieControllerSuite) TestDestroyHandler(c *C) {
 
 	controller.ShowHandler(recorder, req)
 
-	c.Assert(recorder.Code, Equals, 200)
+	c.Assert(recorder.Code, Equals, http.StatusOK)
 }
