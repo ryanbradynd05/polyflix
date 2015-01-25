@@ -1,9 +1,12 @@
 package controllers_test
 
 import (
+	"encoding/json"
 	"fmt"
+	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
 	. "gopkg.in/check.v1"
+	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"polyflix"
@@ -13,8 +16,6 @@ import (
 )
 
 var (
-	url    = "localhost:3000"
-	dbConn string
 	now    = time.Now()
 	movie1 = Movie{Title: "Fury", Themoviedbid: 228150, CreatedAt: now, UpdatedAt: now}
 	movie2 = Movie{Title: "Interstellar", Themoviedbid: 157336, CreatedAt: now, UpdatedAt: now}
@@ -25,6 +26,7 @@ func Test(t *testing.T) { TestingT(t) }
 
 type MovieControllerSuite struct {
 	server *httptest.Server
+	router *mux.Router
 	db     gorm.DB
 }
 
@@ -34,7 +36,8 @@ func (s *MovieControllerSuite) SetUpSuite(c *C) {
 	env := "test"
 	dbConn := main.GetDbConn(env)
 	s.db = main.DbInit(dbConn)
-	s.server = httptest.NewServer(main.Handlers(s.db))
+	s.router = main.Handlers(s.db)
+	s.server = httptest.NewServer(s.router)
 	s.db.Where(Movie{Themoviedbid: 228150}).FirstOrCreate(&movie1)
 	s.db.Where(Movie{Themoviedbid: 157336}).FirstOrCreate(&movie2)
 }
@@ -70,15 +73,20 @@ func (s *MovieControllerSuite) TestArrayPayload(c *C) {
 }
 
 func (s *MovieControllerSuite) TestIndexHandler(c *C) {
-	controller := MoviesController{DB: s.db}
 	recorder := httptest.NewRecorder()
-	url := fmt.Sprintf("%s/movies", s.server.URL)
+	url := fmt.Sprintf("%s/movies/", s.server.URL)
 	req, err := http.NewRequest("GET", url, nil)
 	c.Assert(err, IsNil)
 
-	controller.IndexHandler(recorder, req)
-
+	s.router.ServeHTTP(recorder, req)
 	c.Assert(recorder.Code, Equals, http.StatusOK)
+
+	var payload ArrayPayload
+	// fmt.Printf("%v\n", recorder.Body.String())
+	contents, err := ioutil.ReadAll(recorder.Body)
+	json.Unmarshal(contents, &payload)
+
+	c.Assert(len(payload.Movies), Equals, 2)
 }
 
 func (s *MovieControllerSuite) TestShowHandler(c *C) {
@@ -90,6 +98,7 @@ func (s *MovieControllerSuite) TestShowHandler(c *C) {
 
 	controller.ShowHandler(recorder, req)
 
+	s.router.ServeHTTP(recorder, req)
 	c.Assert(recorder.Code, Equals, http.StatusOK)
 }
 
@@ -100,7 +109,6 @@ func (s *MovieControllerSuite) TestDestroyHandler(c *C) {
 	req, err := http.NewRequest("DELETE", url, nil)
 	c.Assert(err, IsNil)
 
-	controller.ShowHandler(recorder, req)
-
+	s.router.ServeHTTP(recorder, req)
 	c.Assert(recorder.Code, Equals, http.StatusOK)
 }

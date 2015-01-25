@@ -36,8 +36,9 @@ type MoviesController struct {
 // IndexHandler handles GET to /movies/
 func (c *MoviesController) IndexHandler(res http.ResponseWriter, req *http.Request) {
 	var movies []Movie
-	result := c.DB.Find(&movies)
-	jsonRes, err := json.MarshalIndent(result.Value, "", "  ")
+	c.DB.Find(&movies)
+	payload := ArrayPayload{Movies: movies}
+	jsonRes, err := json.MarshalIndent(payload, "", "  ")
 	if err != nil {
 		panic(err)
 	}
