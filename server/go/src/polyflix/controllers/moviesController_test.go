@@ -87,7 +87,7 @@ func (s *MovieControllerSuite) TestIndexHandler(c *C) {
 	c.Assert(recorder.Code, Equals, http.StatusOK)
 
 	var payload ArrayPayload
-	fmt.Printf("%v\n", recorder.Body.String())
+	fmt.Printf("Index: %v\n", recorder.Body.String())
 	contents, err := ioutil.ReadAll(recorder.Body)
 	json.Unmarshal(contents, &payload)
 
@@ -104,7 +104,7 @@ func (s *MovieControllerSuite) TestShowHandler(c *C) {
 	c.Assert(recorder.Code, Equals, http.StatusOK)
 
 	var payload SinglePayload
-	fmt.Printf("%v\n", recorder.Body.String())
+	fmt.Printf("Show: %v\n", recorder.Body.String())
 	contents, err := ioutil.ReadAll(recorder.Body)
 	json.Unmarshal(contents, &payload)
 
@@ -125,7 +125,28 @@ func (s *MovieControllerSuite) TestCreateHandler(c *C) {
 	c.Assert(recorder.Code, Equals, http.StatusOK)
 
 	var payload SinglePayload
-	fmt.Printf("%v\n", recorder.Body.String())
+	fmt.Printf("Create: %v\n", recorder.Body.String())
+	contents, err := ioutil.ReadAll(recorder.Body)
+	json.Unmarshal(contents, &payload)
+
+	c.Assert(payload.Movie.Title, Equals, newMovie.Title)
+	c.Assert(payload.Movie.Themoviedbid, Equals, newMovie.Themoviedbid)
+}
+
+func (s *MovieControllerSuite) TestUpdateHandler(c *C) {
+	newMovie := Movie{Title: "Fight Club", Themoviedbid: 500}
+	newPayload := SinglePayload{Movie: newMovie}
+	body, _ := json.Marshal(newPayload)
+	recorder := httptest.NewRecorder()
+	url := fmt.Sprintf("%s/movies/%v", s.server.URL, movie1.Id)
+	req, err := http.NewRequest("PUT", url, bytes.NewBuffer(body))
+	c.Assert(err, IsNil)
+
+	s.router.ServeHTTP(recorder, req)
+	c.Assert(recorder.Code, Equals, http.StatusOK)
+
+	var payload SinglePayload
+	fmt.Printf("Update: %v\n", recorder.Body.String())
 	contents, err := ioutil.ReadAll(recorder.Body)
 	json.Unmarshal(contents, &payload)
 

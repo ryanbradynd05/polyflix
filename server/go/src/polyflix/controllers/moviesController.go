@@ -6,7 +6,6 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
 	"net/http"
-	"strconv"
 	"time"
 )
 
@@ -70,11 +69,22 @@ func (c *MoviesController) CreateHandler(res http.ResponseWriter, req *http.Requ
 
 // UpdateHandler handles PUT to /movies/{id}
 func (c *MoviesController) UpdateHandler(res http.ResponseWriter, req *http.Request) {
-	title := req.FormValue("title")
-	themoviedbid, _ := strconv.Atoi(req.FormValue("themoviedbid"))
-	movie := Movie{Title: title, Themoviedbid: themoviedbid}
-	var result = c.DB.Model(&Movie{}).UpdateColumns(&movie)
-	jsonRes, _ := json.MarshalIndent(result, "", "  ")
+	vars := mux.Vars(req)
+	id := vars["id"]
+	var oldMovie Movie
+	c.DB.Where("id = ?", id).First(&oldMovie)
+
+	var incomingPayload SinglePayload
+	json.NewDecoder(req.Body).Decode(&incomingPayload)
+	newMovie := incomingPayload.Movie
+	newMovie.CreatedAt = oldMovie.CreatedAt
+	newMovie.UpdatedAt = time.Now()
+	c.DB.Model(&oldMovie).Updates(&newMovie)
+
+	var updatedMovie Movie
+	c.DB.Where("id = ?", id).First(&updatedMovie)
+	payload := SinglePayload{Movie: updatedMovie}
+	jsonRes, _ := json.MarshalIndent(payload, "", "  ")
 	fmt.Fprintf(res, string(jsonRes))
 }
 
