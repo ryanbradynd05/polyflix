@@ -96,7 +96,7 @@ func (s *MovieControllerSuite) TestIndexHandler(c *C) {
 
 func (s *MovieControllerSuite) TestShowHandler(c *C) {
 	recorder := httptest.NewRecorder()
-	url := fmt.Sprintf("%s/movies/%v", s.server.URL, movie1.Id)
+	url := fmt.Sprintf("%s/movies/%v", s.server.URL, movie1.ID)
 	req, err := http.NewRequest("GET", url, nil)
 	c.Assert(err, IsNil)
 
@@ -138,7 +138,7 @@ func (s *MovieControllerSuite) TestUpdateHandler(c *C) {
 	newPayload := SinglePayload{Movie: newMovie}
 	body, _ := json.Marshal(newPayload)
 	recorder := httptest.NewRecorder()
-	url := fmt.Sprintf("%s/movies/%v", s.server.URL, movie1.Id)
+	url := fmt.Sprintf("%s/movies/%v", s.server.URL, movie1.ID)
 	req, err := http.NewRequest("PUT", url, bytes.NewBuffer(body))
 	c.Assert(err, IsNil)
 
@@ -156,7 +156,7 @@ func (s *MovieControllerSuite) TestUpdateHandler(c *C) {
 
 func (s *MovieControllerSuite) TestDestroyHandler(c *C) {
 	recorder := httptest.NewRecorder()
-	url := fmt.Sprintf("%s/movies/%v", s.server.URL, movie1.Id)
+	url := fmt.Sprintf("%s/movies/%v", s.server.URL, movie1.ID)
 	req, err := http.NewRequest("DELETE", url, nil)
 	c.Assert(err, IsNil)
 

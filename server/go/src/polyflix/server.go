@@ -9,7 +9,7 @@ import (
 	"log"
 	"net/http"
 	"os"
-	. "polyflix/controllers"
+	"polyflix/controllers"
 	"polyflix/database"
 	"strings"
 )
@@ -34,7 +34,7 @@ func GetEnv() string {
 	return envString
 }
 
-// LoadDbConn loads configuration from env flag and dbconf.yml
+// GetDbConn loads configuration from env flag and dbconf.yml
 func GetDbConn(env string) string {
 	pwd, _ := os.Getwd()
 	basedir := strings.SplitAfter(pwd, "go")
@@ -59,7 +59,7 @@ func DbInit(dbConn string) gorm.DB {
 func Handlers(db gorm.DB) *mux.Router {
 	router := mux.NewRouter().StrictSlash(true)
 	movies := router.PathPrefix("/movies").Subrouter().StrictSlash(true)
-	moviesController := MoviesController{DB: db}
+	moviesController := controllers.MoviesController{DB: db}
 	movies.HandleFunc("/search/{id}", moviesController.SearchHandler).Methods("GET")
 	movies.HandleFunc("/info/{id}", moviesController.InfoHandler).Methods("GET")
 	movies.HandleFunc("/{id}", moviesController.ShowHandler).Methods("GET")
