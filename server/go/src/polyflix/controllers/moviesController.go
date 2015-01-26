@@ -56,11 +56,15 @@ func (c *MoviesController) ShowHandler(res http.ResponseWriter, req *http.Reques
 
 // CreateHandler handles POST to /movies/
 func (c *MoviesController) CreateHandler(res http.ResponseWriter, req *http.Request) {
-	title := req.FormValue("title")
-	themoviedbid, _ := strconv.Atoi(req.FormValue("themoviedbid"))
-	movie := Movie{Title: title, Themoviedbid: themoviedbid}
-	var result = c.DB.Create(&movie)
-	jsonRes, _ := json.MarshalIndent(result, "", "  ")
+	var incomingPayload SinglePayload
+	json.NewDecoder(req.Body).Decode(&incomingPayload)
+	movie := incomingPayload.Movie
+	now := time.Now()
+	movie.CreatedAt = now
+	movie.UpdatedAt = now
+	c.DB.Create(&movie)
+	payload := SinglePayload{Movie: movie}
+	jsonRes, _ := json.MarshalIndent(payload, "", "  ")
 	fmt.Fprintf(res, string(jsonRes))
 }
 
