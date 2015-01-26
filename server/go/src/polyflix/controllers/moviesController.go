@@ -33,13 +33,17 @@ type MoviesController struct {
 	DB gorm.DB
 }
 
+func (c *MoviesController) ReturnJson(res http.ResponseWriter, payload interface{}) {
+	jsonRes, _ := json.MarshalIndent(payload, "", "  ")
+	fmt.Fprintf(res, string(jsonRes))
+}
+
 // IndexHandler handles GET to /movies/
 func (c *MoviesController) IndexHandler(res http.ResponseWriter, req *http.Request) {
 	var movies []Movie
 	c.DB.Find(&movies)
 	payload := ArrayPayload{Movies: movies}
-	jsonRes, _ := json.MarshalIndent(payload, "", "  ")
-	fmt.Fprintf(res, string(jsonRes))
+	c.ReturnJson(res, payload)
 }
 
 // ShowHandler handles GET to /movies/{id}
@@ -49,8 +53,7 @@ func (c *MoviesController) ShowHandler(res http.ResponseWriter, req *http.Reques
 	var movie Movie
 	c.DB.Where("id = ?", id).First(&movie)
 	payload := SinglePayload{Movie: movie}
-	jsonRes, _ := json.MarshalIndent(payload, "", "  ")
-	fmt.Fprintf(res, string(jsonRes))
+	c.ReturnJson(res, payload)
 }
 
 // CreateHandler handles POST to /movies/
@@ -63,8 +66,7 @@ func (c *MoviesController) CreateHandler(res http.ResponseWriter, req *http.Requ
 	movie.UpdatedAt = now
 	c.DB.Create(&movie)
 	payload := SinglePayload{Movie: movie}
-	jsonRes, _ := json.MarshalIndent(payload, "", "  ")
-	fmt.Fprintf(res, string(jsonRes))
+	c.ReturnJson(res, payload)
 }
 
 // UpdateHandler handles PUT to /movies/{id}
@@ -84,8 +86,7 @@ func (c *MoviesController) UpdateHandler(res http.ResponseWriter, req *http.Requ
 	var updatedMovie Movie
 	c.DB.Where("id = ?", id).First(&updatedMovie)
 	payload := SinglePayload{Movie: updatedMovie}
-	jsonRes, _ := json.MarshalIndent(payload, "", "  ")
-	fmt.Fprintf(res, string(jsonRes))
+	c.ReturnJson(res, payload)
 }
 
 // DestroyHandler handles DELETE to /movies/{id}
