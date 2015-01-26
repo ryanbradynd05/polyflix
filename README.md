@@ -1,4 +1,4 @@
-[![Stories in Ready](https://badge.waffle.io/ryanbradynd05/polyflix.png?label=ready&title=Ready)](https://waffle.io/ryanbradynd05/polyflix)
+[![Stories in Ready](https://badge.waffle.io/ryanbradynd05/polyflix.png?label=ready&title=Ready)](https://waffle.io/ryanbradynd05/polyflix)  [Trello](https://trello.com/b/Bjivs4nf/polyflix)
 
 Node: [![Code Climate](https://codeclimate.com/github/ryanbradynd05/polyflix/badges/gpa.svg)](https://codeclimate.com/github/ryanbradynd05/polyflix) [![Dependency Status](https://www.versioneye.com/user/projects/54a9256e27b014d85a000622/badge.svg?style=flat)](https://www.versioneye.com/user/projects/54a9256e27b014d85a000622) [Coverage Report](http://rawgit.com/ryanbradynd05/polyflix/master/server/node/coverage/lcov-report/index.html)
 
