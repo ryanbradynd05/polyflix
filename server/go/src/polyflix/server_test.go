@@ -27,3 +27,8 @@ func (s *ServerSuite) TestMain(c *C) {
 	c.Assert(server.URL, Matches, "http://127.0.0.1:.*")
 	c.Assert(server, FitsTypeOf, &httptest.Server{})
 }
+
+func (s *ServerSuite) TestGetEnv(c *C) {
+	env := GetEnv()
+	c.Assert(env, Equals, "development")
+}

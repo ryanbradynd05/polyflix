@@ -39,10 +39,7 @@ func (c *MoviesController) IndexHandler(res http.ResponseWriter, req *http.Reque
 	var movies []Movie
 	c.DB.Find(&movies)
 	payload := ArrayPayload{Movies: movies}
-	jsonRes, err := json.MarshalIndent(payload, "", "  ")
-	if err != nil {
-		panic(err)
-	}
+	jsonRes, _ := json.MarshalIndent(payload, "", "  ")
 	fmt.Fprintf(res, string(jsonRes))
 }
 
@@ -53,10 +50,7 @@ func (c *MoviesController) ShowHandler(res http.ResponseWriter, req *http.Reques
 	var movie Movie
 	c.DB.Where("id = ?", id).First(&movie)
 	payload := SinglePayload{Movie: movie}
-	jsonRes, err := json.MarshalIndent(payload, "", "  ")
-	if err != nil {
-		panic(err)
-	}
+	jsonRes, _ := json.MarshalIndent(payload, "", "  ")
 	fmt.Fprintf(res, string(jsonRes))
 }
 
@@ -66,10 +60,7 @@ func (c *MoviesController) CreateHandler(res http.ResponseWriter, req *http.Requ
 	themoviedbid, _ := strconv.Atoi(req.FormValue("themoviedbid"))
 	movie := Movie{Title: title, Themoviedbid: themoviedbid}
 	var result = c.DB.Create(&movie)
-	jsonRes, err := json.MarshalIndent(result, "", "  ")
-	if err != nil {
-		panic(err)
-	}
+	jsonRes, _ := json.MarshalIndent(result, "", "  ")
 	fmt.Fprintf(res, string(jsonRes))
 }
 
@@ -79,10 +70,7 @@ func (c *MoviesController) UpdateHandler(res http.ResponseWriter, req *http.Requ
 	themoviedbid, _ := strconv.Atoi(req.FormValue("themoviedbid"))
 	movie := Movie{Title: title, Themoviedbid: themoviedbid}
 	var result = c.DB.Model(&Movie{}).UpdateColumns(&movie)
-	jsonRes, err := json.MarshalIndent(result, "", "  ")
-	if err != nil {
-		panic(err)
-	}
+	jsonRes, _ := json.MarshalIndent(result, "", "  ")
 	fmt.Fprintf(res, string(jsonRes))
 }
 
