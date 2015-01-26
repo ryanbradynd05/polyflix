@@ -33,13 +33,17 @@ type MovieControllerSuite struct {
 var _ = Suite(&MovieControllerSuite{})
 
 func (s *MovieControllerSuite) SetUpSuite(c *C) {
-	env := "test"
-	dbConn := main.GetDbConn(env)
+	dbConn := main.GetDbConn("test")
 	s.db = main.DbInit(dbConn)
 	s.router = main.Handlers(s.db)
 	s.server = httptest.NewServer(s.router)
-	s.db.Where(Movie{Themoviedbid: 228150}).FirstOrCreate(&movie1)
-	s.db.Where(Movie{Themoviedbid: 157336}).FirstOrCreate(&movie2)
+}
+
+func (s *MovieControllerSuite) SetUpTest(c *C) {
+	var movies []Movie
+	s.db.Find(&movies).Delete(&movies)
+	s.db.Create(&movie1)
+	s.db.Create(&movie2)
 }
 
 func (s *MovieControllerSuite) TearDownSuite(c *C) {
@@ -82,7 +86,7 @@ func (s *MovieControllerSuite) TestIndexHandler(c *C) {
 	c.Assert(recorder.Code, Equals, http.StatusOK)
 
 	var payload ArrayPayload
-	// fmt.Printf("%v\n", recorder.Body.String())
+	fmt.Printf("%v\n", recorder.Body.String())
 	contents, err := ioutil.ReadAll(recorder.Body)
 	json.Unmarshal(contents, &payload)
 
@@ -99,7 +103,7 @@ func (s *MovieControllerSuite) TestShowHandler(c *C) {
 	c.Assert(recorder.Code, Equals, http.StatusOK)
 
 	var payload SinglePayload
-	// fmt.Printf("%v\n", recorder.Body.String())
+	fmt.Printf("%v\n", recorder.Body.String())
 	contents, err := ioutil.ReadAll(recorder.Body)
 	json.Unmarshal(contents, &payload)
 
@@ -108,12 +112,14 @@ func (s *MovieControllerSuite) TestShowHandler(c *C) {
 }
 
 func (s *MovieControllerSuite) TestDestroyHandler(c *C) {
-	controller := MoviesController{DB: s.db}
 	recorder := httptest.NewRecorder()
-	url := fmt.Sprintf("%s/movies/1", s.server.URL)
+	url := fmt.Sprintf("%s/movies/%v", s.server.URL, movie1.Id)
 	req, err := http.NewRequest("DELETE", url, nil)
 	c.Assert(err, IsNil)
 
 	s.router.ServeHTTP(recorder, req)
 	c.Assert(recorder.Code, Equals, http.StatusOK)
+	c.Assert(recorder.Body.String(), Equals, "{}")
+
+	fmt.Printf("Delete: %v\n", recorder.Body.String())
 }

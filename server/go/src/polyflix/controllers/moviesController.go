@@ -22,9 +22,9 @@ type SinglePayload struct {
 
 // Movie type for movie objects
 type Movie struct {
-	Id           int64     `json:"id",gorm:"primary_key:yes"`
-	CreatedAt    time.Time `json:"createdAt",gorm:"column:createdAt"`
-	UpdatedAt    time.Time `json:"updatedAt",gorm:"column:updatedAt"`
+	Id           int64     `json:"id"`
+	CreatedAt    time.Time `json:"createdAt" gorm:"column:createdAt"`
+	UpdatedAt    time.Time `json:"updatedAt" gorm:"column:updatedAt"`
 	Title        string    `json:"title"`
 	Themoviedbid int       `json:"themoviedbid"`
 }
@@ -88,13 +88,11 @@ func (c *MoviesController) UpdateHandler(res http.ResponseWriter, req *http.Requ
 
 // DestroyHandler handles DELETE to /movies/{id}
 func (c *MoviesController) DestroyHandler(res http.ResponseWriter, req *http.Request) {
-	id, _ := strconv.Atoi(req.FormValue("id"))
-	var result = c.DB.Where("id = ?", id).Delete(&Movie{})
-	jsonRes, err := json.MarshalIndent(result, "", "  ")
-	if err != nil {
-		panic(err)
-	}
-	fmt.Fprintf(res, string(jsonRes))
+	vars := mux.Vars(req)
+	id := vars["id"]
+	var movie Movie
+	c.DB.Where("id = ?", id).Delete(&movie)
+	fmt.Fprintf(res, "{}")
 }
 
 // SearchHandler handles GET to /movies/search/{id}
