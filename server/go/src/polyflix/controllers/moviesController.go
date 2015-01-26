@@ -3,6 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/amahi/go-themoviedb"
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
 	"net/http"
@@ -30,7 +31,8 @@ type Movie struct {
 
 // MoviesController controller for the movies subroute
 type MoviesController struct {
-	DB gorm.DB
+	DB   gorm.DB
+	TMDB *tmdb.TMDb
 }
 
 // ReturnJSON converts payload to JSON and writes to response

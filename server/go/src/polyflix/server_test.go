@@ -23,7 +23,8 @@ func (s *ServerSuite) TestMain(c *C) {
 	env := "test"
 	dbConn := GetDbConn(env)
 	db := DbInit(dbConn)
-	server := httptest.NewServer(Handlers(db))
+	tmdb := TmdbInit()
+	server := httptest.NewServer(Handlers(db, tmdb))
 	c.Assert(server.URL, Matches, "http://127.0.0.1:.*")
 	c.Assert(server, FitsTypeOf, &httptest.Server{})
 }
