@@ -3,8 +3,8 @@
 -- SQL in section 'Up' is executed when this migration is applied
 CREATE TABLE movies (
     id int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    createdAt date,
-    updatedAt date,
+    createdAt datetime,
+    updatedAt datetime,
     title varchar(255),
     themoviedbid int(11),
     PRIMARY KEY(id)
