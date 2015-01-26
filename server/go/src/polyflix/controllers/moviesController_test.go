@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/amahi/go-themoviedb"
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
 	. "gopkg.in/check.v1"
@@ -12,6 +13,7 @@ import (
 	"net/http/httptest"
 	"polyflix"
 	. "polyflix/controllers"
+	"strconv"
 	"testing"
 	"time"
 )
@@ -29,6 +31,7 @@ type MovieControllerSuite struct {
 	server *httptest.Server
 	router *mux.Router
 	db     gorm.DB
+	tmdb   *tmdb.TMDb
 }
 
 var _ = Suite(&MovieControllerSuite{})
@@ -36,7 +39,8 @@ var _ = Suite(&MovieControllerSuite{})
 func (s *MovieControllerSuite) SetUpSuite(c *C) {
 	dbConn := main.GetDbConn("test")
 	s.db = main.DbInit(dbConn)
-	s.router = main.Handlers(s.db)
+	s.tmdb = main.TmdbInit()
+	s.router = main.Handlers(s.db, s.tmdb)
 	s.server = httptest.NewServer(s.router)
 }
 
@@ -165,4 +169,23 @@ func (s *MovieControllerSuite) TestDestroyHandler(c *C) {
 	c.Assert(recorder.Body.String(), Equals, "{}")
 
 	fmt.Printf("Delete: %v\n", recorder.Body.String())
+}
+
+func (s *MovieControllerSuite) TestSearchHandler(c *C) {
+	recorder := httptest.NewRecorder()
+	name := "Fight Club"
+	url := fmt.Sprintf("%s/movies/search/%v", s.server.URL, name)
+	req, err := http.NewRequest("GET", url, nil)
+	c.Assert(err, IsNil)
+
+	s.router.ServeHTTP(recorder, req)
+	c.Assert(recorder.Code, Equals, http.StatusOK)
+	fmt.Printf("Search: %v\n", recorder.Body.String())
+
+	contents, err := ioutil.ReadAll(recorder.Body)
+	resp := make(map[string]interface{})
+	json.Unmarshal(contents, &resp)
+	respId := strconv.FormatFloat(resp["Id"].(float64), 'f', 0, 64)
+	c.Assert(respId, Equals, "550")
+	c.Assert(resp["Title"], Equals, name)
 }

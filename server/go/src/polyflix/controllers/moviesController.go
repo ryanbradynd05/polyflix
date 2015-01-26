@@ -35,6 +35,12 @@ type MoviesController struct {
 	TMDB *tmdb.TMDb
 }
 
+// GetVar returns URL value from mux request
+func GetVar(req *http.Request, varName string) string {
+	vars := mux.Vars(req)
+	return vars[varName]
+}
+
 // ReturnJSON converts payload to JSON and writes to response
 func (c *MoviesController) ReturnJSON(res http.ResponseWriter, payload interface{}) {
 	jsonRes, _ := json.MarshalIndent(payload, "", "  ")
@@ -51,9 +57,8 @@ func (c *MoviesController) IndexHandler(res http.ResponseWriter, req *http.Reque
 
 // ShowHandler handles GET to /movies/{id}
 func (c *MoviesController) ShowHandler(res http.ResponseWriter, req *http.Request) {
-	vars := mux.Vars(req)
-	id := vars["id"]
 	var movie Movie
+	id := GetVar(req, "id")
 	c.DB.Where("id = ?", id).First(&movie)
 	payload := SinglePayload{Movie: movie}
 	c.ReturnJSON(res, payload)
@@ -74,8 +79,7 @@ func (c *MoviesController) CreateHandler(res http.ResponseWriter, req *http.Requ
 
 // UpdateHandler handles PUT to /movies/{id}
 func (c *MoviesController) UpdateHandler(res http.ResponseWriter, req *http.Request) {
-	vars := mux.Vars(req)
-	id := vars["id"]
+	id := GetVar(req, "id")
 	var oldMovie Movie
 	c.DB.Where("id = ?", id).First(&oldMovie)
 
@@ -94,17 +98,20 @@ func (c *MoviesController) UpdateHandler(res http.ResponseWriter, req *http.Requ
 
 // DestroyHandler handles DELETE to /movies/{id}
 func (c *MoviesController) DestroyHandler(res http.ResponseWriter, req *http.Request) {
-	vars := mux.Vars(req)
-	id := vars["id"]
+	id := GetVar(req, "id")
 	var movie Movie
 	c.DB.Where("id = ?", id).Delete(&movie)
 	fmt.Fprintf(res, "{}")
 }
 
-// SearchHandler handles GET to /movies/search/{id}
+// SearchHandler handles GET to /movies/search/{name}
 func (c *MoviesController) SearchHandler(res http.ResponseWriter, req *http.Request) {
+	name := GetVar(req, "name")
+	result, _ := c.TMDB.MovieData(name)
+	fmt.Fprintf(res, result)
 }
 
 // InfoHandler handles GET to /movies/info/{id}
 func (c *MoviesController) InfoHandler(res http.ResponseWriter, req *http.Request) {
+	// id := GetVar(req, "id")
 }

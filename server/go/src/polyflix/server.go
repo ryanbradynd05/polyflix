@@ -77,7 +77,7 @@ func Handlers(db gorm.DB, tmdb *tmdb.TMDb) *mux.Router {
 	router := mux.NewRouter().StrictSlash(true)
 	movies := router.PathPrefix("/movies").Subrouter().StrictSlash(true)
 	moviesController := controllers.MoviesController{DB: db, TMDB: tmdb}
-	movies.HandleFunc("/search/{id}", moviesController.SearchHandler).Methods("GET")
+	movies.HandleFunc("/search/{name}", moviesController.SearchHandler).Methods("GET")
 	movies.HandleFunc("/info/{id}", moviesController.InfoHandler).Methods("GET")
 	movies.HandleFunc("/{id}", moviesController.ShowHandler).Methods("GET")
 	movies.HandleFunc("/{id}", moviesController.UpdateHandler).Methods("PUT")
