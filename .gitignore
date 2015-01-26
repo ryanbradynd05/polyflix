@@ -8,3 +8,4 @@ pids
 # Misc
 polyflix.sublime-workspace
 server/rails/config/local.yml
+server/go/config/local.yml
