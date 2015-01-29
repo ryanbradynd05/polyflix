@@ -91,7 +91,6 @@ func (s *MovieControllerSuite) TestIndexHandler(c *C) {
 	c.Assert(recorder.Code, Equals, http.StatusOK)
 
 	var payload ArrayPayload
-	fmt.Printf("Index: %v\n", recorder.Body.String())
 	contents, err := ioutil.ReadAll(recorder.Body)
 	json.Unmarshal(contents, &payload)
 
@@ -108,7 +107,6 @@ func (s *MovieControllerSuite) TestShowHandler(c *C) {
 	c.Assert(recorder.Code, Equals, http.StatusOK)
 
 	var payload SinglePayload
-	fmt.Printf("Show: %v\n", recorder.Body.String())
 	contents, err := ioutil.ReadAll(recorder.Body)
 	json.Unmarshal(contents, &payload)
 
@@ -129,7 +127,6 @@ func (s *MovieControllerSuite) TestCreateHandler(c *C) {
 	c.Assert(recorder.Code, Equals, http.StatusOK)
 
 	var payload SinglePayload
-	fmt.Printf("Create: %v\n", recorder.Body.String())
 	contents, err := ioutil.ReadAll(recorder.Body)
 	json.Unmarshal(contents, &payload)
 
@@ -150,7 +147,6 @@ func (s *MovieControllerSuite) TestUpdateHandler(c *C) {
 	c.Assert(recorder.Code, Equals, http.StatusOK)
 
 	var payload SinglePayload
-	fmt.Printf("Update: %v\n", recorder.Body.String())
 	contents, err := ioutil.ReadAll(recorder.Body)
 	json.Unmarshal(contents, &payload)
 
@@ -167,8 +163,6 @@ func (s *MovieControllerSuite) TestDestroyHandler(c *C) {
 	s.router.ServeHTTP(recorder, req)
 	c.Assert(recorder.Code, Equals, http.StatusOK)
 	c.Assert(recorder.Body.String(), Equals, "{}")
-
-	fmt.Printf("Delete: %v\n", recorder.Body.String())
 }
 
 func (s *MovieControllerSuite) TestSearchHandler(c *C) {
@@ -180,7 +174,6 @@ func (s *MovieControllerSuite) TestSearchHandler(c *C) {
 
 	s.router.ServeHTTP(recorder, req)
 	c.Assert(recorder.Code, Equals, http.StatusOK)
-	fmt.Printf("Search: %v\n", recorder.Body.String())
 
 	contents, err := ioutil.ReadAll(recorder.Body)
 	c.Assert(err, IsNil)
@@ -195,13 +188,12 @@ func (s *MovieControllerSuite) TestInfoHandler(c *C) {
 
 	s.router.ServeHTTP(recorder, req)
 	c.Assert(recorder.Code, Equals, http.StatusOK)
-	fmt.Printf("Info: %v\n", recorder.Body.String())
 
 	contents, err := ioutil.ReadAll(recorder.Body)
 	c.Assert(err, IsNil)
 	resp := make(map[string]interface{})
 	json.Unmarshal(contents, &resp)
-	respId := int(resp["Id"].(float64))
+	respId := int(resp["ID"].(float64))
 	c.Assert(respId, Equals, movie1.Themoviedbid)
 	c.Assert(resp["Title"], Equals, movie1.Title)
 }

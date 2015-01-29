@@ -109,7 +109,7 @@ func (c *MoviesController) DestroyHandler(res http.ResponseWriter, req *http.Req
 func (c *MoviesController) SearchHandler(res http.ResponseWriter, req *http.Request) {
 	name := GetVar(req, "name")
 	result, _ := c.TMDB.SearchMovie(name)
-	jsonResult, _ := tmdb.ToJson(result)
+	jsonResult, _ := tmdb.ToJSON(result)
 	fmt.Fprintf(res, jsonResult)
 }
 
@@ -117,6 +117,6 @@ func (c *MoviesController) SearchHandler(res http.ResponseWriter, req *http.Requ
 func (c *MoviesController) InfoHandler(res http.ResponseWriter, req *http.Request) {
 	id, _ := strconv.Atoi(GetVar(req, "id"))
 	result, _ := c.TMDB.MovieInfo(id)
-	jsonResult, _ := tmdb.ToJson(result)
+	jsonResult, _ := tmdb.ToJSON(result)
 	fmt.Fprintf(res, jsonResult)
 }
