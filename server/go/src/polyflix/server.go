@@ -3,10 +3,10 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/amahi/go-themoviedb"
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
 	"github.com/kylelemons/go-gypsy/yaml"
+	"github.com/ryanbradynd05/go-tmdb/src/tmdb"
 	"log"
 	"net/http"
 	"os"

@@ -3,10 +3,11 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/amahi/go-themoviedb"
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
+	"github.com/ryanbradynd05/go-tmdb/src/tmdb"
 	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -107,11 +108,15 @@ func (c *MoviesController) DestroyHandler(res http.ResponseWriter, req *http.Req
 // SearchHandler handles GET to /movies/search/{name}
 func (c *MoviesController) SearchHandler(res http.ResponseWriter, req *http.Request) {
 	name := GetVar(req, "name")
-	result, _ := c.TMDB.MovieData(name)
-	fmt.Fprintf(res, result)
+	result, _ := c.TMDB.SearchMovie(name)
+	jsonResult, _ := tmdb.ToJson(result)
+	fmt.Fprintf(res, jsonResult)
 }
 
 // InfoHandler handles GET to /movies/info/{id}
 func (c *MoviesController) InfoHandler(res http.ResponseWriter, req *http.Request) {
-	// id := GetVar(req, "id")
+	id, _ := strconv.Atoi(GetVar(req, "id"))
+	result, _ := c.TMDB.MovieInfo(id)
+	jsonResult, _ := tmdb.ToJson(result)
+	fmt.Fprintf(res, jsonResult)
 }

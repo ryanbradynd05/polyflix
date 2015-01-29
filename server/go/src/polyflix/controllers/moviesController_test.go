@@ -4,16 +4,16 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/amahi/go-themoviedb"
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
+	"github.com/ryanbradynd05/go-tmdb/src/tmdb"
 	. "gopkg.in/check.v1"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"polyflix"
 	. "polyflix/controllers"
-	"strconv"
 	"testing"
 	"time"
 )
@@ -83,8 +83,8 @@ func (s *MovieControllerSuite) TestArrayPayload(c *C) {
 
 func (s *MovieControllerSuite) TestIndexHandler(c *C) {
 	recorder := httptest.NewRecorder()
-	url := fmt.Sprintf("%s/movies/", s.server.URL)
-	req, err := http.NewRequest("GET", url, nil)
+	uri := fmt.Sprintf("%s/movies/", s.server.URL)
+	req, err := http.NewRequest("GET", uri, nil)
 	c.Assert(err, IsNil)
 
 	s.router.ServeHTTP(recorder, req)
@@ -100,8 +100,8 @@ func (s *MovieControllerSuite) TestIndexHandler(c *C) {
 
 func (s *MovieControllerSuite) TestShowHandler(c *C) {
 	recorder := httptest.NewRecorder()
-	url := fmt.Sprintf("%s/movies/%v", s.server.URL, movie1.ID)
-	req, err := http.NewRequest("GET", url, nil)
+	uri := fmt.Sprintf("%s/movies/%v", s.server.URL, movie1.ID)
+	req, err := http.NewRequest("GET", uri, nil)
 	c.Assert(err, IsNil)
 
 	s.router.ServeHTTP(recorder, req)
@@ -121,8 +121,8 @@ func (s *MovieControllerSuite) TestCreateHandler(c *C) {
 	newPayload := SinglePayload{Movie: newMovie}
 	body, _ := json.Marshal(newPayload)
 	recorder := httptest.NewRecorder()
-	url := fmt.Sprintf("%s/movies/", s.server.URL)
-	req, err := http.NewRequest("POST", url, bytes.NewBuffer(body))
+	uri := fmt.Sprintf("%s/movies/", s.server.URL)
+	req, err := http.NewRequest("POST", uri, bytes.NewBuffer(body))
 	c.Assert(err, IsNil)
 
 	s.router.ServeHTTP(recorder, req)
@@ -142,8 +142,8 @@ func (s *MovieControllerSuite) TestUpdateHandler(c *C) {
 	newPayload := SinglePayload{Movie: newMovie}
 	body, _ := json.Marshal(newPayload)
 	recorder := httptest.NewRecorder()
-	url := fmt.Sprintf("%s/movies/%v", s.server.URL, movie1.ID)
-	req, err := http.NewRequest("PUT", url, bytes.NewBuffer(body))
+	uri := fmt.Sprintf("%s/movies/%v", s.server.URL, movie1.ID)
+	req, err := http.NewRequest("PUT", uri, bytes.NewBuffer(body))
 	c.Assert(err, IsNil)
 
 	s.router.ServeHTTP(recorder, req)
@@ -160,8 +160,8 @@ func (s *MovieControllerSuite) TestUpdateHandler(c *C) {
 
 func (s *MovieControllerSuite) TestDestroyHandler(c *C) {
 	recorder := httptest.NewRecorder()
-	url := fmt.Sprintf("%s/movies/%v", s.server.URL, movie1.ID)
-	req, err := http.NewRequest("DELETE", url, nil)
+	uri := fmt.Sprintf("%s/movies/%v", s.server.URL, movie1.ID)
+	req, err := http.NewRequest("DELETE", uri, nil)
 	c.Assert(err, IsNil)
 
 	s.router.ServeHTTP(recorder, req)
@@ -173,9 +173,9 @@ func (s *MovieControllerSuite) TestDestroyHandler(c *C) {
 
 func (s *MovieControllerSuite) TestSearchHandler(c *C) {
 	recorder := httptest.NewRecorder()
-	name := "Fight Club"
-	url := fmt.Sprintf("%s/movies/search/%v", s.server.URL, name)
-	req, err := http.NewRequest("GET", url, nil)
+	name := url.QueryEscape("Fight Club")
+	uri := fmt.Sprintf("%s/movies/search/%v", s.server.URL, name)
+	req, err := http.NewRequest("GET", uri, nil)
 	c.Assert(err, IsNil)
 
 	s.router.ServeHTTP(recorder, req)
@@ -183,9 +183,25 @@ func (s *MovieControllerSuite) TestSearchHandler(c *C) {
 	fmt.Printf("Search: %v\n", recorder.Body.String())
 
 	contents, err := ioutil.ReadAll(recorder.Body)
+	c.Assert(err, IsNil)
+	c.Assert(contents, NotNil)
+}
+
+func (s *MovieControllerSuite) TestInfoHandler(c *C) {
+	recorder := httptest.NewRecorder()
+	uri := fmt.Sprintf("%s/movies/info/%v", s.server.URL, movie1.Themoviedbid)
+	req, err := http.NewRequest("GET", uri, nil)
+	c.Assert(err, IsNil)
+
+	s.router.ServeHTTP(recorder, req)
+	c.Assert(recorder.Code, Equals, http.StatusOK)
+	fmt.Printf("Info: %v\n", recorder.Body.String())
+
+	contents, err := ioutil.ReadAll(recorder.Body)
+	c.Assert(err, IsNil)
 	resp := make(map[string]interface{})
 	json.Unmarshal(contents, &resp)
-	respId := strconv.FormatFloat(resp["Id"].(float64), 'f', 0, 64)
-	c.Assert(respId, Equals, "550")
-	c.Assert(resp["Title"], Equals, name)
+	respId := int(resp["Id"].(float64))
+	c.Assert(respId, Equals, movie1.Themoviedbid)
+	c.Assert(resp["Title"], Equals, movie1.Title)
 }
