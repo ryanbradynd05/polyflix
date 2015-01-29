@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
-	"github.com/ryanbradynd05/go-tmdb/src/tmdb"
+	"github.com/ryanbradynd05/go-tmdb"
 	. "gopkg.in/check.v1"
 	"io/ioutil"
 	"net/http"

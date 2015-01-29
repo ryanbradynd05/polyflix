@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
-	"github.com/ryanbradynd05/go-tmdb/src/tmdb"
+	"github.com/ryanbradynd05/go-tmdb"
 	"net/http"
 	"strconv"
 	"time"

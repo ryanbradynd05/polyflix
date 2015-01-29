@@ -6,7 +6,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
 	"github.com/kylelemons/go-gypsy/yaml"
-	"github.com/ryanbradynd05/go-tmdb/src/tmdb"
+	"github.com/ryanbradynd05/go-tmdb"
 	"log"
 	"net/http"
 	"os"
