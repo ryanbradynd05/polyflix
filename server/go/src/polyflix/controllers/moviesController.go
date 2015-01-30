@@ -116,7 +116,7 @@ func (c *MoviesController) SearchHandler(res http.ResponseWriter, req *http.Requ
 // InfoHandler handles GET to /movies/info/{id}
 func (c *MoviesController) InfoHandler(res http.ResponseWriter, req *http.Request) {
 	id, _ := strconv.Atoi(GetVar(req, "id"))
-	result, _ := c.TMDB.MovieInfo(id)
+	result, _ := c.TMDB.GetMovieInfo(id)
 	jsonResult, _ := tmdb.ToJSON(result)
 	fmt.Fprintf(res, jsonResult)
 }
