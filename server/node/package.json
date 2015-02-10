@@ -2,8 +2,8 @@
   "name": "polyflix",
   "description": "Polyflix Media Manager",
   "version": "0.0.1",
-  "author": "ryanbrady",
-  "license": "",
+  "author": "ryanbradynd05",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git://github.com/ryanbrady/polyflix.git"
