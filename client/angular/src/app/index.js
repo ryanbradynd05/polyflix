@@ -1,21 +1,21 @@
 'use strict';
 /*jshint esnext: true */
 
-import MainCtrl from './main/main.controller';
+import MoviesCtrl from './movies/movies.controller';
 import NavbarCtrl from '../components/navbar/navbar.controller';
 
-angular.module('angular', ['ngCookies', 'ngTouch', 'ngSanitize', 'restangular', 'ngRoute', 'mgcrea.ngStrap'])
-  .controller('MainCtrl', MainCtrl)
+angular.module('polyflix', ['ngCookies', 'ngTouch', 'ngSanitize', 'restangular', 'ngRoute', 'mgcrea.ngStrap'])
+  .controller('MoviesCtrl', MoviesCtrl)
   .controller('NavbarCtrl', NavbarCtrl)
-  
+
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/', {
-        templateUrl: 'app/main/main.html',
-        controller: 'MainCtrl'
+      .when('/movies', {
+        templateUrl: 'app/movies/movies.html',
+        controller: 'MoviesCtrl'
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/movies'
       });
   })
 ;
