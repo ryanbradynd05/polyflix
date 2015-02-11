@@ -2,10 +2,11 @@
 /*jshint esnext: true */
 
 class MoviesCtrl {
-  constructor ($scope) {
+  constructor ($scope, Restangular) {
+    $scope.movies = Restangular.all('movies').getList();
   }
 }
 
-MoviesCtrl.$inject = ['$scope'];
+MoviesCtrl.$inject = ['$scope','Restangular'];
 
 export default MoviesCtrl;
