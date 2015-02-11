@@ -1,4 +1,4 @@
-<div class="movies">
+<div>
   <header>
     <div class="container">
       <div class="row">
@@ -11,7 +11,22 @@
   <div class="container container-main">
     <div class="row">
       <div class="col-md-12 col-ms-12 pg-module">
-        Movie List
+        <table class="table table-striped">
+          <th>
+            <td>Title</td>
+            <td>TMDB ID</td>
+            <td>Actions</td>
+          </th>
+          <tr ng-repeat="movie in movies">
+            <td>{{ movie.title }}</td>
+            <td>{{ movie.themoviedbid }}</td>
+            <td>
+              <a class="btn btn-primary" ui-sref="viewMovie({id:movie._id})">View</a>
+              <a class="btn btn-danger"  ng-click="deleteMovie(movie)">Delete</a>
+            </td>
+          </tr>
+        </table>
+        <div ng-hide="movies.length">No movies found</div>
       </div>
     </div>
   </div>

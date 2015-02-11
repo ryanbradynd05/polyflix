@@ -12,7 +12,7 @@ gulp.task('inject', ['styles', 'browserify'], function () {
 
   var injectStyles = gulp.src([
     paths.tmp + '/serve/{app,components}/**/*.css',
-    '!' + paths.tmp + '/serve/app/style/vendor.css'
+    '!' + paths.tmp + '/serve/app/vendor.css'
   ], { read: false });
 
   var injectScripts = gulp.src([

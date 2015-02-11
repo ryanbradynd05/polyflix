@@ -14,8 +14,8 @@ gulp.task('styles', function () {
 
   var injectFiles = gulp.src([
     paths.src + '/{app,components}/**/*.scss',
-    '!' + paths.src + '/app/style/index.scss',
-    '!' + paths.src + '/app/style/vendor.scss'
+    '!' + paths.src + '/app/index.scss',
+    '!' + paths.src + '/app/vendor.scss'
   ], { read: false });
 
   var injectOptions = {
@@ -32,18 +32,18 @@ gulp.task('styles', function () {
   var indexFilter = $.filter('index.scss');
 
   return gulp.src([
-    paths.src + '/app/style/index.scss',
-    paths.src + '/app/style/vendor.scss'
+    paths.src + '/app/index.scss',
+    paths.src + '/app/vendor.scss'
   ])
     .pipe(indexFilter)
     .pipe($.inject(injectFiles, injectOptions))
     .pipe(indexFilter.restore())
     .pipe($.rubySass(sassOptions))
 
-  .pipe($.autoprefixer())
-    .on('error', function handleError(err) {
-      console.error(err.toString());
-      this.emit('end');
-    })
-    .pipe(gulp.dest(paths.tmp + '/serve/app/style/'));
+  // .pipe($.autoprefixer())
+  //   .on('error', function handleError(err) {
+  //     console.error(err.toString());
+  //     this.emit('end');
+  //   })
+    .pipe(gulp.dest(paths.tmp + '/serve/app/'));
 });
