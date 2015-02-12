@@ -23,12 +23,12 @@ class MovieSearchCtrl {
   }
 
   getPosterUrl(image, size) {
-    if (!image) {
+    if (image === null) {
       return "";
     }
     var config = this.TmdbFactory.config();
     var posterSizes = config.images.poster_sizes;
-    if (!size) {
+    if (size === null) {
       size = posterSizes.length-1;
     }
     var url = config.images.base_url + posterSizes[size] + image;
