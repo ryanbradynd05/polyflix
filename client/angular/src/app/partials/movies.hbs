@@ -3,7 +3,10 @@
     <div class="container">
       <div class="row">
         <div class="col-md-9 col-ms-9">
-           <h1>Movies</h1>
+          <h1>Movies</h1>
+        </div>
+        <div class="col-md-3 col-ms-3 btn-new-movie">
+          <a href="#/movies/search"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Movie</a>
         </div>
       </div>
      </div>
@@ -17,7 +20,7 @@
             <td>TMDB ID</td>
             <td>Actions</td>
           </th>
-          <tr ng-repeat="movie in movies">
+          <tr ng-repeat="movie in ctrl.movies">
             <td>{{ movie.title }}</td>
             <td>{{ movie.themoviedbid }}</td>
             <td>
@@ -26,7 +29,7 @@
             </td>
           </tr>
         </table>
-        <div ng-hide="movies.length">No movies found</div>
+        <div ng-hide="ctrl.movies.length">No movies found</div>
       </div>
     </div>
   </div>

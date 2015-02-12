@@ -2,15 +2,15 @@
 /*jshint esnext: true */
 
 class MoviesCtrl {
-  constructor($scope, Restangular) {
-    Restangular.all('movies').getList()
+  constructor(TmdbFactory) {
+    TmdbFactory.all('movies')
       .then(function(movies) {
-        $scope.movies = movies;
-        console.log("movies: ", $scope.movies);
-      });
+        this.movies = movies;
+        console.log('movies: ', this.movies);
+      }.bind(this));
   }
 }
 
-MoviesCtrl.$inject = ['$scope', 'Restangular'];
+MoviesCtrl.$inject = ['TmdbFactory'];
 
 export default MoviesCtrl;

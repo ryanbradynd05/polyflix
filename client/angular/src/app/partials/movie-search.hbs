@@ -1,0 +1,41 @@
+<div>
+  <header>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9 col-ms-9">
+          <a href="#/movies"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a>
+          <h1>Search</h1>
+        </div>
+      </div>
+     </div>
+  </header>
+  <div class="container container-main">
+    <div class="row">
+      <div class="col-md-12 col-ms-12 pg-module">
+        <div class="row">
+          <form class="form-inline" role="form">
+            <div class="form-group">
+              <label>Movie Name</label>
+              <input type="text" class="form-control" ng-model="ctrl.query" placeholder="Enter name">
+              <button type="button" class="btn btn-info" ng-click="ctrl.searchTmdb()">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="row">
+          <table class="table table-striped">
+            <th>
+              <td>Title</td>
+              <td>TMDB ID</td>
+            </th>
+            <tr ng-repeat="movie in ctrl.movies" ng-click="ctrl.getInfo(movie)">
+              <td>{{ movie.title }}</td>
+              <td>{{ movie.id }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

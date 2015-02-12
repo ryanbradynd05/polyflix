@@ -1,10 +1,14 @@
 'use strict';
 /*jshint esnext: true */
 
+import TmdbFactory from './factories/tmdb.factory';
 import MoviesCtrl from './controllers/movies.controller';
+import MovieSearchCtrl from './controllers/movie-search.controller';
 
 angular.module('polyflix', ['ngCookies', 'ngTouch', 'ngSanitize', 'restangular', 'ngRoute', 'mgcrea.ngStrap'])
+  .factory('TmdbFactory', TmdbFactory.tmdbFactory)
   .controller('MoviesCtrl', MoviesCtrl)
+  .controller('MovieSearchCtrl', MovieSearchCtrl)
   .config(function(RestangularProvider) {
     RestangularProvider.setBaseUrl('http://localhost:3000');
     RestangularProvider.setDefaultHeaders({
@@ -26,7 +30,13 @@ angular.module('polyflix', ['ngCookies', 'ngTouch', 'ngSanitize', 'restangular',
     $routeProvider
       .when('/movies', {
         templateUrl: 'app/partials/movies.hbs',
-        controller: 'MoviesCtrl'
+        controller: 'MoviesCtrl',
+        controllerAs: 'ctrl'
+      })
+      .when('/movies/search', {
+        templateUrl: 'app/partials/movie-search.hbs',
+        controller: 'MovieSearchCtrl',
+        controllerAs: 'ctrl'
       })
       .otherwise({
         redirectTo: '/movies'
