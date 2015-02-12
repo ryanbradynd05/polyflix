@@ -13,12 +13,26 @@ class MovieSearchCtrl {
     this.TmdbFactory.search('movies', this.query)
     .then(function(movies) {
       this.movies = movies.results;
+
       console.log('movies: ', this.movies);
     }.bind(this));
   }
 
   getInfo(movie) {
     console.log('Get Info', movie);
+  }
+
+  getPosterUrl(image, size) {
+    if (!image) {
+      return "";
+    }
+    var config = this.TmdbFactory.config();
+    var posterSizes = config.images.poster_sizes;
+    if (!size) {
+      size = posterSizes.length-1;
+    }
+    var url = config.images.base_url + posterSizes[size] + image;
+    return url;
   }
 }
 

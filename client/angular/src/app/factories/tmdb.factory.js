@@ -7,7 +7,7 @@ class TmdbFactory {
     Restangular.all('configs').getList()
     .then(function(results) {
       console.log('config: ', results);
-      this.configuration = results;
+      this.configuration = results[0];
     }.bind(this));
   }
 
@@ -16,7 +16,7 @@ class TmdbFactory {
   }
 
   search(name, query) {
-    return this.this.Restangular.all(name).customGET('search/'+query);
+    return this.Restangular.all(name).customGET('search/'+query);
   }
 
   config() {
