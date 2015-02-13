@@ -24,14 +24,14 @@ class MovieSearchCtrl {
 
   getPosterUrl(image, size) {
     if (image === null) {
-      return "";
+      return '';
     }
     var config = this.TmdbFactory.config();
-    var posterSizes = config.images.poster_sizes;
+    var posterSizes = config.images.poster_sizes; // jshint ignore:line
     if (size === null) {
       size = posterSizes.length-1;
     }
-    var url = config.images.base_url + posterSizes[size] + image;
+    var url = config.images.base_url + posterSizes[size] + image; // jshint ignore:line
     return url;
   }
 }
