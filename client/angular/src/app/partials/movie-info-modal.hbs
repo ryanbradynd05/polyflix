@@ -1,0 +1,18 @@
+<div class="modal fade" id="movieInfoModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="ctrl.closeModal()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">{{ ctrl.movieInfo.title}}</h4>
+      </div>
+      <div class="modal-body">
+        <p>{{ ctrl.movieInfo.overview }}</p>
+        <img class="modal-backdrop-image" ng-src="{{ ctrl.movieInfo.backdropUrl }}"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="ctrl.closeModal()">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="ctrl.addMovie()">Add Movie</button>
+      </div>
+    </div>
+  </div>
+</div>

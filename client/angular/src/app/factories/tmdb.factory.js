@@ -12,10 +12,17 @@ class TmdbFactory {
   }
 
   all(name) {
+    console.log('All',name);
     return this.Restangular.all(name).getList();
   }
 
+  create(name, item) {
+    console.log('Create',name,item);
+    return this.Restangular.all(name).post(item);
+  }
+
   movieSearch(query) {
+    console.log('movieSearch',query);
     return this.Restangular.all('movies').customGET('search/'+query);
   }
 
