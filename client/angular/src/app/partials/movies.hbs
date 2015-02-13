@@ -24,8 +24,7 @@
             <td>{{ movie.title }}</td>
             <td>{{ movie.themoviedbid }}</td>
             <td>
-              <a class="btn btn-primary" ui-sref="viewMovie({id:movie._id})">View</a>
-              <a class="btn btn-danger"  ng-click="deleteMovie(movie)">Delete</a>
+              <a class="btn btn-danger"  ng-click="ctrl.deleteMovie(movie)">Delete</a>
             </td>
           </tr>
         </table>

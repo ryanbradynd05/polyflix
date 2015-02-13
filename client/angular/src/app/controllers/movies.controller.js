@@ -9,6 +9,12 @@ class MoviesCtrl {
         console.log('movies: ', this.movies);
       }.bind(this));
   }
+
+  deleteMovie(movie) {
+    console.log('deleteMovie',movie);
+    movie.remove();
+    this.movies.pop(movie);
+  }
 }
 
 MoviesCtrl.$inject = ['TmdbFactory'];
