@@ -15,8 +15,13 @@ class TmdbFactory {
     return this.Restangular.all(name).getList();
   }
 
-  search(name, query) {
-    return this.Restangular.all(name).customGET('search/'+query);
+  movieSearch(query) {
+    return this.Restangular.all('movies').customGET('search/'+query);
+  }
+
+  movieInfo(id) {
+    console.log('movieInfo',id);
+    return this.Restangular.one('movies').customGET('info/'+id);
   }
 
   config() {

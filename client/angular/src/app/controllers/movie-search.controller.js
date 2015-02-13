@@ -6,11 +6,12 @@ class MovieSearchCtrl {
     this.TmdbFactory = TmdbFactory;
     this.query = '';
     this.movies = [];
+    this.movieInfo = {};
   }
 
   searchTmdb() {
     console.log('Search TMDB',this.query);
-    this.TmdbFactory.search('movies', this.query)
+    this.TmdbFactory.movieSearch(this.query)
     .then(function(movies) {
       this.movies = movies.results;
 
@@ -20,6 +21,13 @@ class MovieSearchCtrl {
 
   getInfo(movie) {
     console.log('Get Info', movie);
+    this.movieInfo = {};
+    this.TmdbFactory.movieInfo(movie.id)
+    .then(function(movie) {
+      this.movieInfo = movie;
+
+      console.log('movieInfo: ', this.movieInfo);
+    }.bind(this));
   }
 
   getPosterUrl(image, size) {
