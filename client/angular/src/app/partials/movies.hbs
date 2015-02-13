@@ -15,11 +15,11 @@
     <div class="row">
       <div class="col-md-12 col-ms-12 pg-module">
         <table class="table table-striped">
-          <th>
-            <td>Title</td>
-            <td>TMDB ID</td>
-            <td>Actions</td>
-          </th>
+          <tr>
+            <th>Title</th>
+            <th>TMDB ID</th>
+            <th>Actions</th>
+          </tr>
           <tr ng-repeat="movie in ctrl.movies">
             <td>{{ movie.title }}</td>
             <td>{{ movie.themoviedbid }}</td>
