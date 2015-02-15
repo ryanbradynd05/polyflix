@@ -12,7 +12,89 @@
   <div class="container container-main">
     <div class="row">
       <div class="col-md-12 col-ms-12 pg-module">
-        {{ ctrl.movieInfo }}
+        <div class="row">
+          <table class="table table-striped">
+            <tr>
+              <th>Key</th>
+              <th>Value</th>
+            </tr>
+            <tr>
+              <td>Adult</td><td>{{ ctrl.movieInfo.adult}}</td>
+            </tr>
+            <tr>
+              <td>Backdrop Path</td><td>{{ ctrl.movieInfo.backdrop_path}}</td>
+            </tr>
+            <tr>
+              <td>Belogs to Collection</td><td>{{ ctrl.movieInfo.belongs_to_collection.name}}</td>
+            </tr>
+            <tr>
+              <td>Budget</td><td>{{ ctrl.movieInfo.budget | currency : '$' : 0 }}</td>
+            </tr>
+            <tr>
+              <td>Genres</td><td><span ng-repeat="genre in ctrl.movieInfo.genres">{{ genre.name}}<br/></span></td>
+            </tr>
+            <tr>
+              <td>Homepage</td><td><a href="{{ ctrl.movieInfo.homepage }}">{{ ctrl.movieInfo.homepage }}</a></td>
+            </tr>
+            <tr>
+              <td>ID</td><td>{{ ctrl.movieInfo.id }}</td>
+            </tr>
+            <tr>
+              <td>IMDB ID</td><td>{{ ctrl.movieInfo.imdb_id }}</td>
+            </tr>
+            <tr>
+              <td>Original Language</td><td>{{ ctrl.movieInfo.original_language }}</td>
+            </tr>
+            <tr>
+              <td>Original Title</td><td>{{ ctrl.movieInfo.original_title }}</td>
+            </tr>
+            <tr>
+              <td>Overview</td><td>{{ ctrl.movieInfo.overview }}</td>
+            </tr>
+            <tr>
+              <td>Popularity</td><td>{{ ctrl.movieInfo.popularity }}</td>
+            </tr>
+            <tr>
+              <td>Poster Path</td><td>{{ ctrl.movieInfo.poster_path }}</td>
+            </tr>
+            <tr>
+              <td>Production Companies</td><td><span ng-repeat="company in ctrl.movieInfo.production_companies">{{ company.name}}<br/></span></td>
+            </tr>
+            <tr>
+              <td>Production Countries</td><td><span ng-repeat="country in ctrl.movieInfo.production_countries">{{ country.name}}<br/></span></td>
+            </tr>
+            <tr>
+              <td>Release Date</td><td>{{ ctrl.movieInfo.release_date }}</td>
+            </tr>
+            <tr>
+              <td>Revenue</td><td>{{ ctrl.movieInfo.revenue | currency : '$' : 0 }}</td>
+            </tr>
+            <tr>
+              <td>Runtime</td><td>{{ ctrl.movieInfo.runtime }} min</td>
+            </tr>
+            <tr>
+              <td>Spoken Language</td><td><span ng-repeat="language in ctrl.movieInfo.spoken_languages">{{ language.name}}<br/></span></td>
+            </tr>
+            <tr>
+              <td>Status</td><td>{{ ctrl.movieInfo.status }}</td>
+            </tr>
+            <tr>
+              <td>Tagline</td><td>{{ ctrl.movieInfo.tagline }}</td>
+            </tr>
+            <tr>
+              <td>Title</td><td>{{ ctrl.movieInfo.title }}</td>
+            </tr>
+            <tr>
+              <td>Video</td><td>{{ ctrl.movieInfo.video }}</td>
+            </tr>
+            <tr>
+              <td>Vote Average</td><td>{{ ctrl.movieInfo.vote_average }}</td>
+            </tr>
+            <tr>
+              <td>Vote Count</td><td>{{ ctrl.movieInfo.vote_count }}</td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
   </div>
