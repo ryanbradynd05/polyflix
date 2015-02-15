@@ -24,6 +24,7 @@
             <td>{{ movie.title }}</td>
             <td>{{ movie.themoviedbid }}</td>
             <td>
+              <a class="btn btn-primary"  ng-click="ctrl.viewMovie(movie)">View</a>
               <a class="btn btn-danger"  ng-click="ctrl.deleteMovie(movie)">Delete</a>
             </td>
           </tr>
