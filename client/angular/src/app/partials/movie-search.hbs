@@ -34,7 +34,7 @@
             </tr>
             <tr ng-repeat="movie in ctrl.movies" ng-click="ctrl.getInfo(movie)">
               <td>{{ movie.title }}</td>
-              <td><img ng-src="{{ ctrl.getPosterUrl(movie.poster_path,2) }}"/></td>
+              <td><img ng-src="{{ ctrl.TmdbFactory.getPosterUrl(movie.poster_path,2) }}"/></td>
             </tr>
           </table>
         </div>
