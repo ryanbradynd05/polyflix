@@ -33,7 +33,7 @@ class TmdbFactory {
 
   getPosterUrl(image, size) {
     if (image === null) {
-      return '';
+      return 'https://d3a8mw37cqal2z.cloudfront.net/assets/f996aa2014d2ffddfda8463c479898a3/images/no-poster-w185.jpg';
     }
     var config = this.configuration;
     var posterSizes = config.images.poster_sizes; // jshint ignore:line
