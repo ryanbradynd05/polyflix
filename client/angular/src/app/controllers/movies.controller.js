@@ -3,6 +3,7 @@
 
 class MoviesCtrl {
   constructor(TmdbFactory,$location) {
+    console.log('constructor',TmdbFactory,$location);
     this.TmdbFactory = TmdbFactory;
     this.$location = $location;
     TmdbFactory.all('movies')
