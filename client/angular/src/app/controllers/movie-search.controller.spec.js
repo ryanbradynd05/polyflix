@@ -1,22 +1,11 @@
 'use strict';
 
-// describe('controllers', function(){
-//   var scope;
+describe('controllers', function() {
+  beforeEach(module('polyflix'));
 
-//   beforeEach(module('polyflix'));
-
-//   beforeEach(inject(function($rootScope) {
-//     scope = $rootScope.$new();
-//   }));
-
-//   it('should define more than 5 awesome things', inject(function($controller) {
-//     // expect(scope.awesomeThings).toBeUndefined();
-
-//     $controller('MovieSearchCtrl', {
-//       $scope: scope
-//     });
-
-//     // expect(angular.isArray(scope.awesomeThings)).toBeTruthy();
-//     // expect(scope.awesomeThings.length > 5).toBeTruthy();
-//   }));
-// });
+  it('should ....', inject(function($controller) {
+    console.log('controller',$controller);
+    var movieSearchCtrl = $controller('MovieSearchCtrl');
+    expect(movieSearchCtrl).toBeDefined();
+  }));
+});

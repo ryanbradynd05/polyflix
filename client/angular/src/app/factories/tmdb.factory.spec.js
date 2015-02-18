@@ -9,17 +9,6 @@ describe('tmdb Factory', function() {
   //   scope = $rootScope.$new();
   // }));
 
-  // it('should define more than 5 awesome things', inject(function($controller) {
-  //   // expect(scope.awesomeThings).toBeUndefined();
-
-  //   $controller('MoviesCtrl', {
-  //     $scope: scope
-  //   });
-
-  //   // expect(angular.isArray(scope.awesomeThings)).toBeTruthy();
-  //   // expect(scope.awesomeThings.length > 5).toBeTruthy();
-  // }));
-
   // beforeEach(inject(function($factory, _$httpBackend_, $rootScope, _Restangular_) {
   //   httpBackend = _$httpBackend_;
   //   httpBackend.expectGET('http://localhost:3000/movies').respond('{movies: [{ title: "Fight Club", themoviedbid: 550, id: 1, createdAt: "2015-02-13T05:44:34.000Z", updatedAt: "2015-02-13T05:44:34.000Z" }, { title: "Guardians of the Galaxy", themoviedbid: 118340, id: 5, createdAt: "2015-02-13T06:19:29.000Z", updatedAt: "2015-02-13T06:19:29.000Z" }]}');
