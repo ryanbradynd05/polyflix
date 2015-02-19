@@ -17,6 +17,22 @@ describe('tmdb Factory', function() {
       }
     }]
   };
+  var allMoviesUrl = baseUrl + 'movies';
+  var allMovies = {
+    movies: [{
+      title: 'Fight Club',
+      themoviedbid: 550,
+      id: 1,
+      createdAt: '2015-02-13T05:44:34.000Z',
+      updatedAt: '2015-02-13T05:44:34.000Z'
+    }, {
+      title: 'Guardians of the Galaxy',
+      themoviedbid: 118340,
+      id: 5,
+      createdAt: '2015-02-13T06:19:29.000Z',
+      updatedAt: '2015-02-13T06:19:29.000Z'
+    }]
+  };
 
   beforeEach(module('polyflix'));
 
@@ -24,6 +40,9 @@ describe('tmdb Factory', function() {
     httpBackend = $injector.get('$httpBackend');
     httpBackend.whenGET(configUrl).respond(
       JSON.stringify(config)
+    );
+    httpBackend.whenGET(allMoviesUrl).respond(
+      JSON.stringify(allMovies)
     );
   }));
 
@@ -42,9 +61,29 @@ describe('tmdb Factory', function() {
       httpBackend.expectGET(configUrl);
       TmdbFactory.config();
       httpBackend.flush();
-      var objectImages = TmdbFactory.configuration.$object[0].images;
-      var configImages = config.configs[0].images;
-      expect(objectImages).toEqual(configImages);
+      var actualConfigImages = TmdbFactory.configuration.$object[0].images;
+      var expectedConfigImages = config.configs[0].images;
+      expect(actualConfigImages).toEqual(expectedConfigImages);
+    });
+  });
+
+  describe('call all movies', function() {
+    it('movies should exist', function() {
+      httpBackend.expectGET(allMoviesUrl);
+      var movies = TmdbFactory.all('movies');
+      httpBackend.flush();
+      var actualMovies = movies.$object;
+      var expectedMovies = allMovies.movies;
+      expect(actualMovies[0].title).toEqual(expectedMovies[0].title);
+      expect(actualMovies[0].themoviedbid).toEqual(expectedMovies[0].themoviedbid);
+      expect(actualMovies[0].id).toEqual(expectedMovies[0].id);
+      expect(actualMovies[0].createdAt).toEqual(expectedMovies[0].createdAt);
+      expect(actualMovies[0].updatedAt).toEqual(expectedMovies[0].updatedAt);
+      expect(actualMovies[1].title).toEqual(expectedMovies[1].title);
+      expect(actualMovies[1].themoviedbid).toEqual(expectedMovies[1].themoviedbid);
+      expect(actualMovies[1].id).toEqual(expectedMovies[1].id);
+      expect(actualMovies[1].createdAt).toEqual(expectedMovies[1].createdAt);
+      expect(actualMovies[1].updatedAt).toEqual(expectedMovies[1].updatedAt);
     });
   });
 });
