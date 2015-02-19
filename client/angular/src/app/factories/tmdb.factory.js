@@ -4,30 +4,31 @@
 class TmdbFactory {
   constructor(Restangular) {
     this.Restangular = Restangular;
-    Restangular.all('configs').getList()
-    .then(function(results) {
-      console.log('config: ', results);
-      this.configuration = results[0];
-    }.bind(this));
+  }
+
+  config() {
+    if (this.configuration === undefined) {
+      this.configuration = this.Restangular.all('configs').getList();
+    }
   }
 
   all(name) {
-    console.log('All',name);
+    this.config();
     return this.Restangular.all(name).getList();
   }
 
   create(name, item) {
-    console.log('Create',name,item);
+    this.config();
     return this.Restangular.all(name).post(item);
   }
 
   movieSearch(query) {
-    console.log('movieSearch',query);
+    this.config();
     return this.Restangular.all('movies').customGET('search/'+query);
   }
 
   movieInfo(id) {
-    console.log('movieInfo',id);
+    this.config();
     return this.Restangular.one('movies').customGET('info/'+id);
   }
 
@@ -35,12 +36,11 @@ class TmdbFactory {
     if (image === null) {
       return 'https://d3a8mw37cqal2z.cloudfront.net/assets/f996aa2014d2ffddfda8463c479898a3/images/no-poster-w185.jpg';
     }
-    var config = this.configuration;
-    var posterSizes = config.images.poster_sizes; // jshint ignore:line
+    var posterSizes = this.configuration.$object[0].images.poster_sizes; // jshint ignore:line
     if (size === undefined) {
       size = posterSizes.length-1;
     }
-    var url = config.images.base_url + posterSizes[size] + image; // jshint ignore:line
+    var url = this.configuration.$object[0].images.base_url + posterSizes[size] + image; // jshint ignore:line
     return url;
   }
 
@@ -48,18 +48,12 @@ class TmdbFactory {
     if (image === null) {
       return '';
     }
-    var config = this.configuration;
-    var backdropSizes = config.images.backdrop_sizes; // jshint ignore:line
+    var backdropSizes = this.configuration.$object[0].images.backdrop_sizes; // jshint ignore:line
     if (size === undefined) {
       size = backdropSizes.length-1;
     }
-    console.log('backdropSizes: ',backdropSizes,size);
-    var url = config.images.base_url + backdropSizes[size] + image; // jshint ignore:line
+    var url = this.configuration.$object[0].images.base_url + backdropSizes[size] + image; // jshint ignore:line
     return url;
-  }
-
-  config() {
-    return this.configuration;
   }
 
   static tmdbFactory(Restangular){
