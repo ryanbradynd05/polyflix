@@ -156,7 +156,6 @@ describe('tmdb Factory', function() {
 
   describe('call all movies', function() {
     it('movies should exist', function() {
-      httpBackend.expectGET(allMoviesUrl);
       var movies = TmdbFactory.all('movies');
       httpBackend.flush();
       var actualMovies = movies.$object;
@@ -178,7 +177,6 @@ describe('tmdb Factory', function() {
 
   describe('call add movies', function() {
     it('movies should exist', function() {
-      httpBackend.expectPOST(createMovieUrl);
       var newMovie = {
         movie: {
           title: 'The Matrix',
@@ -201,7 +199,6 @@ describe('tmdb Factory', function() {
 
   describe('call search movies', function() {
     it('results should exist', function() {
-      httpBackend.expectGET(searchUrl);
       var results = TmdbFactory.movieSearch('SDF');
       httpBackend.flush();
       var actualResults = results.$object.results;
@@ -219,7 +216,6 @@ describe('tmdb Factory', function() {
 
   describe('call info Fight Club', function() {
     it('results should exist', function() {
-      httpBackend.expectGET(infoUrl);
       var results = TmdbFactory.movieInfo(550);
       httpBackend.flush();
       var actualResults = results.$object;
