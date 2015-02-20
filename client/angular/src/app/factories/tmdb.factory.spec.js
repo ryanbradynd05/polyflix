@@ -52,6 +52,55 @@ describe('tmdb Factory', function() {
     total_pages: 1, // jshint ignore:line
     total_results: 1 // jshint ignore:line
   };
+  var infoUrl = baseUrl + 'movies/info/550';
+  var infoResults = {
+    adult: false,
+    backdrop_path: '/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg', // jshint ignore:line
+    belongs_to_collection: null, // jshint ignore:line
+    budget: 63000000,
+    genres: [{
+      id: 18,
+      name: 'Drama'
+    }],
+    homepage: '',
+    id: 550,
+    imdb_id: 'tt0137523', // jshint ignore:line
+    original_language: 'en', // jshint ignore:line
+    original_title: 'Fight Club', // jshint ignore:line
+    overview: 'A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground " fight clubs " forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.',
+    popularity: 3.16634464772838,
+    poster_path: '/2lECpi35Hnbpa4y46JX0aY3AWTy.jpg', // jshint ignore:line
+    production_companies: [{ // jshint ignore:line
+      name: '20th Century Fox',
+      id: 25
+    }, {
+      name: 'Fox 2000 Pictures',
+      id: 711
+    }, {
+      name: 'Regency Enterprises',
+      id: 508
+    }],
+    production_countries: [{ // jshint ignore:line
+      iso_3166_1: 'DE', // jshint ignore:line
+      name: 'Germany'
+    }, {
+      iso_3166_1: 'US', // jshint ignore:line
+      name: 'United States of America'
+    }],
+    release_date: '1999-10-14', // jshint ignore:line
+    revenue: 100853753,
+    runtime: 139,
+    spoken_languages: [{ // jshint ignore:line
+      iso_639_1: 'en', // jshint ignore:line
+      name: 'English'
+    }],
+    status: 'Released',
+    tagline: 'How much can you know about yourself if you\'ve never been in a fight?',
+    title: 'Fight Club',
+    video: false,
+    vote_average: 7.8, // jshint ignore:line
+    vote_count: 3286 // jshint ignore:line
+  };
 
   beforeEach(module('polyflix'));
 
@@ -65,6 +114,9 @@ describe('tmdb Factory', function() {
     );
     httpBackend.whenGET(searchUrl).respond(
       JSON.stringify(searchResults)
+    );
+    httpBackend.whenGET(infoUrl).respond(
+      JSON.stringify(infoResults)
     );
   }));
 
@@ -122,6 +174,22 @@ describe('tmdb Factory', function() {
       expect(actualResults[0].id).toEqual(expectedResults[0].id);
       expect(actualResults[0].release_date).toEqual(expectedResults[0].release_date); // jshint ignore:line
       expect(actualResults[0].original_title).toEqual(expectedResults[0].original_title); // jshint ignore:line
+    });
+  });
+
+  describe('call info Fight Club', function() {
+    it('results should exist', function() {
+      httpBackend.expectGET(infoUrl);
+      var results = TmdbFactory.movieInfo(550);
+      httpBackend.flush();
+      var actualResults = results.$object;
+      var expectedResults = infoResults;
+      expect(actualResults.title).toEqual(expectedResults.title);
+      expect(actualResults.id).toEqual(expectedResults.id);
+      expect(actualResults.overview).toEqual(expectedResults.overview);
+      expect(actualResults.tagline).toEqual(expectedResults.tagline);
+      expect(actualResults.release_date).toEqual(expectedResults.release_date); // jshint ignore:line
+      expect(actualResults.original_title).toEqual(expectedResults.original_title); // jshint ignore:line
     });
   });
 });
