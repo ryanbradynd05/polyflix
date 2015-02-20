@@ -28,10 +28,20 @@ describe('tmdb Factory', function() {
     }, {
       title: 'Guardians of the Galaxy',
       themoviedbid: 118340,
-      id: 5,
+      id: 2,
       createdAt: '2015-02-13T06:19:29.000Z',
       updatedAt: '2015-02-13T06:19:29.000Z'
     }]
+  };
+  var createMovieUrl = baseUrl + 'movies';
+  var createMovieResults = {
+    movie: {
+      title: 'The Matrix',
+      themoviedbid: 603,
+      id: 3,
+      createdAt: '2015-02-13T05:44:34.000Z',
+      updatedAt: '2015-02-13T05:44:34.000Z'
+    }
   };
   var searchUrl = baseUrl + 'movies/search/SDF';
   var searchResults = {
@@ -112,6 +122,9 @@ describe('tmdb Factory', function() {
     httpBackend.whenGET(allMoviesUrl).respond(
       JSON.stringify(allMoviesResults)
     );
+    httpBackend.whenPOST(createMovieUrl).respond(
+      JSON.stringify(createMovieResults)
+    );
     httpBackend.whenGET(searchUrl).respond(
       JSON.stringify(searchResults)
     );
@@ -158,6 +171,27 @@ describe('tmdb Factory', function() {
       expect(actualMovies[1].id).toEqual(expectedMovies[1].id);
       expect(actualMovies[1].createdAt).toEqual(expectedMovies[1].createdAt);
       expect(actualMovies[1].updatedAt).toEqual(expectedMovies[1].updatedAt);
+    });
+  });
+
+  describe('call add movies', function() {
+    it('movies should exist', function() {
+      httpBackend.expectPOST(createMovieUrl);
+      var newMovie = {
+        movie: {
+          title: 'The Matrix',
+          themoviedbid: 603
+        }
+      };
+      var movie = TmdbFactory.create('movies', newMovie);
+      httpBackend.flush();
+      var actualMovies = movie.$object.movie;
+      var expectedMovies = createMovieResults.movie;
+      expect(actualMovies.title).toEqual(expectedMovies.title);
+      expect(actualMovies.themoviedbid).toEqual(expectedMovies.themoviedbid);
+      expect(actualMovies.id).toEqual(expectedMovies.id);
+      expect(actualMovies.createdAt).toEqual(expectedMovies.createdAt);
+      expect(actualMovies.updatedAt).toEqual(expectedMovies.updatedAt);
     });
   });
 
