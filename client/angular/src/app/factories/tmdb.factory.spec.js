@@ -247,4 +247,22 @@ describe('tmdb Factory', function() {
       expect(result3).toEqual('http://image.tmdb.org/t/p/w185/2lECpi35Hnbpa4y46JX0aY3AWTy.jpg');
     });
   });
+
+  describe('get backdrop url', function() {
+    it('should return valid url', function() {
+      var nullImage ='';
+      TmdbFactory.config();
+      httpBackend.flush();
+      var config = TmdbFactory.configuration.$object[0];
+      expect(config).toBeDefined();
+      var result1 = TmdbFactory.getBackdropUrl();
+      expect(result1).toEqual(nullImage);
+      var result2 = TmdbFactory.getBackdropUrl('/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg');
+      expect(result2).not.toEqual(nullImage);
+      expect(result2).toEqual('http://image.tmdb.org/t/p/original/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg');
+      var result3 = TmdbFactory.getBackdropUrl('/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg',2);
+      expect(result3).not.toEqual(nullImage);
+      expect(result3).toEqual('http://image.tmdb.org/t/p/w1280/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg');
+    });
+  });
 });
