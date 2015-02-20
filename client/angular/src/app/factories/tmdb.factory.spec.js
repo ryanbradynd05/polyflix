@@ -145,7 +145,6 @@ describe('tmdb Factory', function() {
   describe('call config', function() {
     it('config should exist', function() {
       expect(TmdbFactory.configuration).toEqual(undefined);
-      httpBackend.expectGET(configUrl);
       TmdbFactory.config();
       httpBackend.flush();
       var actualConfigImages = TmdbFactory.configuration.$object[0].images;
@@ -228,6 +227,24 @@ describe('tmdb Factory', function() {
       expect(actualResults.tagline).toEqual(expectedResults.tagline);
       expect(actualResults.release_date).toEqual(expectedResults.release_date); // jshint ignore:line
       expect(actualResults.original_title).toEqual(expectedResults.original_title); // jshint ignore:line
+    });
+  });
+
+  describe('get poster url', function() {
+    it('should return valid url', function() {
+      var nullImage ='https://d3a8mw37cqal2z.cloudfront.net/assets/f996aa2014d2ffddfda8463c479898a3/images/no-poster-w185.jpg';
+      TmdbFactory.config();
+      httpBackend.flush();
+      var config = TmdbFactory.configuration.$object[0];
+      expect(config).toBeDefined();
+      var result1 = TmdbFactory.getPosterUrl();
+      expect(result1).toEqual(nullImage);
+      var result2 = TmdbFactory.getPosterUrl('/2lECpi35Hnbpa4y46JX0aY3AWTy.jpg');
+      expect(result2).not.toEqual(nullImage);
+      expect(result2).toEqual('http://image.tmdb.org/t/p/original/2lECpi35Hnbpa4y46JX0aY3AWTy.jpg');
+      var result3 = TmdbFactory.getPosterUrl('/2lECpi35Hnbpa4y46JX0aY3AWTy.jpg',2);
+      expect(result3).not.toEqual(nullImage);
+      expect(result3).toEqual('http://image.tmdb.org/t/p/w185/2lECpi35Hnbpa4y46JX0aY3AWTy.jpg');
     });
   });
 });

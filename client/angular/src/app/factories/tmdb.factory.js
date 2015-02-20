@@ -33,7 +33,7 @@ class TmdbFactory {
   }
 
   getPosterUrl(image, size) {
-    if (image === null) {
+    if (image === undefined) {
       return 'https://d3a8mw37cqal2z.cloudfront.net/assets/f996aa2014d2ffddfda8463c479898a3/images/no-poster-w185.jpg';
     }
     var posterSizes = this.configuration.$object[0].images.poster_sizes; // jshint ignore:line
@@ -45,7 +45,7 @@ class TmdbFactory {
   }
 
   getBackdropUrl(image, size) {
-    if (image === null) {
+    if (image === undefined) {
       return '';
     }
     var backdropSizes = this.configuration.$object[0].images.backdrop_sizes; // jshint ignore:line
