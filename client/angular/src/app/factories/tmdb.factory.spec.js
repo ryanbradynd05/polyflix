@@ -161,6 +161,8 @@ describe('tmdb Factory', function() {
       httpBackend.flush();
       var actualMovies = movies.$object;
       var expectedMovies = allMoviesResults.movies;
+      var config = TmdbFactory.configuration.$object[0];
+      expect(config).toBeDefined();
       expect(actualMovies[0].title).toEqual(expectedMovies[0].title);
       expect(actualMovies[0].themoviedbid).toEqual(expectedMovies[0].themoviedbid);
       expect(actualMovies[0].id).toEqual(expectedMovies[0].id);
@@ -187,6 +189,8 @@ describe('tmdb Factory', function() {
       httpBackend.flush();
       var actualMovies = movie.$object.movie;
       var expectedMovies = createMovieResults.movie;
+      var config = TmdbFactory.configuration.$object[0];
+      expect(config).toBeDefined();
       expect(actualMovies.title).toEqual(expectedMovies.title);
       expect(actualMovies.themoviedbid).toEqual(expectedMovies.themoviedbid);
       expect(actualMovies.id).toEqual(expectedMovies.id);
@@ -202,6 +206,8 @@ describe('tmdb Factory', function() {
       httpBackend.flush();
       var actualResults = results.$object.results;
       var expectedResults = searchResults.results;
+      var config = TmdbFactory.configuration.$object[0];
+      expect(config).toBeDefined();
       expect(actualResults).toEqual(expectedResults);
       expect(actualResults.length).toEqual(expectedResults.length);
       expect(actualResults[0].title).toEqual(expectedResults[0].title);
@@ -218,6 +224,8 @@ describe('tmdb Factory', function() {
       httpBackend.flush();
       var actualResults = results.$object;
       var expectedResults = infoResults;
+      var config = TmdbFactory.configuration.$object[0];
+      expect(config).toBeDefined();
       expect(actualResults.title).toEqual(expectedResults.title);
       expect(actualResults.id).toEqual(expectedResults.id);
       expect(actualResults.overview).toEqual(expectedResults.overview);
