@@ -1,11 +1,24 @@
 'use strict';
 
 describe('controllers', function() {
+  var httpBackend, scope, createController;
   beforeEach(module('polyflix'));
 
-  // it('should ....', inject(function($controller) {
-  //   console.log('controller',$controller);
-  //   var movieViewCtrl = $controller('MovieViewCtrl');
-  //   expect(movieViewCtrl).toBeDefined();
-  // }));
+  beforeEach(inject(function($rootScope, $httpBackend, $controller) {
+    httpBackend = $httpBackend;
+    scope = $rootScope.$new();
+
+    createController = function() {
+        return $controller('MovieViewCtrl', {
+            '$scope': scope
+        });
+    };
+  }));
+
+  describe('controller', function() {
+    it('should exist', function() {
+      var controller = createController();
+      expect(controller).toBeDefined();
+    });
+  });
 });
