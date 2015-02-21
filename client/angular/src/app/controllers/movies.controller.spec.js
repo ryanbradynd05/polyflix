@@ -13,6 +13,9 @@ describe('controllers', function() {
     httpBackend.whenGET(mocks.allMoviesUrl).respond(
       JSON.stringify(mocks.allMoviesResults)
     );
+    httpBackend.whenDELETE(mocks.deleteUrl).respond(
+      JSON.stringify(mocks.deleteResults)
+    );
 
     createController = function() {
         return $controller('MoviesCtrl', {
@@ -24,6 +27,7 @@ describe('controllers', function() {
   describe('controller', function() {
     it('should exist', function() {
       var controller = createController();
+      httpBackend.flush();
       expect(controller).toBeDefined();
     });
   });
