@@ -18,10 +18,10 @@ angular.module('polyflix', ['ngCookies', 'ngTouch', 'ngSanitize', 'restangular',
     });
     RestangularProvider.setResponseInterceptor(function(response, operation, route, url) {
       var newResponse;
-      console.log('Restangular Response:',response, operation, route, url);
       if (operation === 'getList') {
         newResponse = response[route];
         newResponse.metadata = response.meta;
+        newResponse.url = url;
       } else {
         newResponse = response;
       }
