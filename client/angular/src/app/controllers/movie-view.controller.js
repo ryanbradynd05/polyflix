@@ -6,11 +6,7 @@ class MovieViewCtrl {
     this.TmdbFactory = TmdbFactory;
     this.$routeParams = $routeParams;
     console.log('$routeParams',$routeParams);
-    this.TmdbFactory.movieInfo($routeParams.movieId)
-    .then(function(movie) {
-      console.log('Movie: ',movie);
-      this.movieInfo = movie;
-    }.bind(this));
+    this.movieInfo = this.TmdbFactory.movieInfo($routeParams.movieId);
   }
 }
 

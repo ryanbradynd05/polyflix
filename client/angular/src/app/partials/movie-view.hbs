@@ -19,79 +19,79 @@
               <th>Value</th>
             </tr>
             <tr>
-              <td>Adult</td><td>{{ ctrl.movieInfo.adult}}</td>
+              <td>Adult</td><td>{{ ctrl.movieInfo.$object.adult}}</td>
             </tr>
             <tr>
-              <td>Backdrop Path</td><td>{{ ctrl.movieInfo.backdrop_path}}</td>
+              <td>Backdrop Path</td><td>{{ ctrl.movieInfo.$object.backdrop_path}}</td>
             </tr>
             <tr>
-              <td>Belogs to Collection</td><td>{{ ctrl.movieInfo.belongs_to_collection.name}}</td>
+              <td>Belogs to Collection</td><td>{{ ctrl.movieInfo.$object.belongs_to_collection.name}}</td>
             </tr>
             <tr>
-              <td>Budget</td><td>{{ ctrl.movieInfo.budget | currency : '$' : 0 }}</td>
+              <td>Budget</td><td>{{ ctrl.movieInfo.$object.budget | currency : '$' : 0 }}</td>
             </tr>
             <tr>
-              <td>Genres</td><td><span ng-repeat="genre in ctrl.movieInfo.genres">{{ genre.name}}<br/></span></td>
+              <td>Genres</td><td><span ng-repeat="genre in ctrl.movieInfo.$object.genres">{{ genre.name}}<br/></span></td>
             </tr>
             <tr>
-              <td>Homepage</td><td><a href="{{ ctrl.movieInfo.homepage }}">{{ ctrl.movieInfo.homepage }}</a></td>
+              <td>Homepage</td><td><a href="{{ ctrl.movieInfo.$object.homepage }}">{{ ctrl.movieInfo.$object.homepage }}</a></td>
             </tr>
             <tr>
-              <td>ID</td><td>{{ ctrl.movieInfo.id }}</td>
+              <td>ID</td><td>{{ ctrl.movieInfo.$object.id }}</td>
             </tr>
             <tr>
-              <td>IMDB ID</td><td>{{ ctrl.movieInfo.imdb_id }}</td>
+              <td>IMDB ID</td><td>{{ ctrl.movieInfo.$object.imdb_id }}</td>
             </tr>
             <tr>
-              <td>Original Language</td><td>{{ ctrl.movieInfo.original_language }}</td>
+              <td>Original Language</td><td>{{ ctrl.movieInfo.$object.original_language }}</td>
             </tr>
             <tr>
-              <td>Original Title</td><td>{{ ctrl.movieInfo.original_title }}</td>
+              <td>Original Title</td><td>{{ ctrl.movieInfo.$object.original_title }}</td>
             </tr>
             <tr>
-              <td>Overview</td><td>{{ ctrl.movieInfo.overview }}</td>
+              <td>Overview</td><td>{{ ctrl.movieInfo.$object.overview }}</td>
             </tr>
             <tr>
-              <td>Popularity</td><td>{{ ctrl.movieInfo.popularity }}</td>
+              <td>Popularity</td><td>{{ ctrl.movieInfo.$object.popularity }}</td>
             </tr>
             <tr>
-              <td>Poster Path</td><td>{{ ctrl.movieInfo.poster_path }}</td>
+              <td>Poster Path</td><td>{{ ctrl.movieInfo.$object.poster_path }}</td>
             </tr>
             <tr>
-              <td>Production Companies</td><td><span ng-repeat="company in ctrl.movieInfo.production_companies">{{ company.name}}<br/></span></td>
+              <td>Production Companies</td><td><span ng-repeat="company in ctrl.movieInfo.$object.production_companies">{{ company.name}}<br/></span></td>
             </tr>
             <tr>
-              <td>Production Countries</td><td><span ng-repeat="country in ctrl.movieInfo.production_countries">{{ country.name}}<br/></span></td>
+              <td>Production Countries</td><td><span ng-repeat="country in ctrl.movieInfo.$object.production_countries">{{ country.name}}<br/></span></td>
             </tr>
             <tr>
-              <td>Release Date</td><td>{{ ctrl.movieInfo.release_date }}</td>
+              <td>Release Date</td><td>{{ ctrl.movieInfo.$object.release_date }}</td>
             </tr>
             <tr>
-              <td>Revenue</td><td>{{ ctrl.movieInfo.revenue | currency : '$' : 0 }}</td>
+              <td>Revenue</td><td>{{ ctrl.movieInfo.$object.revenue | currency : '$' : 0 }}</td>
             </tr>
             <tr>
-              <td>Runtime</td><td>{{ ctrl.movieInfo.runtime }} min</td>
+              <td>Runtime</td><td>{{ ctrl.movieInfo.$object.runtime }} min</td>
             </tr>
             <tr>
-              <td>Spoken Language</td><td><span ng-repeat="language in ctrl.movieInfo.spoken_languages">{{ language.name}}<br/></span></td>
+              <td>Spoken Language</td><td><span ng-repeat="language in ctrl.movieInfo.$object.spoken_languages">{{ language.name}}<br/></span></td>
             </tr>
             <tr>
-              <td>Status</td><td>{{ ctrl.movieInfo.status }}</td>
+              <td>Status</td><td>{{ ctrl.movieInfo.$object.status }}</td>
             </tr>
             <tr>
-              <td>Tagline</td><td>{{ ctrl.movieInfo.tagline }}</td>
+              <td>Tagline</td><td>{{ ctrl.movieInfo.$object.tagline }}</td>
             </tr>
             <tr>
-              <td>Title</td><td>{{ ctrl.movieInfo.title }}</td>
+              <td>Title</td><td>{{ ctrl.movieInfo.$object.title }}</td>
             </tr>
             <tr>
-              <td>Video</td><td>{{ ctrl.movieInfo.video }}</td>
+              <td>Video</td><td>{{ ctrl.movieInfo.$object.video }}</td>
             </tr>
             <tr>
-              <td>Vote Average</td><td>{{ ctrl.movieInfo.vote_average }}</td>
+              <td>Vote Average</td><td>{{ ctrl.movieInfo.$object.vote_average }}</td>
             </tr>
             <tr>
-              <td>Vote Count</td><td>{{ ctrl.movieInfo.vote_count }}</td>
+              <td>Vote Count</td><td>{{ ctrl.movieInfo.$object.vote_count }}</td>
             </tr>
           </table>
         </div>
