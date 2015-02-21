@@ -6,17 +6,13 @@ class MoviesCtrl {
     console.log('constructor',TmdbFactory,$location);
     this.TmdbFactory = TmdbFactory;
     this.$location = $location;
-    TmdbFactory.all('movies')
-      .then(function(movies) {
-        this.movies = movies;
-        console.log('movies: ', this.movies);
-      }.bind(this));
+    this.movies = TmdbFactory.all('movies');
   }
 
   deleteMovie(movie) {
     console.log('deleteMovie',movie);
     movie.remove();
-    this.movies.pop(movie);
+    this.movies.$object.pop(movie);
   }
 
   viewMovie(movie) {

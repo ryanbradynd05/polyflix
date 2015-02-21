@@ -20,7 +20,7 @@
             <th>TMDB ID</th>
             <th>Actions</th>
           </tr>
-          <tr ng-repeat="movie in ctrl.movies">
+          <tr ng-repeat="movie in ctrl.movies.$object">
             <td>{{ movie.title }}</td>
             <td>{{ movie.themoviedbid }}</td>
             <td>

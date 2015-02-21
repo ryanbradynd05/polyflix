@@ -7,6 +7,12 @@ describe('controllers', function() {
   beforeEach(inject(function($rootScope, $httpBackend, $controller) {
     httpBackend = $httpBackend;
     scope = $rootScope.$new();
+    httpBackend.whenGET(mocks.configUrl).respond(
+      JSON.stringify(mocks.configResults)
+    );
+    httpBackend.whenGET(mocks.allMoviesUrl).respond(
+      JSON.stringify(mocks.allMoviesResults)
+    );
 
     createController = function() {
         return $controller('MoviesCtrl', {
