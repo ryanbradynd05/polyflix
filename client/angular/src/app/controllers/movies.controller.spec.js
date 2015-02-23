@@ -32,7 +32,7 @@ describe('movies controller', function() {
     });
   });
 
-  describe('delete movies', function() {
+  describe('delete movie', function() {
     it('should delete the movie', function() {
       var controller = createController();
       httpBackend.flush();
@@ -41,6 +41,16 @@ describe('movies controller', function() {
       controller.deleteMovie(movie2);
       httpBackend.flush();
       expect(controller.movies.$object.length).toEqual(1);
+    });
+  });
+
+  describe('view movie', function() {
+    it('should show the movie', function() {
+      var controller = createController();
+      httpBackend.flush();
+      var movie2 = controller.movies.$object[1];
+      controller.viewMovie(movie2);
+      expect(controller.$location.path()).toEqual('/movies/view/118340');
     });
   });
 });
