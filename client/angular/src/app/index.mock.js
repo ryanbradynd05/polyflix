@@ -113,7 +113,7 @@ beforeEach(function() {
       vote_average: 7.8, // jshint ignore:line
       vote_count: 3286 // jshint ignore:line
     },
-    deleteUrl: baseUrl + 'movies/550',
+    deleteUrl: baseUrl + 'movies/2',
     deleteResults: {}
   };
 });
