@@ -1,6 +1,6 @@
 'use strict';
 
-describe('tmdb Factory', function() {
+describe('tmdb factory', function() {
   var TmdbFactory, httpBackend;
 
   beforeEach(module('polyflix'));

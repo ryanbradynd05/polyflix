@@ -1,6 +1,6 @@
 'use strict';
 
-describe('controllers', function() {
+describe('movies controller', function() {
   var httpBackend, scope, createController;
   beforeEach(module('polyflix'));
 
