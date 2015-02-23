@@ -6,6 +6,8 @@ Ruby: [![Dependency Status](https://gemnasium.com/ryanbradynd05/polyflix.svg)](h
 
 Go: [Coverage Report](http://rawgit.com/ryanbradynd05/polyflix/master/server/go/coverage/coverage_report.html)
 
+Angular: [Coverage Report](http://rawgit.com/ryanbradynd05/polyflix/master/client/angular/coverage/PhantomJS%201.9.8%20(Mac%20OS%20X)/index.html)
+
 polyflix  
 ========
 
