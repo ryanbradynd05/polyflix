@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for app/factories/tmdb.factory.spec.js</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="../../prettify.css">
+
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">app/factories/tmdb.factory.spec.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">100% <small>(113 / 113)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">100% <small>(0 / 0)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">100% <small>(18 / 18)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">100% <small>(113 / 113)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">app/factories/</a> &#187; tmdb.factory.spec.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
+&nbsp;
+describe('tmdb factory', function() {
+  var TmdbFactory, httpBackend;
+&nbsp;
+  beforeEach(module('polyflix'));
+&nbsp;
+  beforeEach(inject(function($injector) {
+    httpBackend = $injector.get('$httpBackend');
+    httpBackend.whenGET(mocks.configUrl).respond(
+      JSON.stringify(mocks.configResults)
+    );
+    httpBackend.whenGET(mocks.allMoviesUrl).respond(
+      JSON.stringify(mocks.allMoviesResults)
+    );
+    httpBackend.whenPOST(mocks.createMovieUrl).respond(
+      JSON.stringify(mocks.createMovieResults)
+    );
+    httpBackend.whenGET(mocks.searchUrl).respond(
+      JSON.stringify(mocks.searchResults)
+    );
+    httpBackend.whenGET(mocks.infoUrl).respond(
+      JSON.stringify(mocks.infoResults)
+    );
+  }));
+&nbsp;
+  beforeEach(inject(function(_TmdbFactory_) {
+    TmdbFactory = _TmdbFactory_;
+  }));
+&nbsp;
+  afterEach(function() {
+    httpBackend.verifyNoOutstandingExpectation();
+    httpBackend.verifyNoOutstandingRequest();
+  });
+&nbsp;
+  describe('call config', function() {
+    it('config should exist', function() {
+      expect(TmdbFactory.configuration).toEqual(undefined);
+      TmdbFactory.config();
+      httpBackend.flush();
+      var actualConfigImages = TmdbFactory.configuration.$object[0].images;
+      var expectedConfigImages = mocks.configResults.configs[0].images;
+      expect(actualConfigImages).toEqual(expectedConfigImages);
+    });
+  });
+&nbsp;
+  describe('call all movies', function() {
+    it('movies should exist', function() {
+      var movies = TmdbFactory.all('movies');
+      httpBackend.flush();
+      var actualMovies = movies.$object;
+      var expectedMovies = mocks.allMoviesResults.movies;
+      var config = TmdbFactory.configuration.$object[0];
+      expect(config).toBeDefined();
+      expect(actualMovies[0].title).toEqual(expectedMovies[0].title);
+      expect(actualMovies[0].themoviedbid).toEqual(expectedMovies[0].themoviedbid);
+      expect(actualMovies[0].id).toEqual(expectedMovies[0].id);
+      expect(actualMovies[0].createdAt).toEqual(expectedMovies[0].createdAt);
+      expect(actualMovies[0].updatedAt).toEqual(expectedMovies[0].updatedAt);
+      expect(actualMovies[1].title).toEqual(expectedMovies[1].title);
+      expect(actualMovies[1].themoviedbid).toEqual(expectedMovies[1].themoviedbid);
+      expect(actualMovies[1].id).toEqual(expectedMovies[1].id);
+      expect(actualMovies[1].createdAt).toEqual(expectedMovies[1].createdAt);
+      expect(actualMovies[1].updatedAt).toEqual(expectedMovies[1].updatedAt);
+    });
+  });
+&nbsp;
+  describe('call add movies', function() {
+    it('movies should exist', function() {
+      var newMovie = {
+        movie: {
+          title: 'The Matrix',
+          themoviedbid: 603
+        }
+      };
+      var movie = TmdbFactory.create('movies', newMovie);
+      httpBackend.flush();
+      var actualMovies = movie.$object.movie;
+      var expectedMovies = mocks.createMovieResults.movie;
+      var config = TmdbFactory.configuration.$object[0];
+      expect(config).toBeDefined();
+      expect(actualMovies.title).toEqual(expectedMovies.title);
+      expect(actualMovies.themoviedbid).toEqual(expectedMovies.themoviedbid);
+      expect(actualMovies.id).toEqual(expectedMovies.id);
+      expect(actualMovies.createdAt).toEqual(expectedMovies.createdAt);
+      expect(actualMovies.updatedAt).toEqual(expectedMovies.updatedAt);
+    });
+  });
+&nbsp;
+  describe('call search movies', function() {
+    it('results should exist', function() {
+      var results = TmdbFactory.movieSearch('SDF');
+      httpBackend.flush();
+      var actualResults = results.$object.results;
+      var expectedResults = mocks.searchResults.results;
+      var config = TmdbFactory.configuration.$object[0];
+      expect(config).toBeDefined();
+      expect(actualResults).toEqual(expectedResults);
+      expect(actualResults.length).toEqual(expectedResults.length);
+      expect(actualResults[0].title).toEqual(expectedResults[0].title);
+      expect(actualResults[0].id).toEqual(expectedResults[0].id);
+      expect(actualResults[0].release_date).toEqual(expectedResults[0].release_date); // jshint ignore:line
+      expect(actualResults[0].original_title).toEqual(expectedResults[0].original_title); // jshint ignore:line
+    });
+  });
+&nbsp;
+  describe('call info Fight Club', function() {
+    it('results should exist', function() {
+      var results = TmdbFactory.movieInfo(550);
+      httpBackend.flush();
+      var actualResults = results.$object;
+      var expectedResults = mocks.infoResults;
+      var config = TmdbFactory.configuration.$object[0];
+      expect(config).toBeDefined();
+      expect(actualResults.title).toEqual(expectedResults.title);
+      expect(actualResults.id).toEqual(expectedResults.id);
+      expect(actualResults.overview).toEqual(expectedResults.overview);
+      expect(actualResults.tagline).toEqual(expectedResults.tagline);
+      expect(actualResults.release_date).toEqual(expectedResults.release_date); // jshint ignore:line
+      expect(actualResults.original_title).toEqual(expectedResults.original_title); // jshint ignore:line
+    });
+  });
+&nbsp;
+  describe('get poster url', function() {
+    it('should return valid url', function() {
+      var nullImage ='https://d3a8mw37cqal2z.cloudfront.net/assets/f996aa2014d2ffddfda8463c479898a3/images/no-poster-w185.jpg';
+      TmdbFactory.config();
+      httpBackend.flush();
+      var config = TmdbFactory.configuration.$object[0];
+      expect(config).toBeDefined();
+      var result1 = TmdbFactory.getPosterUrl();
+      expect(result1).toEqual(nullImage);
+      var result2 = TmdbFactory.getPosterUrl('/2lECpi35Hnbpa4y46JX0aY3AWTy.jpg');
+      expect(result2).not.toEqual(nullImage);
+      expect(result2).toEqual('http://image.tmdb.org/t/p/original/2lECpi35Hnbpa4y46JX0aY3AWTy.jpg');
+      var result3 = TmdbFactory.getPosterUrl('/2lECpi35Hnbpa4y46JX0aY3AWTy.jpg',2);
+      expect(result3).not.toEqual(nullImage);
+      expect(result3).toEqual('http://image.tmdb.org/t/p/w185/2lECpi35Hnbpa4y46JX0aY3AWTy.jpg');
+    });
+  });
+&nbsp;
+  describe('get backdrop url', function() {
+    it('should return valid url', function() {
+      var nullImage ='';
+      TmdbFactory.config();
+      httpBackend.flush();
+      var config = TmdbFactory.configuration.$object[0];
+      expect(config).toBeDefined();
+      var result1 = TmdbFactory.getBackdropUrl();
+      expect(result1).toEqual(nullImage);
+      var result2 = TmdbFactory.getBackdropUrl('/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg');
+      expect(result2).not.toEqual(nullImage);
+      expect(result2).toEqual('http://image.tmdb.org/t/p/original/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg');
+      var result3 = TmdbFactory.getBackdropUrl('/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg',2);
+      expect(result3).not.toEqual(nullImage);
+      expect(result3).toEqual('http://image.tmdb.org/t/p/w1280/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg');
+    });
+  });
+});</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 23 2015 00:03:52 GMT-0500 (EST)</div>
+</div>
+
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+
+<script src="../../sorter.js"></script>
+</body>
+</html>

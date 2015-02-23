@@ -9,9 +9,19 @@ module.exports = function(config) {
 
     browsers : ['PhantomJS'],
 
+    reporters: ['progress', 'coverage'],
+
     plugins : [
         'karma-phantomjs-launcher',
-        'karma-jasmine'
-    ]
+        'karma-jasmine',
+        'karma-coverage'
+    ],
+    preprocessors: {
+      '.tmp/serve/app/index.js': 'coverage'
+    },
+    coverageReporter: {
+      type : 'html',
+      dir : 'coverage/'
+    }
   });
 };

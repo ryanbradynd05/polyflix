@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for app/index.js</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="../prettify.css">
+
+    <link rel="stylesheet" href="../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header medium">
+    <h1>Code coverage report for <span class="entity">app/index.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">76.87% <small>(103 / 134)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">53.57% <small>(15 / 28)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">80% <small>(28 / 35)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">78.45% <small>(91 / 116)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../index.html">All files</a> &#187; <a href="index.html">app/</a> &#187; index.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221</td><td class="line-coverage"><span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">11</span>
+<span class="cline-any cline-yes">11</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-yes">20</span>
+<span class="cline-any cline-yes">20</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">(function e(t,n,r){f<span class="missing-if-branch" title="else path not taken" >E</span>unction s(<span class="missing-if-branch" title="if path not taken" >I</span>o,u){if(!n[o]){if(!t[o]){<span class="cstat-no" title="statement not covered" >var a=typeof require=="function"&amp;&amp;require;<span class="cstat-no" title="statement not covered" >i</span>f(!u&amp;&amp;a)<span class="cstat-no" title="statement not covered" >return a(o,!0);<span class="cstat-no" title="statement not covered" >i</span></span>f(i)<span class="cstat-no" title="statement not covered" >return i(o,!0);<span class="cstat-no" title="statement not covered" >t</span></span>hrow new Error("Cannot find module '"+o+"'")}</span>var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:<span class="branch-1 cbranch-no" title="branch not covered" >e)</span>},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&amp;&amp;<span class="branch-1 cbranch-no" title="branch not covered" >require;</span>for(var o=0;o&lt;r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+"use strict";
+/*jshint esnext: true */
+&nbsp;
+var MovieSearchCtrl = (function () {
+  var MovieSearchCtrl = function MovieSearchCtrl($scope, TmdbFactory, $modal, $location) {
+    this.$scope = $scope;
+    this.TmdbFactory = TmdbFactory;
+    this.$modal = $modal;
+    this.$location = $location;
+    this.query = "";
+    this.movies = [];
+    this.movieInfo = {};
+  };
+&nbsp;
+  MovieSearchCtrl.prototype.searchTmdb = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >    console.log("Search TMDB", this.query);</span>
+<span class="cstat-no" title="statement not covered" >    this.TmdbFactory.movieSearch(this.query).then(<span class="fstat-no" title="function not covered" >function (movies) {</span></span>
+<span class="cstat-no" title="statement not covered" >      this.movies = movies.results;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      console.log("movies: ", this.movies);</span>
+    }.bind(this));
+  };
+&nbsp;
+  MovieSearchCtrl.prototype.getInfo = <span class="fstat-no" title="function not covered" >function (movie) {</span>
+<span class="cstat-no" title="statement not covered" >    console.log("Get Info", movie);</span>
+<span class="cstat-no" title="statement not covered" >    this.movieInfo = {};</span>
+<span class="cstat-no" title="statement not covered" >    this.TmdbFactory.movieInfo(movie.id).then(<span class="fstat-no" title="function not covered" >function (movie) {</span></span>
+<span class="cstat-no" title="statement not covered" >      console.log("Movie: ", movie);</span>
+<span class="cstat-no" title="statement not covered" >      this.movieInfo = movie;</span>
+<span class="cstat-no" title="statement not covered" >      var backdropUrl = this.TmdbFactory.getBackdropUrl(movie.backdrop_path, 1); </span>// jshint ignore:line
+<span class="cstat-no" title="statement not covered" >      movie.backdropUrl = backdropUrl;</span>
+<span class="cstat-no" title="statement not covered" >      console.log("backdropUrl: ", backdropUrl);</span>
+<span class="cstat-no" title="statement not covered" >      var scope = this.$scope.$new();</span>
+<span class="cstat-no" title="statement not covered" >      scope.movieInfo = movie;</span>
+<span class="cstat-no" title="statement not covered" >      console.log("Scope", scope);</span>
+<span class="cstat-no" title="statement not covered" >      var movieInfoModal = this.$modal({</span>
+        scope: scope,
+        placement: "custom",
+        container: "body",
+        template: "app/partials/movie-info-modal.hbs",
+        show: true
+      });
+<span class="cstat-no" title="statement not covered" >      this.movieInfoModal = movieInfoModal;</span>
+    }.bind(this));
+  };
+&nbsp;
+  MovieSearchCtrl.prototype.closeModal = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >    console.log("Close Modal");</span>
+<span class="cstat-no" title="statement not covered" >    this.movieInfoModal.hide();</span>
+  };
+&nbsp;
+  MovieSearchCtrl.prototype.addMovie = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >    this.closeModal();</span>
+<span class="cstat-no" title="statement not covered" >    console.log("Add Movie");</span>
+<span class="cstat-no" title="statement not covered" >    var newMovie = {</span>
+      title: this.movieInfo.title,
+      themoviedbid: this.movieInfo.id
+    };
+<span class="cstat-no" title="statement not covered" >    this.TmdbFactory.create("movies", { movie: newMovie }).then(<span class="fstat-no" title="function not covered" >function (movie) {</span></span>
+<span class="cstat-no" title="statement not covered" >      console.log("Movie Added: ", movie);</span>
+<span class="cstat-no" title="statement not covered" >      this.$location.path("/movies");</span>
+    }.bind(this));
+  };
+&nbsp;
+  return MovieSearchCtrl;
+})();
+&nbsp;
+MovieSearchCtrl.$inject = ["$scope", "TmdbFactory", "$modal", "$location"];
+&nbsp;
+exports["default"] = MovieSearchCtrl;
+},{}],2:[function(require,module,exports){
+"use strict";
+/*jshint esnext: true */
+&nbsp;
+var MovieViewCtrl = function MovieViewCtrl(TmdbFactory, $routeParams) {
+  this.TmdbFactory = TmdbFactory;
+  this.$routeParams = $routeParams;
+  this.movieInfo = this.TmdbFactory.movieInfo($routeParams.movieId);
+};
+&nbsp;
+MovieViewCtrl.$inject = ["TmdbFactory", "$routeParams"];
+&nbsp;
+exports["default"] = MovieViewCtrl;
+},{}],3:[function(require,module,exports){
+"use strict";
+/*jshint esnext: true */
+&nbsp;
+var MoviesCtrl = (function () {
+  var MoviesCtrl = function MoviesCtrl(TmdbFactory, $location) {
+    this.TmdbFactory = TmdbFactory;
+    this.$location = $location;
+    this.movies = TmdbFactory.all("movies");
+  };
+&nbsp;
+  MoviesCtrl.prototype.deleteMovie = function (movie) {
+    movie.remove();
+    this.movies.$object.pop(movie);
+  };
+&nbsp;
+  MoviesCtrl.prototype.viewMovie = function (movie) {
+    this.$location.path("/movies/view/" + movie.themoviedbid);
+  };
+&nbsp;
+  return MoviesCtrl;
+})();
+&nbsp;
+MoviesCtrl.$inject = ["TmdbFactory", "$location"];
+&nbsp;
+exports["default"] = MoviesCtrl;
+},{}],4:[function(require,module,exports){
+"use strict";
+/*jshint esnext: true */
+&nbsp;
+var TmdbFactory = (function () {
+  var TmdbFactory = function TmdbFactory(Restangular) {
+    this.Restangular = Restangular;
+  };
+&nbsp;
+  TmdbFactory.prototype.config = function () {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (this.configuration === undefined) {
+      this.configuration = this.Restangular.all("configs").getList();
+    }
+  };
+&nbsp;
+  TmdbFactory.prototype.all = function (name) {
+    this.config();
+    return this.Restangular.all(name).getList();
+  };
+&nbsp;
+  TmdbFactory.prototype.create = function (name, item) {
+    this.config();
+    return this.Restangular.all(name).post(item);
+  };
+&nbsp;
+  TmdbFactory.prototype.movieSearch = function (query) {
+    this.config();
+    return this.Restangular.all("movies").customGET("search/" + query);
+  };
+&nbsp;
+  TmdbFactory.prototype.movieInfo = function (id) {
+    this.config();
+    return this.Restangular.one("movies").customGET("info/" + id);
+  };
+&nbsp;
+  TmdbFactory.prototype.getPosterUrl = function (image, size) {
+    if (image === undefined) {
+      return "https://d3a8mw37cqal2z.cloudfront.net/assets/f996aa2014d2ffddfda8463c479898a3/images/no-poster-w185.jpg";
+    }
+    var posterSizes = this.configuration.$object[0].images.poster_sizes; // jshint ignore:line
+    if (size === undefined) {
+      size = posterSizes.length - 1;
+    }
+    var url = this.configuration.$object[0].images.base_url + posterSizes[size] + image; // jshint ignore:line
+    return url;
+  };
+&nbsp;
+  TmdbFactory.prototype.getBackdropUrl = function (image, size) {
+    if (image === undefined) {
+      return "";
+    }
+    var backdropSizes = this.configuration.$object[0].images.backdrop_sizes; // jshint ignore:line
+    if (size === undefined) {
+      size = backdropSizes.length - 1;
+    }
+    var url = this.configuration.$object[0].images.base_url + backdropSizes[size] + image; // jshint ignore:line
+    return url;
+  };
+&nbsp;
+  TmdbFactory.tmdbFactory = function (Restangular) {
+    return new TmdbFactory(Restangular);
+  };
+&nbsp;
+  return TmdbFactory;
+})();
+&nbsp;
+TmdbFactory.$inject = ["Restangular"];
+&nbsp;
+exports["default"] = TmdbFactory;
+},{}],5:[function(require,module,exports){
+"use strict";
+var TmdbFactory = require('./factories/tmdb.factory')["default"];
+var MoviesCtrl = require('./controllers/movies.controller')["default"];
+var MovieSearchCtrl = require('./controllers/movie-search.controller')["default"];
+var MovieViewCtrl = require('./controllers/movie-view.controller')["default"];
+&nbsp;
+&nbsp;
+angular.module("polyflix", ["ngCookies", "ngTouch", "ngSanitize", "restangular", "ngRoute", "mgcrea.ngStrap"]).factory("TmdbFactory", TmdbFactory.tmdbFactory).controller("MoviesCtrl", MoviesCtrl).controller("MovieSearchCtrl", MovieSearchCtrl).controller("MovieViewCtrl", MovieViewCtrl).config(function (RestangularProvider) {
+  RestangularProvider.setBaseUrl("http://localhost:3000");
+  RestangularProvider.setDefaultHeaders({
+    "Content-Type": "application/json"
+  });
+  RestangularProvider.setResponseInterceptor(function (response, operation, route, url) {
+    var newResponse;
+    if (operation === "getList") {
+      newResponse = response[route];
+      newResponse.metadata = response.meta;
+      newResponse.url = url;
+    } else {
+      newResponse = response;
+    }
+    return newResponse;
+  });
+}).config(function ($routeProvider) {
+  $routeProvider.when("/movies", {
+    templateUrl: "app/partials/movies.hbs",
+    controller: "MoviesCtrl",
+    controllerAs: "ctrl"
+  }).when("/movies/search", {
+    templateUrl: "app/partials/movie-search.hbs",
+    controller: "MovieSearchCtrl",
+    controllerAs: "ctrl"
+  }).when("/movies/view/:movieId", {
+    templateUrl: "app/partials/movie-view.hbs",
+    controller: "MovieViewCtrl",
+    controllerAs: "ctrl"
+  }).otherwise({
+    redirectTo: "/movies"
+  });
+});
+},{"./controllers/movie-search.controller":1,"./controllers/movie-view.controller":2,"./controllers/movies.controller":3,"./factories/tmdb.factory":4}]},{},[5])</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 23 2015 00:10:06 GMT-0500 (EST)</div>
+</div>
+
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+
+<script src="../sorter.js"></script>
+</body>
+</html>
