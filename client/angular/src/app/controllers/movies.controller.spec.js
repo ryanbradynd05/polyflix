@@ -31,4 +31,16 @@ describe('movies controller', function() {
       expect(controller).toBeDefined();
     });
   });
+
+  describe('delete movies', function() {
+    it('should delete the movie', function() {
+      var controller = createController();
+      httpBackend.flush();
+      expect(controller.movies.$object.length).toEqual(2);
+      var movie2 = controller.movies.$object[1];
+      controller.deleteMovie(movie2);
+      httpBackend.flush();
+      expect(controller.movies.$object.length).toEqual(1);
+    });
+  });
 });
