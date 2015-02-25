@@ -29,7 +29,10 @@
             </td>
           </tr>
         </table>
-        <div ng-hide="ctrl.movies.length">No movies found</div>
+        <ng-pluralize count="ctrl.movies.$object.length"
+                         when="{'0': 'No movies found',
+                             'one': '1 movie found',
+                             'other': '{} movies found'}" />
       </div>
     </div>
   </div>

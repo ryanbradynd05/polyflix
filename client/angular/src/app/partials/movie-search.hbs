@@ -21,9 +21,10 @@
                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
               </button>
             </div>
-            <div class="form-group pull-right" ng-show="ctrl.movies.length">
-              {{ ctrl.movies.$object.results.length }} movies found
-            </div>
+            <ng-pluralize count="ctrl.movies.$object.total_results"
+                             when="{'0': 'No movies found',
+                                 'one': '1 movie found',
+                                 'other': '{} movies found'}" />
           </form>
         </div>
         <div class="row">
