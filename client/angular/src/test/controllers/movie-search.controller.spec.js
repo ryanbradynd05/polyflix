@@ -33,4 +33,19 @@ describe('movie search controller', function() {
       expect(controller).toBeDefined();
     });
   });
+
+  describe('search tmdb', function() {
+    it('should return movies', function() {
+      var controller = createController();
+      controller.query = 'SDF';
+      controller.searchTmdb();
+      httpBackend.flush();
+      var actualResults = controller.movies.$object;
+      var expectedResults = mocks.searchResults;
+      expect(actualResults.page).toEqual(expectedResults.page);
+      expect(actualResults.total_pages).toEqual(expectedResults.total_pages);
+      expect(actualResults.total_results).toEqual(expectedResults.total_results);
+      expect(actualResults.results).toEqual(expectedResults.results);
+    });
+  });
 });
