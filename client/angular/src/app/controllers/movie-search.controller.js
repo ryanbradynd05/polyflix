@@ -13,8 +13,7 @@ class MovieSearchCtrl {
   }
 
   searchTmdb() {
-    console.log('Search TMDB',this.query);
-    this.movies = this.TmdbFactory.movieSearch(this.query);
+    this.movies = this.TmdbFactory.movieSearch(this.query)  ;
   }
 
   getInfo(movie) {
