@@ -48,4 +48,18 @@ describe('movie search controller', function() {
       expect(actualResults.results).toEqual(expectedResults.results);
     });
   });
+
+  describe('get info', function() {
+    it('should get movie info and open modal', function() {
+      var controller = createController();
+      var movie = mocks.allMoviesResults.movies[0];
+      controller.getInfo(movie);
+      $rootScope.$digest();
+      httpBackend.flush();
+      scope.$apply();
+      var actualMovie = controller.movieInfo;
+      expect(actualMovie.title).toEqual(movie.title);
+      expect(actualMovie.id).toEqual(movie.themoviedbid);
+    });
+  });
 });
