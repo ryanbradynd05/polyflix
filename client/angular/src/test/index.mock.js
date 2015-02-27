@@ -45,21 +45,21 @@ beforeEach(function() {
         updatedAt: '2015-02-13T05:44:34.000Z'
       }
     },
-    searchUrl: baseUrl + 'movies/search/SDF',
+    searchUrl: baseUrl + 'movies/search/Fight',
     searchResults: {
       page: 1,
       results: [{
         adult: false,
-        backdrop_path: '/qLxJlnfZ9b2BMzvhzvnJMBi7EGH.jpg', // jshint ignore:line
-        id: 14114,
-        original_title: 'You Got Served', // jshint ignore:line
-        release_date: '2004-01-30', // jshint ignore:line
-        poster_path: '/3ESy6TiBPSYIbEES1zNspdYtMtw.jpg', // jshint ignore:line
-        popularity: 0.33499858390984,
-        title: 'You Got Served',
+        backdrop_path: "/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg", // jshint ignore:line
+        id: 550,
+        original_title: "Fight Club", // jshint ignore:line
+        release_date: "1999-10-14", // jshint ignore:line
+        poster_path: "/2lECpi35Hnbpa4y46JX0aY3AWTy.jpg", // jshint ignore:line
+        popularity: 2.09079040547446,
+        title: "Fight Club",
         video: false,
-        vote_average: 6.3, // jshint ignore:line
-        vote_count: 9 // jshint ignore:line
+        vote_average: 7.8, // jshint ignore:line
+        vote_count: 3302 // jshint ignore:line
       }],
       total_pages: 1, // jshint ignore:line
       total_results: 1 // jshint ignore:line
