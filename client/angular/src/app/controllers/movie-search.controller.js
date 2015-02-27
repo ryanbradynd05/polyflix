@@ -17,28 +17,28 @@ class MovieSearchCtrl {
   }
 
   getInfo(movie) {
-    console.log('Get Info', movie);
     this.movieInfo = {};
+    var _this = this;
     this.TmdbFactory.movieInfo(movie.id)
     .then(function(movie) {
-      console.log('Movie: ',movie);
-      this.movieInfo = movie;
-      var backdropUrl = this.TmdbFactory.getBackdropUrl(movie.backdrop_path,1); // jshint ignore:line
+      // console.log('Movie: ',movie);
+      _this.movieInfo = movie;
+      var backdropUrl = _this.TmdbFactory.getBackdropUrl(movie.backdrop_path,1); // jshint ignore:line
       movie.backdropUrl = backdropUrl;
-      console.log('backdropUrl: ',backdropUrl);
-      var scope = this.$scope.$new();
+      // console.log('backdropUrl: ',backdropUrl);
+      var scope = _this.$scope.$new();
       scope.movieInfo = movie;
-      console.log('Scope',scope);
-      var movieInfoModal = this.$modal({
+      // console.log('Scope',scope);
+      var movieInfoModal = _this.$modal({
         scope: scope,
         placement: 'custom',
         container: 'body',
         template: 'app/partials/movie-info-modal.hbs',
         show: true
       });
-      this.movieInfoModal = movieInfoModal;
+      _this.movieInfoModal = movieInfoModal;
 
-    }.bind(this));
+    });
   }
 
   closeModal() {
@@ -53,11 +53,12 @@ class MovieSearchCtrl {
       title: this.movieInfo.title,
       themoviedbid: this.movieInfo.id
     };
+    var _this = this;
     this.TmdbFactory.create('movies',{movie: newMovie})
     .then(function(movie) {
       console.log('Movie Added: ', movie);
-      this.$location.path('/movies');
-    }.bind(this));
+      _this.$location.path('/movies');
+    });
   }
 }
 

@@ -1,11 +1,12 @@
 'use strict';
 
 describe('movie search controller', function() {
-  var httpBackend, scope, createController;
+  var httpBackend, scope, rootScope, createController;
   beforeEach(module('polyflix'));
 
   beforeEach(inject(function($rootScope, $httpBackend, $controller) {
     httpBackend = $httpBackend;
+    rootScope = $rootScope;
     scope = $rootScope.$new();
     httpBackend.whenGET(mocks.configUrl).respond(
       JSON.stringify(mocks.configResults)
@@ -18,6 +19,9 @@ describe('movie search controller', function() {
     );
     httpBackend.whenGET(mocks.infoUrl).respond(
       JSON.stringify(mocks.infoResults)
+    );
+    httpBackend.whenGET('app/partials/movie-info-modal.hbs').respond(
+      '<div></div>'
     );
 
     createController = function() {
@@ -37,7 +41,7 @@ describe('movie search controller', function() {
   describe('search tmdb', function() {
     it('should return movies', function() {
       var controller = createController();
-      controller.query = 'SDF';
+      controller.query = 'Fight';
       controller.searchTmdb();
       httpBackend.flush();
       var actualResults = controller.movies.$object;
@@ -52,14 +56,13 @@ describe('movie search controller', function() {
   describe('get info', function() {
     it('should get movie info and open modal', function() {
       var controller = createController();
-      var movie = mocks.allMoviesResults.movies[0];
+      var movie = mocks.searchResults.results[0];
       controller.getInfo(movie);
-      $rootScope.$digest();
       httpBackend.flush();
-      scope.$apply();
+      rootScope.$digest();
       var actualMovie = controller.movieInfo;
       expect(actualMovie.title).toEqual(movie.title);
-      expect(actualMovie.id).toEqual(movie.themoviedbid);
+      expect(actualMovie.id).toEqual(movie.id);
     });
   });
 });
