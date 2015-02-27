@@ -89,7 +89,7 @@ describe('tmdb factory', function() {
 
   describe('call search movies', function() {
     it('results should exist', function() {
-      var results = TmdbFactory.movieSearch('SDF');
+      var results = TmdbFactory.movieSearch('Fight');
       httpBackend.flush();
       var actualResults = results.$object.results;
       var expectedResults = mocks.searchResults.results;
