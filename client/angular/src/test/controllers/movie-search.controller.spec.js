@@ -66,4 +66,17 @@ describe('movie search controller', function() {
       expect(controller.movieInfoModal.$isShown).toEqual(true);
     });
   });
+
+  describe('close modal', function() {
+    it('should close the modal', function() {
+      var controller = createController();
+      var movie = mocks.searchResults.results[0];
+      controller.getInfo(movie);
+      httpBackend.flush();
+      rootScope.$digest();
+      expect(controller.movieInfoModal.$isShown).toEqual(true);
+      controller.closeModal();
+      expect(controller.movieInfoModal.$isShown).toEqual(false);
+    });
+  });
 });

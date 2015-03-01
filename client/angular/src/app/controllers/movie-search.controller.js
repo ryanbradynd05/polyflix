@@ -42,7 +42,6 @@ class MovieSearchCtrl {
   }
 
   closeModal() {
-    console.log('Close Modal');
     this.movieInfoModal.hide();
   }
 
