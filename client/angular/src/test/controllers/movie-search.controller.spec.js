@@ -63,6 +63,7 @@ describe('movie search controller', function() {
       var actualMovie = controller.movieInfo;
       expect(actualMovie.title).toEqual(movie.title);
       expect(actualMovie.id).toEqual(movie.id);
+      expect(controller.movieInfoModal.$isShown).toEqual(true);
     });
   });
 });
