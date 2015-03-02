@@ -79,4 +79,23 @@ describe('movie search controller', function() {
       expect(controller.movieInfoModal.$isShown).toEqual(false);
     });
   });
+
+  describe('add movie', function() {
+    it('should add the movie', function() {
+      var controller = createController();
+      var movie = mocks.searchResults.results[0];
+      controller.getInfo(movie);
+      httpBackend.flush();
+      rootScope.$digest();
+      controller.movieInfo = {
+        title: 'The Matrix',
+        id: 603
+      };
+      controller.addMovie();
+      httpBackend.flush();
+      rootScope.$digest();
+      expect(controller.movieInfoModal.$isShown).toEqual(false);
+      expect(controller.$location.path()).toEqual('/movies');
+    });
+  });
 });

@@ -47,7 +47,6 @@ class MovieSearchCtrl {
 
   addMovie() {
     this.closeModal();
-    console.log('Add Movie');
     var newMovie = {
       title: this.movieInfo.title,
       themoviedbid: this.movieInfo.id
