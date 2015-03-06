@@ -1,1 +1,37 @@
-{{outlet}}
+<div>
+  <header>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9 col-ms-9">
+          <h1>Movies</h1>
+        </div>
+        <div class="col-md-3 col-ms-3 btn-new-movie">
+          <a href="#/movies/search"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Movie</a>
+        </div>
+      </div>
+     </div>
+  </header>
+  <div class="container container-main">
+    <div class="row">
+      <div class="col-md-12 col-ms-12 pg-module">
+        <table class="table table-striped">
+          <tr>
+            <th>Title</th>
+            <th>TMDB ID</th>
+            <th>Actions</th>
+          </tr>
+          {{#each movie in model}}
+          <tr>
+            <td>{{ movie.title }}</td>
+            <td>{{ movie.themoviedbid }}</td>
+            <td>
+              <a class="btn btn-primary" action="viewMovie(movie)">View</a>
+              <a class="btn btn-danger" action="deleteMovie(movie)">Delete</a>
+            </td>
+          </tr>
+          {{/each}}
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
