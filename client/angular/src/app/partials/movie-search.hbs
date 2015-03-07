@@ -29,14 +29,18 @@
         </div>
         <div class="row">
           <table class="table table-striped">
-            <tr>
-              <th>Title</th>
-              <th>Poster</th>
-            </tr>
-            <tr ng-repeat="movie in ctrl.movies.$object.results" ng-click="ctrl.getInfo(movie)">
-              <td>{{ movie.title }}</td>
-              <td><img ng-src="{{ ctrl.TmdbFactory.getPosterUrl(movie.poster_path,2) }}"/></td>
-            </tr>
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Poster</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="movie in ctrl.movies.$object.results" ng-click="ctrl.getInfo(movie)">
+                <td>{{ movie.title }}</td>
+                <td><img ng-src="{{ ctrl.TmdbFactory.getPosterUrl(movie.poster_path,2) }}"/></td>
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>
