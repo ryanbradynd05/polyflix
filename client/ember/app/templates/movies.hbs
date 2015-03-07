@@ -1,4 +1,4 @@
-<div>
+  <div>
   <header>
     <div class="container">
       <div class="row">
@@ -6,7 +6,7 @@
           <h1>Movies</h1>
         </div>
         <div class="col-md-3 col-ms-3 btn-new-movie">
-          <a href="#/movies/search"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Movie</a>
+          {{#link-to 'movies.search'}}<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Movie{{/link-to}}
         </div>
       </div>
      </div>
@@ -25,8 +25,8 @@
             <td>{{ movie.title }}</td>
             <td>{{ movie.themoviedbid }}</td>
             <td>
-              <a class="btn btn-primary" action="viewMovie(movie)">View</a>
-              <a class="btn btn-danger" action="deleteMovie(movie)">Delete</a>
+              <button class="btn btn-primary" {{action 'viewMovie' movie}}>View</button>
+              <button class="btn btn-danger" {{action 'deleteMovie' movie}}>Delete</button>
             </td>
           </tr>
           {{/each}}
