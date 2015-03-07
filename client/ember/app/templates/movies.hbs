@@ -15,21 +15,25 @@
     <div class="row">
       <div class="col-md-12 col-ms-12 pg-module">
         <table class="table table-striped">
-          <tr>
-            <th>Title</th>
-            <th>TMDB ID</th>
-            <th>Actions</th>
-          </tr>
-          {{#each movie in model}}
-          <tr>
-            <td>{{ movie.title }}</td>
-            <td>{{ movie.themoviedbid }}</td>
-            <td>
-              <button class="btn btn-primary" {{action 'viewMovie' movie}}>View</button>
-              <button class="btn btn-danger" {{action 'deleteMovie' movie}}>Delete</button>
-            </td>
-          </tr>
-          {{/each}}
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>TMDB ID</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each movie in model}}
+            <tr>
+              <td>{{ movie.title }}</td>
+              <td>{{ movie.themoviedbid }}</td>
+              <td>
+                <button class="btn btn-primary" {{action 'viewMovie' movie}}>View</button>
+                <button class="btn btn-danger" {{action 'deleteMovie' movie}}>Delete</button>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
         </table>
       </div>
     </div>
