@@ -24,14 +24,14 @@
           </thead>
           <tbody>
             {{#each movie in model}}
-            <tr>
-              <td>{{ movie.title }}</td>
-              <td>{{ movie.themoviedbid }}</td>
-              <td>
-                <button class="btn btn-primary" {{action 'viewMovie' movie}}>View</button>
-                <button class="btn btn-danger" {{action 'deleteMovie' movie}}>Delete</button>
-              </td>
-            </tr>
+              <tr>
+                <td>{{ movie.title }}</td>
+                <td>{{ movie.themoviedbid }}</td>
+                <td>
+                  <button class="btn btn-primary" {{action 'viewMovie' movie}}>View</button>
+                  <button class="btn btn-danger" {{action 'deleteMovie' movie}}>Delete</button>
+                </td>
+              </tr>
             {{/each}}
           </tbody>
         </table>
