@@ -1,10 +1,12 @@
 /* jshint node: true */
 
 module.exports = function(environment) {
+  var restURL = 'http://localhost:3000';
   var ENV = {
     modulePrefix: 'polyflix',
     environment: environment,
     baseURL: '/',
+    restURL: restURL,
     locationType: 'auto',
     EmberENV: {
       FEATURES: {
@@ -16,6 +18,9 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+    },
+    contentSecurityPolicy: {
+      'connect-src': "'self' " + restURL
     }
   };
 
