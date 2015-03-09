@@ -12,6 +12,9 @@ export default Ember.Controller.extend({
         console.log('search results',results);
         this.set('movies',results.results);
       });
+    },
+    getInfo: function(movie) {
+      console.log('getInfo', movie);
     }
   }
 });
