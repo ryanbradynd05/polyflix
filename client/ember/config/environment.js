@@ -20,7 +20,8 @@ module.exports = function(environment) {
       // when it is created
     },
     contentSecurityPolicy: {
-      'connect-src': "'self' " + restURL
+      'connect-src': "'self' " + restURL,
+      'img-src': "'self' http://image.tmdb.org https://d3a8mw37cqal2z.cloudfront.net"
     }
   };
 
