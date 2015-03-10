@@ -35,7 +35,7 @@
               {{#each movie in movies}}
                 <tr {{action 'getInfo' movie}}>
                   <td>{{ movie.title }}</td>
-                  <td><img {{bind-attr src='getPosterUrl(movie.poster_path,2)' }}/></td>
+                  <td><img {{bind-attr src='movie.posterUrl' }}/></td>
                 </tr>
               {{/each}}
             </tbody>
