@@ -1,1 +1,125 @@
-{{outlet}}
+<div>
+  <header>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9 col-ms-9">
+          {{#link-to 'movies'}}<span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home{{/link-to}}
+          <h1>View</h1>
+        </div>
+      </div>
+     </div>
+  </header>
+  <div class="container container-main">
+    <div class="row">
+      <div class="col-md-12 col-ms-12 pg-module">
+        <div class="row">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Key</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Adult</td><td>{{ model.adult}}</td>
+              </tr>
+              <tr>
+                <td>Backdrop Path</td><td>{{ model.backdrop_path}}</td>
+              </tr>
+              <tr>
+                <td>Belogs to Collection</td><td>{{ model.belongs_to_collection.name}}</td>
+              </tr>
+              <tr>
+                <td>Budget</td><td>{{ model.budget }}</td>
+              </tr>
+              <tr>
+                <td>Genres</td>
+                <td>
+                    {{#each genre in model.genres}}
+                        <span>{{ genre.name}}<br/></span>
+                    {{/each}}
+                </td>
+              </tr>
+              <tr>
+                <td>Homepage</td><td><a {{bind-attr href="model.homepage" }} target="_blank">{{ model.homepage }}</a></td>
+              </tr>
+              <tr>
+                <td>ID</td><td>{{ model.id }}</td>
+              </tr>
+              <tr>
+                <td>IMDB ID</td><td>{{ model.imdb_id }}</td>
+              </tr>
+              <tr>
+                <td>Original Language</td><td>{{ model.original_language }}</td>
+              </tr>
+              <tr>
+                <td>Original Title</td><td>{{ model.original_title }}</td>
+              </tr>
+              <tr>
+                <td>Overview</td><td>{{ model.overview }}</td>
+              </tr>
+              <tr>
+                <td>Popularity</td><td>{{ model.popularity }}</td>
+              </tr>
+              <tr>
+                <td>Poster Path</td><td>{{ model.poster_path }}</td>
+              </tr>
+              <tr>
+                <td>Production Companies</td>
+                <td>
+                    {{#each company in model.production_companies}}
+                        <span>{{ company.name}}<br/></span>
+                    {{/each}}
+                </td>
+              </tr>
+              <tr>
+                <td>Production Countries</td>
+                <td>
+                    {{#each country in model.production_countries}}
+                        <span>{{ country.name}}<br/></span>
+                    {{/each}}
+                </td>
+              </tr>
+              <tr>
+                <td>Release Date</td><td>{{ model.release_date }}</td>
+              </tr>
+              <tr>
+                <td>Revenue</td><td>{{ model.revenue }}</td>
+              </tr>
+              <tr>
+                <td>Runtime</td><td>{{ model.runtime }} min</td>
+              </tr>
+              <tr>
+                <td>Spoken Language</td>
+                <td>
+                    {{#each language in model.spoken_languages}}
+                        <span>{{ language.name}}<br/></span>
+                    {{/each}}
+                </td>
+              </tr>
+              <tr>
+                <td>Status</td><td>{{ model.status }}</td>
+              </tr>
+              <tr>
+                <td>Tagline</td><td>{{ model.tagline }}</td>
+              </tr>
+              <tr>
+                <td>Title</td><td>{{ model.title }}</td>
+              </tr>
+              <tr>
+                <td>Video</td><td>{{ model.video }}</td>
+              </tr>
+              <tr>
+                <td>Vote Average</td><td>{{ model.vote_average }}</td>
+              </tr>
+              <tr>
+                <td>Vote Count</td><td>{{ model.vote_count }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
