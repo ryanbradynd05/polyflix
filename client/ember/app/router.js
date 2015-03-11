@@ -8,7 +8,7 @@ var Router = Ember.Router.extend({
 Router.map(function() {
   this.route('movies', function() {
     this.route('search');
-    this.route('view');
+    this.route('view', { path: '/:id' });
   });
 });
 
