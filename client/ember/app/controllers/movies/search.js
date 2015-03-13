@@ -10,7 +10,6 @@ export default Ember.Controller.extend({
       this.set('movies', movies);
       var query = this.get('query');
       var tmdbConfig = this.tmdbConfig;
-      console.log('search', query);
       Ember.$.get(config.restURL + '/movies/search/' + query)
       .done(response => {
         var results = response.results;
@@ -19,7 +18,6 @@ export default Ember.Controller.extend({
           var tmdbMovie = TmdbMovie.create(movieData);
           movies.pushObject(tmdbMovie);
         });
-        console.log('search results', movies);
         this.set('movies', movies);
       });
     },
