@@ -30,6 +30,7 @@ export default Ember.Controller.extend({
     },
     closeModal: function() {
       console.log('closeModal');
+      Ember.$("#movieInfoModal").modal("hide");
     }
   }
 });
