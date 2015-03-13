@@ -45,3 +45,21 @@
     </div>
   </div>
 </div>
+<div class="modal fade" id="movieInfoModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" {{action 'closeModal'}} aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">{{ movie.title}}</h4>
+      </div>
+      <div class="modal-body">
+        <p>{{ movie.overview }}</p>
+        <img class="modal-backdrop-image" {{bind-attr src=movie.backdropUrl}}/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" {{action 'closeModal'}}>Close</button>
+        <button type="button" class="btn btn-primary" {{action 'addMovie' movie}}>Add Movie</button>
+      </div>
+    </div>
+  </div>
+</div>

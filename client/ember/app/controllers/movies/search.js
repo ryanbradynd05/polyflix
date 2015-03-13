@@ -22,7 +22,14 @@ export default Ember.Controller.extend({
       });
     },
     getInfo: function(movie) {
-      console.log('getInfo', movie);
+      this.set('movie',movie);
+      Ember.$("#movieInfoModal").modal("show");
+    },
+    addMovie: function(movie) {
+      console.log('addMovie', movie);
+    },
+    closeModal: function() {
+      console.log('closeModal');
     }
   }
 });
