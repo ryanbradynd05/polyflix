@@ -1,1 +1,31 @@
 @import 'bootstrap_imports';
+
+.thumbnail {
+  height: 200px;
+
+  img.pull-right {
+    width: 50px;
+  }
+}
+
+.btn-new-movie {
+    margin-top: 1.5em;
+}
+
+.modal.custom .modal-dialog {
+      position: fixed;
+      top: 20%;
+      left: 10%;
+      width: 80%;
+}
+.modal .modal-backdrop {
+  background-color: #848484;
+}
+
+.modal-backdrop-image {
+    width: 90%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
