@@ -21,7 +21,8 @@ module.exports = function(environment) {
     },
     contentSecurityPolicy: {
       'connect-src': "'self' " + restURL,
-      'img-src': "'self' http://image.tmdb.org https://d3a8mw37cqal2z.cloudfront.net"
+      'img-src': "'self' http://image.tmdb.org https://d3a8mw37cqal2z.cloudfront.net",
+      'script-src': "'self' 'unsafe-inline' 'unsafe-eval' localhost:34530 0.0.0.0:34530"
     }
   };
 
