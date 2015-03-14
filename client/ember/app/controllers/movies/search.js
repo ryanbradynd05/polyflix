@@ -4,6 +4,9 @@ import TmdbMovie from 'polyflix/models/tmdb-movie';
 
 export default Ember.Controller.extend({
   query: '',
+  displayModal: function(action) {
+    Ember.$('#movieInfoModal').modal(action);
+  },
   actions: {
     search: function() {
       var movies = [];
@@ -23,14 +26,14 @@ export default Ember.Controller.extend({
     },
     getInfo: function(movie) {
       this.set('movie',movie);
-      Ember.$("#movieInfoModal").modal("show");
+      this.displayModal('show');
     },
     addMovie: function(movie) {
-      console.log('addMovie', movie);
+      console.log('addMovie',movie);
     },
     closeModal: function() {
       console.log('closeModal');
-      Ember.$("#movieInfoModal").modal("hide");
+      this.displayModal('hide');
     }
   }
 });
