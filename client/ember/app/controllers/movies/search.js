@@ -30,6 +30,15 @@ export default Ember.Controller.extend({
     },
     addMovie: function(movie) {
       console.log('addMovie',movie);
+      this.displayModal('hide');
+      var newMovie = this.store.createRecord('movie', {
+        title: movie.title,
+        themoviedbid: movie.id
+      });
+      newMovie.save().then(savedMovie => {
+        console.log('saved',savedMovie);
+        this.transitionToRoute('movies');
+      });
     },
     closeModal: function() {
       console.log('closeModal');
