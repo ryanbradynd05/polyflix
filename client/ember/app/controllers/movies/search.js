@@ -5,6 +5,7 @@ import TmdbMovie from 'polyflix/models/tmdb-movie';
 export default Ember.Controller.extend({
   query: '',
   movies: Ember.A(),
+  movieCount: 0,
   displayModal: function(action) {
     Ember.$('#movieInfoModal').modal(action);
   },
@@ -16,6 +17,7 @@ export default Ember.Controller.extend({
       var tmdbConfig = this.tmdbConfig;
       Ember.$.get(config.restURL + '/movies/search/' + query)
       .done(response => {
+        this.set('movieCount',response.total_results);
         var results = response.results;
         results.forEach(function(movieData) {
           movieData.tmdbConfig = tmdbConfig;
