@@ -8,8 +8,8 @@ moduleForModel('tmdb-movie', {
   needs: []
 });
 
-test('it exists', function(assert) {
-  var model = this.subject();
-  // var store = this.store();
-  assert.ok(!!model);
-});
+// test('it exists', function(assert) {
+//   var model = this.subject();
+//   // var store = this.store();
+//   assert.ok(!!model);
+// });

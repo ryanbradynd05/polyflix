@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { initialize } from '../../../initializers/tmdb-config';
+import { initialize } from 'polyflix/initializers/tmdb-config';
 import { module, test } from 'qunit';
 
 var container, application;
