@@ -4,7 +4,6 @@ import config from 'polyflix/config/environment';
 export function initialize(container, application) {
 
   application.deferReadiness();
-  console.log('init config');
   Ember.$.get(config.restURL + '/configs')
   .done(response => {
     var config = Ember.Object.create(response.configs[0]);
