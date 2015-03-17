@@ -53,18 +53,33 @@ var movieMock = {
   title: 'Fight Club',
   video: false,
   vote_average: 7.8, // jshint ignore:line
-  vote_count: 3286 // jshint ignore:line
+  vote_count: 3286, // jshint ignore:line,
+  tmdbConfig: {
+    images: {
+      base_url: 'http://image.tmdb.org/t/p/', // jshint ignore:line
+      secure_base_url: 'https://image.tmdb.org/t/p/', // jshint ignore:line
+      backdrop_sizes: ['w300', 'w780', 'w1280', 'original'], // jshint ignore:line
+      logo_sizes: ['w45', 'w92', 'w154', 'w185', 'w300', 'w500', 'original'], // jshint ignore:line
+      poster_sizes: ['w92', 'w154', 'w185', 'w342', 'w500', 'w780', 'original'], // jshint ignore:line
+      profile_sizes: ['w45', 'w185', 'h632', 'original'], // jshint ignore:line
+      still_sizes: ['w92', 'w185', 'w300', 'original'] // jshint ignore:line
+    }
+  }
 };
 var movie = null;
 
-moduleFor('model:tmdb-movie', {
-  // Specify the other units that are required for this test.
-  needs: []
-});
+moduleFor('model:tmdb-movie', {});
 
 test('It creates tmdb-movies', function() {
   Ember.run(function() {
     movie = TmdbMovie.create(movieMock);
   });
   equal(movie.get('title'), 'Fight Club');
+});
+
+test('Gets poster URL', function() {
+  Ember.run(function() {
+    movie = TmdbMovie.create(movieMock);
+  });
+  equal(movie.get('posterUrl'), 'http://image.tmdb.org/t/p/w185/2lECpi35Hnbpa4y46JX0aY3AWTy.jpg');
 });
