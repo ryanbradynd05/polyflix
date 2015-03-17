@@ -83,3 +83,10 @@ test('Gets poster URL', function() {
   });
   equal(movie.get('posterUrl'), 'http://image.tmdb.org/t/p/w185/2lECpi35Hnbpa4y46JX0aY3AWTy.jpg');
 });
+
+test('Gets backdrop URL', function() {
+  Ember.run(function() {
+    movie = TmdbMovie.create(movieMock);
+  });
+  equal(movie.get('backdropUrl'), 'http://image.tmdb.org/t/p/w1280/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg');
+});
