@@ -9,13 +9,7 @@ var App;
 
 moduleForModel('movie', {
   // Specify the other units that are required for this test.
-  needs: [],
-  setup: function(){
-    App = startApp();
-  },
-  teardown: function(){
-    Ember.run(App, 'destroy');
-  }
+  needs: []
 });
 
 test('It stores movies', function () {
