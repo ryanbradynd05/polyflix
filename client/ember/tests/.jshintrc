@@ -12,6 +12,7 @@
     "visit",
     "exists",
     "fillIn",
+    "ok",
     "click",
     "keyEvent",
     "triggerEvent",
