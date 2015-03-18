@@ -18,6 +18,7 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+      MODEL_FACTORY_INJECTIONS: true
     },
     contentSecurityPolicy: {
       'connect-src': "'self' " + restURL,

@@ -14,17 +14,16 @@ export default Ember.Controller.extend({
       var movies = this.get('movies');
       movies.clear();
       var query = this.get('query');
-      var tmdbConfig = this.tmdbConfig;
+      var tmdbConfig = this.store.find('config',1);
       Ember.$.get(config.restURL + '/movies/search/' + query)
       .done(response => {
         this.set('movieCount',response.total_results);
         var results = response.results;
         results.forEach(function(movieData) {
-          movieData.tmdbConfig = tmdbConfig;
           var tmdbMovie = TmdbMovie.create(movieData);
+          tmdbMovie.set('config',tmdbConfig);
           movies.pushObject(tmdbMovie);
         });
-        // this.set('movies', movies);
       });
     },
     getInfo: function(movie) {
