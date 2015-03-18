@@ -5,14 +5,16 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
- var mdb = require('moviedb')(sails.config.themoviedb.key);
+var mdb = require('moviedb')(sails.config.themoviedb.key);
 
 module.exports = {
   index: function(req, res) {
-    mdb.configuration(function(err, response){
-          res.send({configs: [response]});
-        });
+    mdb.configuration(function(err, response) {
+      response.id = 1;
+      res.send({
+        configs: [response]
+      });
+    });
   }
 
 };
-
