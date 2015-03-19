@@ -4,12 +4,7 @@ import {
 } from 'ember-qunit';
 import Ember from 'ember';
 
-var App;
-
-moduleForModel('movie', {
-  // Specify the other units that are required for this test.
-  needs: []
-});
+moduleForModel('movie');
 
 test('It stores movies', function() {
   var store = this.store();

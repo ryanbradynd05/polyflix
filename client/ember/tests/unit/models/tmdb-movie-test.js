@@ -68,7 +68,7 @@ var configMock = {
 };
 var movie = null;
 
-moduleFor('model:tmdb-movie', {});
+moduleFor('model:tmdb-movie');
 
 test('It creates tmdb-movies', function() {
   Ember.run(function() {
